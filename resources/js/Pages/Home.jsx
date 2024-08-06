@@ -14,7 +14,7 @@ const Home = ({ name }) => {
                 <Row className="justify-content-md-center">
                     <Col md="auto" className="text-center">
                         <h1>
-                           Laravel con React e Inertia.js
+                           Laravel con {name}
                         </h1>
                         <p>Contador: {count}</p>
                         <Button
