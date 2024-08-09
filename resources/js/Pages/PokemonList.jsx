@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { Head } from "@inertiajs/react";
-import { Container, Row, Col, Card, Alert } from "react-bootstrap";
+import { Container, Row, Col, Card, Alert, Badge } from "react-bootstrap";
+
+import pokemonLogo from '@public/images/pokemon.png';
 
 import SearchBar from "../Components/SearchBar";
+
 
 const PokemonList = ({ pokemons, error }) => {
     const [searchTerm, setSearchTerm] = useState("");
@@ -18,6 +21,10 @@ const PokemonList = ({ pokemons, error }) => {
     return (
         <>
             <Head title="Pokémones" />
+
+            <div className="text-center my-3">
+                <img src={pokemonLogo} alt="pokemon logo" width={300}/>
+            </div>            
 						
             <Container style={{ minHeight: "100vh" }} className="my-5">
 						<SearchBar
@@ -29,7 +36,6 @@ const PokemonList = ({ pokemons, error }) => {
                     style={{ height: "100%" }}
                 >
                     <Col>
-                        <h1>Pokémones</h1>
                         {error && <Alert variant="danger">{error}</Alert>}
 
                         <Row>
@@ -42,18 +48,19 @@ const PokemonList = ({ pokemons, error }) => {
                                     xl={3}
                                     className="mb-4"
                                 >
-                                    <Card>
+                                    <Card bg='dark'>
                                         <Card.Img
                                             variant="top"
                                             src={pokemon.image}
+                                            className="p-3"
                                         />
-                                        <Card.Body>
-                                            <Card.Title style={{textTransform:"uppercase"}}>
+                                        <Card.Body className="d-flex flex-row justify-content-between">
+                                            <Card.Title className="text-uppercase text-white mb-0">
                                                 {pokemon.name}
                                             </Card.Title>
-                                            <Card.Link href={pokemon.url}>
-                                                Ver más
-                                            </Card.Link>
+                                            <Badge bg='primary' className="text-capitalize">
+                                                {pokemon.type}
+                                            </Badge>
                                         </Card.Body>
                                     </Card>
                                 </Col>
