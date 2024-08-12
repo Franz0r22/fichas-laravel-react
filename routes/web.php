@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PokemonController;
+use App\Http\Controllers\ApiController;
 use Inertia\Inertia;
 
 Route::get('/', function () {
@@ -9,3 +10,5 @@ Route::get('/', function () {
 });
 
 Route::get('/pokemon', [PokemonController::class, 'index']);
+
+Route::get('/autos', [ApiController::class, 'fetchAutos']);

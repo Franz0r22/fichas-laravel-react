@@ -14,6 +14,11 @@ return [
     |
     */
 
+    'api' => [
+        'url' => env('API_DTK2_URL'),
+        'token' => env('API_DTK2_TOKEN'),
+    ],
+
     'postmark' => [
         'token' => env('POSTMARK_TOKEN'),
     ],

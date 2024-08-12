@@ -21,8 +21,8 @@ const Navigation = () => {
                     <Link className="nav-link" href="/pokemon">
                         Pokemon
                     </Link>
-                    <Link className="nav-link" href="#pricing">
-                        Example 2
+                    <Link className="nav-link" href="/autos">
+                        Autos
                     </Link>
                 </Nav>
             </Container>

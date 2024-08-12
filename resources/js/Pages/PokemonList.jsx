@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Head } from "@inertiajs/react";
+import { Head, usePage } from "@inertiajs/react";
 import { Container, Row, Col, Card, Alert, Badge } from "react-bootstrap";
 
 import pokemonLogo from '@public/images/pokemon.png';
@@ -7,7 +7,9 @@ import pokemonLogo from '@public/images/pokemon.png';
 import SearchBar from "../Components/SearchBar";
 
 
-const PokemonList = ({ pokemons, error }) => {
+const PokemonList = () => {
+
+    const { pokemons, error } = usePage().props;
     const [searchTerm, setSearchTerm] = useState("");
 
     const handleSearch = (event) => {
