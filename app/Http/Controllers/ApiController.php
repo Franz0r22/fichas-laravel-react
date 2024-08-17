@@ -15,13 +15,18 @@ class ApiController extends Controller
         $apiToken = config('services.api.token');
         $endpoint = 'carDealers/stock';
 
+        $pageNumber = 1;
+        $pageSize = 500;
+
+        $queryParams = [
+            'CLIENTEID' => env('APP_SUCURSALES'),
+            'TABLA' => 1,
+            'PageNumber' => $pageNumber,
+            'PageSize' => $pageSize,
+        ];
+
         $response = Http::withToken($apiToken)
-                        ->get("$apiUrl/$endpoint", [
-                            'CLIENTEID' => env('APP_SUCURSALES'),
-                            'TABLA' => 1,
-                            'PageNumber' => 1,
-                            'PageSize' => 12,
-                        ]);
+                    ->get("$apiUrl/$endpoint", $queryParams);
 
         if ($response->successful()) {
             $data = $response->json();
