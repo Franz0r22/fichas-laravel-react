@@ -1,6 +1,6 @@
 import { Col, Card } from 'react-bootstrap';
 import { BsCalendar2 } from "react-icons/bs";
-import { BsSpeedometer2 } from "react-icons/bs";
+import { GiCarWheel } from "react-icons/gi";
 import styles from './CarItem.module.css';
 import { formatNumber } from '../../utils/formatNumber';
 
@@ -22,7 +22,7 @@ const CarItem = ({ auto }) => {
                             <span>{auto.INTANO}</span>
                         </div>
                         <div className={styles.featuresBox}>
-                            <BsSpeedometer2 />
+                            <GiCarWheel />
                             <span>{formatNumber(auto.VCHKILOMETROS)} Km</span>
                         </div>
                     </div>

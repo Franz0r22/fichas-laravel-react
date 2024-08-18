@@ -20,8 +20,13 @@ const Autos = () => {
     const [uniqueModels, setUniqueModels] = useState([]);
     const [modelsByBrand, setModelsByBrand] = useState({});
 
+    const [minPrice, setMinPrice] = useState(0);
+    const [maxPrice, setMaxPrice] = useState(1000000000);
+    const [selectedPriceRange, setSelectedPriceRange] = useState([0, 1000000000]);
+
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(20);
+
 
     useEffect(() => {
         if (data) {
@@ -41,6 +46,11 @@ const Autos = () => {
                 modelsMap[auto.MARCA].add(auto.MODELO);
             });
             setModelsByBrand(modelsMap);
+
+            const prices = data.map(auto => auto.VCHPRECIO);
+            setMinPrice(Math.min(...prices));
+            setMaxPrice(Math.max(...prices));
+            setSelectedPriceRange([Math.min(...prices), Math.max(...prices)]);
         }
     }, [data]);
 
@@ -70,7 +80,8 @@ const Autos = () => {
             const modelMatch = selectedModel
                 ? auto.MODELO === selectedModel
                 : true;
-            return yearMatch && brandMatch && modelMatch;
+            const priceMatch = auto.VCHPRECIO >= selectedPriceRange[0] && auto.VCHPRECIO <= selectedPriceRange[1];
+            return yearMatch && brandMatch && modelMatch && priceMatch;
         });
     };
 
@@ -99,6 +110,10 @@ const Autos = () => {
                     setSelectedBrand={setSelectedBrand}
                     selectedModel={selectedModel}
                     setSelectedModel={setSelectedModel}
+                    selectedPriceRange={selectedPriceRange}
+                    setSelectedPriceRange={setSelectedPriceRange}
+                    minPrice={minPrice}
+                    maxPrice={maxPrice}
                     setCurrentPage={setCurrentPage}
                 />
 

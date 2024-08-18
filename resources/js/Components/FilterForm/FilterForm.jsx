@@ -1,5 +1,7 @@
 import React from 'react';
 import { Row, Col, Form } from 'react-bootstrap';
+import RangeSlider from 'react-range-slider-input';
+import 'react-range-slider-input/dist/style.css';
 import styles from './FilterForm.module.css';
 
 const FilterForm = ({
@@ -12,8 +14,18 @@ const FilterForm = ({
     setSelectedBrand,
     selectedModel,
     setSelectedModel,
+    selectedPriceRange,
+    setSelectedPriceRange,
+    minPrice,
+    maxPrice,
     setCurrentPage
 }) => {
+
+    const handleRangeChange = (value) => {
+        setSelectedPriceRange(value);
+        setCurrentPage(1);
+    };
+    
     return (
         <Form className='mb-4'>
             <Row>
@@ -26,6 +38,7 @@ const FilterForm = ({
                                 setSelectedBrand(e.target.value);
                                 setSelectedModel('');
                                 setSelectedYear('');
+                                setSelectedPriceRange([minPrice, maxPrice]);
                                 setCurrentPage(1);
                             }}
                         >
@@ -47,6 +60,7 @@ const FilterForm = ({
                                 setSelectedModel(e.target.value);
                                 setCurrentPage(1);
                                 setSelectedYear('');
+                                setSelectedPriceRange([minPrice, maxPrice]);
                             }}
                             disabled={!selectedBrand}
                             style={{ cursor: !selectedBrand ? 'not-allowed' : 'default' }}
@@ -77,6 +91,23 @@ const FilterForm = ({
                                 </option>
                             ))}
                         </Form.Select>
+                    </Form.Group>
+                </Col>
+                <Col>
+                    <Form.Group>
+                        <Form.Label>Precio</Form.Label>
+                        {console.log(selectedPriceRange)}
+                        <RangeSlider
+                            min={minPrice}
+                            max={maxPrice}
+                            step={10000000}
+                            defaultValue={selectedPriceRange}
+                            onInput={handleRangeChange}
+                        />
+                        <div className="d-flex justify-content-between">
+                            <span>{`$${selectedPriceRange[0].toLocaleString()}`}</span>
+                            <span>{`$${selectedPriceRange[1].toLocaleString()}`}</span>
+                        </div>
                     </Form.Group>
                 </Col>
             </Row>

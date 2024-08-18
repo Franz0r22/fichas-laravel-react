@@ -5,7 +5,7 @@
  * @param {Object} [options={}] - Opciones adicionales para el formato.
  * @returns {string} - El número formateado como una cadena.
  */
-export function formatNumber(value, locale = "es-ES", options = {}) {
+export function formatNumber(value, locale = "es-CL", options = {}) {
     
     const number = parseInt(value, 10);
     
