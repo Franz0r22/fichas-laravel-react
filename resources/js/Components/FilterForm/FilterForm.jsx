@@ -20,8 +20,7 @@ const FilterForm = ({
                 <Col>
                     <Form.Group>
                         <Form.Label>Marca</Form.Label>
-                        <Form.Control
-                            as="select"
+                        <Form.Select
                             value={selectedBrand}
                             onChange={e => {
                                 setSelectedBrand(e.target.value);
@@ -36,20 +35,21 @@ const FilterForm = ({
                                     {brand}
                                 </option>
                             ))}
-                        </Form.Control>
+                        </Form.Select>
                     </Form.Group>
                 </Col>
                 <Col>
                     <Form.Group>
                         <Form.Label>Modelo</Form.Label>
-                        <Form.Control
-                            as="select"
+                        <Form.Select
                             value={selectedModel}
                             onChange={e => {
                                 setSelectedModel(e.target.value);
                                 setCurrentPage(1);
+                                setSelectedYear('');
                             }}
                             disabled={!selectedBrand}
+                            style={{ cursor: !selectedBrand ? 'not-allowed' : 'default' }}
                         >
                             <option value="">{selectedBrand ? 'Todos los modelos' : 'Debes seleccionar una marca'}</option>
                             {uniqueModels.map(model => (
@@ -57,14 +57,13 @@ const FilterForm = ({
                                     {model}
                                 </option>
                             ))}
-                        </Form.Control>
+                        </Form.Select>
                     </Form.Group>
                 </Col>
                 <Col>
                     <Form.Group>
                         <Form.Label>Año</Form.Label>
-                        <Form.Control
-                            as="select"
+                        <Form.Select
                             value={selectedYear}
                             onChange={e => {
                                 setSelectedYear(e.target.value);
@@ -77,7 +76,7 @@ const FilterForm = ({
                                     {year}
                                 </option>
                             ))}
-                        </Form.Control>
+                        </Form.Select>
                     </Form.Group>
                 </Col>
             </Row>

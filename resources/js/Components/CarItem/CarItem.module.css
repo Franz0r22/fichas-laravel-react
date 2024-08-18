@@ -1,0 +1,27 @@
+.featuresWrapper {
+    display: flex;
+    gap: 5px;
+    margin: 5px 0px;
+}
+
+.featuresBox {
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+    border: 1px solid gray;
+    border-radius: 3px;
+    padding: 1px 6px;
+    color: black;
+    font-size: 14px;
+}
+
+.priceSize {
+    font-size: clamp(18px, 1.4vw, 24px);
+    font-weight: 900;
+}
+
+.monedaSize {
+    font-size: clamp(14px, 1.4vw, 16px);
+    font-weight: 600;
+}

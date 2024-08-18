@@ -1,4 +1,4 @@
-import { Row, Alert } from 'react-bootstrap';
+import { Row, Alert, Col } from 'react-bootstrap';
 import CarItem from '../CarItem/CarItem';
 import styles from './CarList.module.css';
 

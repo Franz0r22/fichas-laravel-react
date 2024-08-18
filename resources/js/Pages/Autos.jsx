@@ -46,9 +46,7 @@ const Autos = () => {
 
     useEffect(() => {
         const filteredData = handleFilter();
-        const years = [
-            ...new Set(filteredData.map((auto) => auto.INTANO)),
-        ].sort((a, b) => b - a);
+        const years = [...new Set(filteredData.map((auto) => auto.INTANO))].sort((a, b) => b - a);
         setUniqueYears(years);
     }, [selectedBrand, selectedModel, data]);
 
@@ -58,18 +56,8 @@ const Autos = () => {
         } else {
             setUniqueModels([]);
         }
+    }, [selectedBrand, modelsByBrand]);
 
-        if (
-            selectedBrand &&
-            (selectedModel === "" || uniqueModels.includes(selectedModel))
-        ) {
-            const filteredData = handleFilter();
-            const years = [
-                ...new Set(filteredData.map((auto) => auto.INTANO)),
-            ].sort((a, b) => b - a);
-            setUniqueYears(years);
-        }
-    }, [selectedBrand, selectedModel, modelsByBrand]);
 
     const handleFilter = () => {
         return data.filter((auto) => {
@@ -87,7 +75,6 @@ const Autos = () => {
     };
 
     const filteredData = handleFilter();
-
     const indexOfLastItem = currentPage * pageSize;
     const indexOfFirstItem = indexOfLastItem - pageSize;
     const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
@@ -101,6 +88,7 @@ const Autos = () => {
             <Head title="Autos" />
 
             <Container style={{ minHeight: "100vh" }} className="my-5">
+                
                 <FilterForm
                     uniqueYears={uniqueYears}
                     uniqueBrands={uniqueBrands}
@@ -121,6 +109,7 @@ const Autos = () => {
                     currentPage={currentPage}
                     setCurrentPage={setCurrentPage}
                 />
+
             </Container>
         </>
     );
