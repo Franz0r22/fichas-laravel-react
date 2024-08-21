@@ -42,7 +42,7 @@ RUN a2enmod rewrite headers
     #&& php artisan route:clear
 
 ENTRYPOINT ["docker-php-entrypoint"]
-EXPOSE 80 3306
+EXPOSE 80
 CMD ["apache2-foreground"]
 
 

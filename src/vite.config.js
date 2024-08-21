@@ -15,5 +15,9 @@ export default defineConfig({
             "@": "/resources/js",
             "@public": "/public",
         }
-    }
+    },
+    server: {
+        host: '127.0.0.1',
+        port: 5173, // el puerto puede variar
+      },
 });
