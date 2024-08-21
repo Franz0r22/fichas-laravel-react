@@ -1,0 +1,26 @@
+{
+	"name":"php",
+	"build":{
+	  "dockerfile":"Dockerfile"
+	},
+	"remoteUser":"vscode",
+	"extensions":[
+	  "MS-vsliveshare.vsliveshare",
+	  "ottostreifel.cloudbuild-helper",
+	  "ms-vsliveshare.vsliveshare-pack",
+	  "hashicorp.terraform",
+	  "atlassian.atlascode",
+	  "rangav.vscode-thunder-client",
+	  "gwanduke.convert-px-to-rem",
+	  "Tyriar.lorem-ipsum"
+  ],
+	"features": {
+	  "docker-from-docker": {
+		  "version": "latest",
+		  "moby": true,
+		  "dockerDashComposeVersion": "v1"
+	  }
+	},
+	"postCreateCommand": "composer install -d /workspaces/fichas-laravel-react/src",
+	"overrideCommand": false
+}
