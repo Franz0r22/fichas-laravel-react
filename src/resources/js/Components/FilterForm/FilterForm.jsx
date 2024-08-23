@@ -96,7 +96,6 @@ const FilterForm = ({
                 <Col>
                     <Form.Group>
                         <Form.Label>Precio</Form.Label>
-                        {console.log(selectedPriceRange)}
                         <RangeSlider
                             min={minPrice}
                             max={maxPrice}

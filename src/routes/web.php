@@ -1,14 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PokemonController;
-use App\Http\Controllers\ApiController;
+use App\Http\Controllers\CarsController;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Home', ['name' => 'React e Inertia.js']);
-});
+Route::get('/', [CarsController::class, 'getCarsForHome']);
 
-Route::get('/pokemon', [PokemonController::class, 'index']);
+Route::get('/autos', [CarsController::class, 'getCars']);
 
-Route::get('/autos', [ApiController::class, 'fetchAutos']);

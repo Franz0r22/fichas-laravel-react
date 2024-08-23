@@ -15,15 +15,12 @@ const Navigation = () => {
                     />
                 </Navbar.Brand>
                 <Nav className="me-auto">
-                    <Link className="nav-link" href="/">
+                    <a className="nav-link" href="/">
                         Home
-                    </Link>
-                    <Link className="nav-link" href="/pokemon">
-                        Pokemon
-                    </Link>
-                    <Link className="nav-link" href="/autos">
+                    </a>
+                    <a className="nav-link" href="/autos">
                         Autos
-                    </Link>
+                    </a>
                 </Nav>
             </Container>
         </Navbar>

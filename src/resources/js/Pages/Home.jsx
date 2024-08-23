@@ -1,36 +1,28 @@
+import React from "react";
 import { Head } from "@inertiajs/react";
-import React, { useState } from 'react';
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Container, Row, Col } from "react-bootstrap";
+import CarList from "../Components/CarList/CarList";
+import { useCars } from "../Contexts/CarsContext";
 
-const Home = ({ name }) => {
+const Home = () => {
 
-  const [count, setCount] = useState(0);
+    const { currentItems, error } = useCars();
+
+    if (!currentItems) return <Spinner animation="border" />;
+    if (error) return <Alert variant="danger">{error}</Alert>;
 
     return (
         <>
             <Head title="Home" />
 
-            <Container style={{ height: '65vh' }} className="mt-5">
+            <Container style={{ minHeight: "100vh" }} className="my-5">
                 <Row className="justify-content-md-center">
-                    <Col md="auto" className="text-center">
-                        <h1>
-                           Laravel con {name}
-                        </h1>
-                        <p>Contador: {count}</p>
-                        <Button
-                            variant="primary"
-                            onClick={() => setCount(count + 1)}
-                            className="me-2"
-                        >
-                            Incrementar
-                        </Button>
-                        <Button
-                            variant="danger"
-                            onClick={() => setCount(count - 1)}
-                        >
-                            Decrementar
-                        </Button>
+                    <Col md="auto" className="text-center mb-4">
+                        <h4 className="fw-bold text-uppercase">
+                            Vehículos Destacados
+                        </h4>
                     </Col>
+                    <CarList currentItems={currentItems} /> {/*TODO: Cambiar por componente Swiper y Probar Navegacion CLIENT SIDE */}
                 </Row>
             </Container>
         </>
