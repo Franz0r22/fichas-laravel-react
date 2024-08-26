@@ -1,7 +1,7 @@
 import React from "react";
 import { Head, usePage } from "@inertiajs/react";
-import { Container, Row, Col } from "react-bootstrap";
-import CarList from "../Components/CarList/CarList";
+import { Container, Row, Col, Spinner, Alert } from "react-bootstrap";
+import CarCarousel from "../Components/CarCarousel/CarCarousel";
 import useCars from '../hooks/useCars';
 
 
@@ -25,7 +25,7 @@ const Home = () => {
                             Vehículos Destacados
                         </h4>
                     </Col>
-                    <CarList currentItems={currentItems} /> {/*TODO: Cambiar por componente Swiper y Probar Navegacion CLIENT SIDE */}
+                    <CarCarousel currentItems={currentItems} />
                 </Row>
             </Container>
         </>
