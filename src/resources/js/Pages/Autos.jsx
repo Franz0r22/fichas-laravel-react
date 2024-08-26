@@ -4,12 +4,11 @@ import { Container, Alert, Spinner } from "react-bootstrap";
 import FilterForm from "../Components/FilterForm/FilterForm";
 import CarList from "../Components/CarList/CarList";
 import PaginationControl from "../Components/PaginationControl/PaginationControl";
-import { useCars } from '../Contexts/CarsContext';
+import useCars from '../hooks/useCars';
 
 const Autos = () => {
+    const { props: { data, error } } = usePage();
     const {
-        data,
-        error,
         uniqueYears,
         uniqueBrands,
         uniqueModels,
@@ -27,7 +26,7 @@ const Autos = () => {
         setCurrentPage,
         currentItems,
         totalPages,
-    } = useCars();
+    } = useCars(data);
 
     if (!data) return <Spinner animation="border" />;
     if (error) return <Alert variant="danger">{error}</Alert>;

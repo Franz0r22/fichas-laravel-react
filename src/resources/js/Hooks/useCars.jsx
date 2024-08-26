@@ -1,9 +1,9 @@
 import { useState, useEffect, useMemo } from 'react';
+import { usePage } from "@inertiajs/react";
 
 const useCars = () => {
-    // const { props: { data, error } } = usePage();
-    const [data, setData] = useState();
-    const [error, setError] = useState(null);
+    const { props: { data, error } } = usePage();
+
     const [selectedYear, setSelectedYear] = useState('');
     const [selectedBrand, setSelectedBrand] = useState('');
     const [selectedModel, setSelectedModel] = useState('');

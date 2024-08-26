@@ -40,7 +40,6 @@ class CarsController extends Controller
             $data = $response->json();
             return Inertia::render($page, [
                 'data' => $data,
-                'layoutData' => ['carData' => $data]
             ]);
         } else {
             return Inertia::render($page, [

@@ -1,12 +1,15 @@
 import React from "react";
-import { Head } from "@inertiajs/react";
+import { Head, usePage } from "@inertiajs/react";
 import { Container, Row, Col } from "react-bootstrap";
 import CarList from "../Components/CarList/CarList";
-import { useCars } from "../Contexts/CarsContext";
+import useCars from '../hooks/useCars';
+
 
 const Home = () => {
 
-    const { currentItems, error } = useCars();
+    const { props: { data, error } } = usePage();
+
+    const { currentItems } = useCars(data);
 
     if (!currentItems) return <Spinner animation="border" />;
     if (error) return <Alert variant="danger">{error}</Alert>;
