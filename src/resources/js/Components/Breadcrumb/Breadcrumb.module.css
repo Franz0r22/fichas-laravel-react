@@ -1,0 +1,6 @@
+.breadCrumb {
+    text-transform: uppercase;
+    font-size: 14px;
+    display: flex;
+    gap: 5px;
+}

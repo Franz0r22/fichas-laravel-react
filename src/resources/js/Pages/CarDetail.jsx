@@ -1,5 +1,7 @@
 import React from 'react';
+import Breadcrumb from '../Components/Breadcrumb/Breadcrumb';
 import { Head, usePage } from '@inertiajs/react';
+import { Container } from "react-bootstrap";
 
 const CarDetail = () => {
     const { data } = usePage().props;
@@ -9,7 +11,15 @@ const CarDetail = () => {
     }
 
     return (
-        <div>
+        <Container style={{ minHeight: "100vh" }} className="my-5">
+
+            <Breadcrumb 
+                brandName={data.brandName}
+                modelName={data.modelName}
+                version={data.version}
+            />
+
+
             <Head title={`${data.brandName} ${data.modelName}`}  />
             <h1>{data.brandName} {data.modelName}</h1>
             <h2>{data.version}</h2>
@@ -40,7 +50,7 @@ const CarDetail = () => {
                 <h3>Contact:</h3>
                 <p><strong>Phone:</strong> {data.phone1}</p>
             </div>
-        </div>
+        </Container>
     );
 };
 
