@@ -5,8 +5,9 @@ import styles from './CarItem.module.css';
 import { formatNumber } from '../../utils/formatNumber';
 
 const CarItem = ({ auto }) => {
+
     return (
-        <a href='#' className={styles.hasCta}>
+        <a href={`/${auto.MARCA.toLowerCase()}/${auto.MODELO.toLowerCase()}/${auto.AUTOID}`} className={styles.hasCta}>
             <Card>
                 <Card.Img variant="top" src={auto.url_foto_particular} />
                 <Card.Body>

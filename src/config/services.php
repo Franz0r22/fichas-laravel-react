@@ -16,6 +16,7 @@ return [
 
     'api' => [
         'url' => env('API_DTK2_URL'),
+        'url_v2' => env('API_DTK2_URL_V2'),
         'token' => env('API_DTK2_TOKEN'),
     ],
 
