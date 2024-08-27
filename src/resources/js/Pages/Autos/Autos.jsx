@@ -1,10 +1,10 @@
 import React from "react";
 import { Head, usePage } from "@inertiajs/react";
 import { Container, Alert, Spinner } from "react-bootstrap";
-import FilterForm from "../Components/FilterForm/FilterForm";
-import CarList from "../Components/CarList/CarList";
-import PaginationControl from "../Components/PaginationControl/PaginationControl";
-import useCars from '../hooks/useCars';
+import FilterForm from "../../Components/FilterForm/FilterForm";
+import CarList from "../../Components/CarList/CarList";
+import PaginationControl from "../../Components/PaginationControl/PaginationControl";
+import useCars from '../../hooks/useCars';
 
 const Autos = () => {
     const { props: { data, error } } = usePage();

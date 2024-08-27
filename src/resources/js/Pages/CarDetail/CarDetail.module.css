@@ -1,0 +1,37 @@
+.titleBox {
+    background-color: #f1f1f1;
+    padding: 15px 0px;
+    border-radius: 3px;
+    align-items: center;
+    border-radius: 12px;
+}
+.carTitle {
+    font-size: 24px;
+    font-weight: 900;
+}
+.versionTitle {
+    font-size: 18px
+}
+.carPrice {
+    padding-top: 1rem; 
+    margin-bottom: 0;
+    text-align: left;
+    font-weight: 900;
+}
+
+.featuresBox {
+    display: flex;
+    gap: 0.25rem;
+    font-weight: 500;
+}
+
+.monedaSize {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+@media (min-width: 768px) {
+    .carPrice {
+        text-align: right;
+    }
+}

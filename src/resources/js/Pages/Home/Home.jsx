@@ -1,8 +1,8 @@
 import React from "react";
 import { Head, usePage } from "@inertiajs/react";
 import { Container, Row, Col, Spinner, Alert } from "react-bootstrap";
-import CarCarousel from "../Components/CarCarousel/CarCarousel";
-import useCars from '../hooks/useCars';
+import CarCarousel from "../../Components/CarCarousel/CarCarousel";
+import useCars from '../../hooks/useCars';
 
 
 const Home = () => {

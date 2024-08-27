@@ -10,7 +10,7 @@ createInertiaApp({
   title: title => `${title} - Laravel React`,
   resolve: name => {
     const pages = import.meta.glob('./Pages/**/*.jsx', { eager: true });
-    let page = pages[`./Pages/${name}.jsx`];
+    let page = pages[`./Pages/${name}/${name}.jsx`];
     page.default.layout = page.default.layout || (page => <Layout>{page}</Layout>);
     return page;
   },
