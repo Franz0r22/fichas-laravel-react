@@ -1,5 +1,13 @@
+:root {
+    --primary-white: #fff;
+}
+
 body {
     background-color: #e4e4e4;
     font-family: "Montserrat", sans-serif;
     font-optical-sizing: auto;
+}
+
+a {
+    text-decoration: none;
 }

@@ -1,13 +1,23 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
+import { Autoplay, Navigation } from 'swiper/modules';
 import CarItem from '../CarItem/CarItem';
+
+import 'swiper/css';
+import 'swiper/css/navigation';
 
 const CarCarousel = ({ currentItems }) => {
     return (
         <Swiper
+            modules={[Navigation, Autoplay]}
             spaceBetween={20}
             slidesPerView={1}
+            autoplay={{
+                delay: 2500,
+                disableOnInteraction: false,
+            }}
+            loop={true}
+            navigation={true}
             breakpoints={{
                 640: {
                     slidesPerView: 1,
