@@ -12,7 +12,7 @@
     border: 1px solid gray;
     border-radius: 3px;
     padding: 1px 6px;
-    color: black;
+    color: var(--primary-black);
     font-size: 14px;
 }
 
@@ -28,7 +28,7 @@
 
 .btnCard {
     text-transform: uppercase;
-    border: 1px solid black;
+    border: 1px solid var(--primary-black);
     background-color: var(--primary-white);
     pointer-events: auto;
     color: var(--primary--dark-blue);

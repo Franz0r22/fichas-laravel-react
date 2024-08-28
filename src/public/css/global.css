@@ -1,5 +1,6 @@
 :root {
     --primary-white: #fff;
+    --primary-black: #2a292b;
 }
 
 body {
@@ -10,4 +11,12 @@ body {
 
 a {
     text-decoration: none;
+}
+
+.swiper-wrapper > .swiper-slide-thumb-active {
+    opacity: 1;
+}
+
+p {
+    text-wrap:pretty;
 }

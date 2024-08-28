@@ -56,11 +56,28 @@ const CarDetail = () => {
                     </Col>
                 </Row>
                 <Row>
-                    <Col md={7}>
+                    <Col md={7} className='ps-0 pe-4'>
                         <CarImageGallery photos={data.photos} />
                     </Col>
-                    <Col md={5}>
-                    
+                    <Col md={5} className={`${styles.titleBox} mt-4 p-4`}>
+                        
+                        {data.description && 
+                            <div>
+                                <h3 className={`${styles.carTitle}`}>Descripción</h3>
+                                <p>
+                                    {data.description}
+                                </p>
+                            </div>                    
+                        }
+
+                        <div>
+                            <h5 className={`${styles.carTitle} mt-4`}>Cotizalo Aquí</h5>
+                        </div>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        
                     </Col>
                 </Row>
             </Container>

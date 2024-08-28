@@ -31,7 +31,7 @@ const CarImageGallery = ({ photos }) => {
                     className={styles.mySwiper2}
                 >
                 {photos.map((photo, index) => (
-                    <SwiperSlide key={index}>
+                    <SwiperSlide key={index} className={styles.swiperSlide}>
                         <img
                             src={photo}
                             alt={`Car Image ${index + 1}`}
@@ -53,11 +53,11 @@ const CarImageGallery = ({ photos }) => {
                 className={styles.mySwiper}
             >
                 {photos.map((photo, index) => (
-                    <SwiperSlide key={index}>
+                    <SwiperSlide key={index} className={styles.swiperSlide}>
                         <img
                             src={photo}
                             alt={`Thumbnail ${index + 1}`}
-                            style={{ width: '100%', height: 'auto', cursor: 'pointer' }}
+                            style={{ width: '100%', height: 'auto', cursor: 'pointer', borderRadius: '12px' }}
                         />
                     </SwiperSlide>
                 ))}
