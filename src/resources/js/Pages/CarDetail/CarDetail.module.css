@@ -30,8 +30,19 @@
     font-weight: 600;
 }
 
-@media (min-width: 768px) {
+.equipmentGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    list-style: none;
+    padding-left: 0px;
+}
+
+@media (width > 768px) {
     .carPrice {
         text-align: right;
+    }
+    .equipmentGrid {
+        grid-template-columns: repeat(2, 1fr);
     }
 }

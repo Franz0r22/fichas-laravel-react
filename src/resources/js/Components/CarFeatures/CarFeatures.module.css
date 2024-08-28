@@ -1,0 +1,26 @@
+.equipmentGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    list-style: none;
+    padding-left: 0px;
+}
+
+.carTitle {
+    font-size: 24px;
+    font-weight: 900;
+}
+
+.titleBox {
+    background-color: #f1f1f1;
+    padding: 15px 10px;
+    border-radius: 3px;
+    align-items: center;
+    border-radius: 12px;
+}
+
+@media (width > 768px) {
+    .equipmentGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

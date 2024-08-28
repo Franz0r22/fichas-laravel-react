@@ -8,8 +8,9 @@ use Inertia\Inertia;
 
 class CarDetailController extends Controller
 {
-    public function getSingleCar(Request $request, $brand, $model, $autoid)
-    {
+public function getSingleCar(Request $request, $brand, $model, $autoid)
+{
+    try {
         $apiUrl = config('services.api.url_v2');
         $apiToken = config('services.api.token');
         $endpoint = 'car';
@@ -20,16 +21,19 @@ class CarDetailController extends Controller
         ];
         $response = Http::withToken($apiToken)
             ->get("$apiUrl/$endpoint", $queryParams);
-        
+
         if ($response->successful()) {
             $data = $response->json();
             return Inertia::render('CarDetail', [
                 'data' => $data,
             ]);
         } else {
-            return Inertia::render('CarDetail', [
-                'error' => 'Failed to fetch data'
-            ]);
+            throw new \Exception('Failed to fetch data');
         }
+    } catch (\Exception $e) {
+        return Inertia::render('CarDetail', [
+            'error' => $e->getMessage()
+        ]);
     }
+}
 }
