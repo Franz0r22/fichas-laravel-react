@@ -10,6 +10,7 @@ import CarDescription from "../../Components/CarDescription/CarDescription";
 import CarPricing from "../../Components/CarPricing/CarPricing";
 import CarDetails from "../../Components/CarDetails/CarDetails";
 import CarTitle from "../../Components/CarTitle/CarTitle";
+import CarMap from "../../Components/CarMap/CarMap";
 
 const CarDetail = () => {
     const { data, error } = usePage().props;
@@ -22,7 +23,7 @@ const CarDetail = () => {
             </div>
         );
     }
-
+    {console.log(data)}
     return (
         <>
             {data ? (
@@ -83,10 +84,12 @@ const CarDetail = () => {
                                     <CarFeatures features={data.features} />
                                 )}
                             </Col>
-                            <Col
-                                md={5}
-                                className={`${styles.titleBox} mt-4 p-4`}
-                            ></Col>
+                            <Col md={5} className={`${styles.titleBox} mt-4 p-4`}>
+                                <CarMap 
+                                    latitude={data.latitude}
+                                    longitude={data.length}
+                                />
+                            </Col>
                         </Row>
                     </Container>
                 </>
