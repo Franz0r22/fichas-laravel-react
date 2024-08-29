@@ -1,0 +1,5 @@
+.detailsBox {
+    display: flex;
+    gap: 0.25rem;
+    font-weight: 500;
+}
