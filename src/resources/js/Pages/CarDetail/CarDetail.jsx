@@ -11,6 +11,7 @@ import CarPricing from "../../Components/CarPricing/CarPricing";
 import CarDetails from "../../Components/CarDetails/CarDetails";
 import CarTitle from "../../Components/CarTitle/CarTitle";
 import CarMap from "../../Components/CarMap/CarMap";
+import CarQuoteForm from "../../Components/CarQuoteForm/CarQuoteForm";
 
 const CarDetail = () => {
     const { data, error } = usePage().props;
@@ -72,9 +73,7 @@ const CarDetail = () => {
                                     />
                                 )}
                                 <div>
-                                    <h5 className={`${styles.carTitle}`}>
-                                        Cotizalo Aquí
-                                    </h5>
+                                    <CarQuoteForm />
                                 </div>
                             </Col>
                         </Row>

@@ -8,7 +8,7 @@ const CarMap = ({ latitude, longitude }) => {
   return (
     <>  
       <h3 className={`${styles.carTitle} mb-4`}>Ubicación</h3>
-      <MapContainer center={[latitude, longitude]} zoom={13} scrollWheelZoom={false} className={styles.CarMapContainer}>
+      <MapContainer center={[latitude, longitude]} zoom={15} scrollWheelZoom={false} className={styles.CarMapContainer}>
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
