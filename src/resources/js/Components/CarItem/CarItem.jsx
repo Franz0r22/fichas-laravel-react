@@ -1,4 +1,4 @@
-import { Col, Card } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import { BsCalendar2 } from "react-icons/bs";
 import { GiCarWheel } from "react-icons/gi";
 import styles from './CarItem.module.css';
@@ -8,7 +8,7 @@ const CarItem = ({ auto }) => {
 
     return (
         <a href={`/${auto.MARCA.toLowerCase()}/${auto.MODELO.toLowerCase()}/${auto.AUTOID}`} className={styles.hasCta}>
-            <Card>
+            <Card className={styles.cardBox}>
                 <Card.Img variant="top" src={auto.url_foto_particular} />
                 <Card.Body>
                     <Card.Title className='mb-0 text-truncate'>
@@ -32,7 +32,7 @@ const CarItem = ({ auto }) => {
                         {formatNumber(auto.VCHPRECIO)}
                     </Card.Text>
                     <button className={styles.btnCard}>
-                        Ver más
+                        Ver más detalles
                     </button>
                 </Card.Body>
             </Card>

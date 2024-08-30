@@ -9,11 +9,17 @@
     flex-direction: row;
     align-items: center;
     gap: 5px;
-    border: 1px solid gray;
+    background-color: var(--primary-gray);
     border-radius: 3px;
     padding: 1px 6px;
     color: var(--primary-black);
     font-size: 14px;
+}
+
+.cardBox {
+    border: none !important;
+    background-color: var(--primary-gray) !important;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
 .priceSize {
@@ -28,11 +34,12 @@
 
 .btnCard {
     text-transform: uppercase;
+    font-size: 14px;
     border: 1px solid var(--primary-black);
-    background-color: var(--primary-white);
+    /* background-color: var(--primary-white); */
     pointer-events: auto;
     color: var(--primary--dark-blue);
-    border-radius: 12px;
+    border-radius: 99px;
     justify-content: center;
     align-items: center;
     padding: 0.6875em 1.125em 0.4375em;
@@ -40,6 +47,7 @@
     transition-property: background-color;
     transition-duration: 0.5s;
     display: inline-flex;
+    align-items: center;
     position: relative;
     overflow: hidden;
     width: 100%;

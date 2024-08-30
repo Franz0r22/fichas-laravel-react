@@ -1,5 +1,5 @@
 .titleBox {
-    background-color: #f1f1f1;
+    background-color: var(--primary-gray);
     padding: 15px 10px;
     border-radius: 3px;
     align-items: center;
