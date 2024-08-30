@@ -2,7 +2,6 @@ import React from "react";
 import { Head, usePage } from "@inertiajs/react";
 import { Container, Row, Col } from "react-bootstrap";
 import styles from "./CarDetail.module.css";
-import { formatNumber } from "../../utils/formatNumber";
 import Breadcrumb from "../../Components/Breadcrumb/Breadcrumb";
 import CarImageGallery from "../../Components/CarImageGallery/CarImageGallery";
 import CarFeatures from "../../Components/CarFeatures/CarFeatures";
