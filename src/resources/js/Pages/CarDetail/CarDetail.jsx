@@ -11,6 +11,7 @@ import CarDetails from "../../Components/CarDetails/CarDetails";
 import CarTitle from "../../Components/CarTitle/CarTitle";
 import CarMap from "../../Components/CarMap/CarMap";
 import CarQuoteForm from "../../Components/CarQuoteForm/CarQuoteForm";
+import CarWhatsAppBtn from "../../Components/CarWhatsAppBtn/CarWhatsAppBtn";
 
 const CarDetail = () => {
     const { data, error } = usePage().props;
@@ -73,6 +74,15 @@ const CarDetail = () => {
                                 )}
                                 <div>
                                     <CarQuoteForm />
+                                </div>
+                                {console.log(data)}
+                                <div className="mt-3">
+                                    <CarWhatsAppBtn 
+                                        whatsApp={data.whatsApp}
+                                        brandName={data.brandName}
+                                        modelName={data.modelName}
+                                        version={data.version}
+                                    />
                                 </div>
                             </Col>
                         </Row>

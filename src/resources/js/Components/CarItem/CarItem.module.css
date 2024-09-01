@@ -36,7 +36,6 @@
     text-transform: uppercase;
     font-size: 14px;
     border: 1px solid var(--primary-black);
-    /* background-color: var(--primary-white); */
     pointer-events: auto;
     color: var(--primary--dark-blue);
     border-radius: 99px;

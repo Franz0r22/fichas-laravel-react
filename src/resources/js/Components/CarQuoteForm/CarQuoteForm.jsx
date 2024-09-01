@@ -34,7 +34,7 @@ const CarQuoteForm = () => {
 
     return (
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
-            <h5 className={`${styles.carTitle}`}>Cotizalo Aquí</h5>
+            <h5 className={`${styles.carTitle}`}>Cotízalo Aquí</h5>
 
             <Form.Group controlId="name">
                 <Form.Label>Nombre</Form.Label>
@@ -93,9 +93,9 @@ const CarQuoteForm = () => {
                 </Form.Control.Feedback>
             </Form.Group>
 
-            <Button variant="primary" type="submit" disabled={processing} className="mt-3">
+            <button type="submit" disabled={processing} className={`${styles.btnForm} mt-3`}>
                 Enviar
-            </Button>
+            </button>
         </Form>
     );
 };
