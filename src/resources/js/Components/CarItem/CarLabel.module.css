@@ -1,0 +1,10 @@
+.labelPosition {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    color: white;
+    background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+    border-radius: 50px;
+    padding: 5px 10px;
+    font-size: 12px;
+}
