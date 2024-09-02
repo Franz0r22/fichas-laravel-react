@@ -10,8 +10,6 @@ const TopCarousel = ({ slides }) => {
         setIndex(selectedIndex);
     };
 
-    console.log({slides})
-
     return (
         <Carousel activeIndex={index} onSelect={handleSelect}>
             {slides.map((slide, i) => (

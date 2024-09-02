@@ -24,7 +24,7 @@ const CarDetail = () => {
             </div>
         );
     }
-    {console.log(data)}
+
     return (
         <>
             {data ? (
@@ -75,7 +75,7 @@ const CarDetail = () => {
                                 <div>
                                     <CarQuoteForm />
                                 </div>
-                                {console.log(data)}
+
                                 <div className="mt-3">
                                     <CarWhatsAppBtn 
                                         whatsApp={data.whatsApp}

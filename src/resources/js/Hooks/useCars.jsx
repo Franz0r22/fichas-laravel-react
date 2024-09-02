@@ -1,95 +1,76 @@
 import { useState, useEffect, useMemo } from 'react';
 import { usePage } from "@inertiajs/react";
+import useFilter from './useFilter';
+import usePagination from './usePagination';
+import usePriceRange from './filterData/usePriceRange';
+import useUniqueBrands from './filterData/useUniqueBrands';
+import useUniqueModelsByBrand from './filterData/useUniqueModelsByBrand';
+import useUniqueYears from './filterData/useUniqueYears';
 
 const useCars = () => {
+    // Obtiene los datos y posibles errores desde el contexto de Inertia.js
     const { props: { data, error } } = usePage();
+    
+    // Usa el hook useFilter para manejar los filtros y el estado de los filtros
+    const { 
+        selectedYear, setSelectedYear, 
+        selectedBrand, setSelectedBrand, 
+        selectedModel, setSelectedModel, 
+        selectedPriceRange, setSelectedPriceRange,
+        handleFilter
+    } = useFilter();
+    
+    // Filtra los datos usando la función handleFilter proporcionada por useFilter
+    const filteredData = useMemo(() => handleFilter(data || []), [handleFilter, data]);
 
-    const [selectedYear, setSelectedYear] = useState('');
-    const [selectedBrand, setSelectedBrand] = useState('');
-    const [selectedModel, setSelectedModel] = useState('');
-    const [uniqueYears, setUniqueYears] = useState([]);
-    const [uniqueBrands, setUniqueBrands] = useState([]);
-    const [uniqueModels, setUniqueModels] = useState([]);
-    const [modelsByBrand, setModelsByBrand] = useState({}); 
-    const [minPrice, setMinPrice] = useState(0);
-    const [maxPrice, setMaxPrice] = useState(1000000000);
-    const [selectedPriceRange, setSelectedPriceRange] = useState([0, 1000000000]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [pageSize, setPageSize] = useState(20);
+    // Usa hooks específicos para obtener datos únicos y rangos de precios
+    const { minPrice, maxPrice } = usePriceRange(data);
+    const uniqueBrands = useUniqueBrands(data);
+    const uniqueModels = useUniqueModelsByBrand(data, selectedBrand);
+    const uniqueYears = useUniqueYears(filteredData);
 
+    // Usa el hook usePagination para manejar la lógica de paginación
+    const {
+        currentPage,
+        setCurrentPage,
+        pageSize,
+        setPageSize,
+        currentItems,
+        totalPages,
+    } = usePagination(filteredData);
+
+    // Efecto que actualiza el rango de precios seleccionado cuando los datos o los precios cambian
     useEffect(() => {
         if (data) {
-            const years = [...new Set(data.map(auto => auto.INTANO))].sort((a, b) => b - a);
-            const brands = [...new Set(data.map(auto => auto.MARCA))].sort();
-            const modelsMap = {};
-
-            data.forEach(auto => {
-                if (!modelsMap[auto.MARCA]) {
-                    modelsMap[auto.MARCA] = new Set();
-                }
-                modelsMap[auto.MARCA].add(auto.MODELO);
-            });
-
-            const prices = data.map(auto => auto.VCHPRECIO);
-            const minPrice = Math.min(...prices);
-            const maxPrice = Math.max(...prices);
-            setMinPrice(minPrice);
-            setMaxPrice(maxPrice);
             setSelectedPriceRange([minPrice, maxPrice]);
-
-            setUniqueYears(years);
-            setUniqueBrands(brands);
-            setModelsByBrand(modelsMap);
         }
-    }, [data]);
+    }, [data, minPrice, maxPrice, setSelectedPriceRange]);
 
+    // Efecto que limpia el modelo seleccionado cuando cambia la marca seleccionada
     useEffect(() => {
-        const filtered = handleFilter();
-        const years = [...new Set(filtered.map(auto => auto.INTANO))].sort((a, b) => b - a);
-        setUniqueYears(years);
-    }, [selectedBrand, selectedModel, selectedYear, selectedPriceRange, data]);
-
-    useEffect(() => {
-        if (selectedBrand && modelsByBrand[selectedBrand]) {
-            setUniqueModels([...modelsByBrand[selectedBrand]]);
-        } else {
-            setUniqueModels([]);
+        if (selectedBrand) {
+            // Restablece el modelo seleccionado cuando se cambia la marca
+            setSelectedModel('');
         }
-    }, [selectedBrand, modelsByBrand]);
+    }, [selectedBrand]);
 
-    const handleFilter = () => {
-        return data.filter(auto => {
-            const yearMatch = selectedYear ? auto.INTANO === parseInt(selectedYear) : true;
-            const brandMatch = selectedBrand ? auto.MARCA === selectedBrand : true;
-            const modelMatch = selectedModel ? auto.MODELO === selectedModel : true;
-            const priceMatch = auto.VCHPRECIO >= selectedPriceRange[0] && auto.VCHPRECIO <= selectedPriceRange[1];
-            return yearMatch && brandMatch && modelMatch && priceMatch;
-        });
-    };
-
-    const filteredData = useMemo(() => handleFilter(), [data, selectedYear, selectedBrand, selectedModel, selectedPriceRange]);
-
-    const indexOfLastItem = currentPage * pageSize;
-    const indexOfFirstItem = indexOfLastItem - pageSize;
-    const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
-    const totalPages = Math.ceil(filteredData.length / pageSize);
-
+    // Devuelve todos los valores y funciones necesarias para ser usados por los componentes que consumen este hook
     return {
         data,
         error,
+        uniqueYears,
+        uniqueBrands,
+        uniqueModels,
+        minPrice,
+        maxPrice,
         selectedYear,
         setSelectedYear,
         selectedBrand,
         setSelectedBrand,
         selectedModel,
         setSelectedModel,
-        uniqueYears,
-        uniqueBrands,
-        uniqueModels,
         selectedPriceRange,
         setSelectedPriceRange,
-        minPrice,
-        maxPrice,
         currentPage,
         setCurrentPage,
         pageSize,

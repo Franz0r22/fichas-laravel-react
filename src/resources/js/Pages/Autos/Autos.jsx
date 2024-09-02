@@ -4,7 +4,7 @@ import { Container, Alert, Spinner } from "react-bootstrap";
 import FilterForm from "../../Components/FilterForm/FilterForm";
 import CarList from "../../Components/CarList/CarList";
 import PaginationControl from "../../Components/PaginationControl/PaginationControl";
-import useCars from '../../hooks/useCars';
+import useCars from '../../Hooks/useCars';
 
 const Autos = () => {
     const { props: { data, error } } = usePage();

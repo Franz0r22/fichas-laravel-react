@@ -8,7 +8,7 @@ import { formatNumber } from '../../utils/formatNumber';
 import CarLabel from './CarLabel';
 
 const CarItem = ({ auto }) => {
-console.log(auto)
+
     return (
         <a href={`/${auto.MARCA.toLowerCase()}/${auto.MODELO.toLowerCase()}/${auto.AUTOID}`} className={styles.hasCta}>
             <Card className={styles.cardBox}>
