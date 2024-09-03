@@ -14,9 +14,10 @@ const CarItem = ({ auto }) => {
             <Card className={styles.cardBox}>
                 <div className={styles.imgWrapper}>
                     <Card.Img variant="top" src={auto.url_foto_particular} className={styles.cardImg}/>
+                    { auto.VCHETIQUETA_TITULO &&
                     <CarLabel 
                         labelName={auto.VCHETIQUETA_TITULO}
-                    />
+                    />}
                 </div>
                 <Card.Body>
                     <Card.Title className='mb-0 text-truncate'>
