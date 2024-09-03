@@ -75,25 +75,25 @@ const CarDetail = () => {
                                 <div>
                                     <CarQuoteForm />
                                 </div>
-
-                                <div className="mt-3">
-                                    <CarWhatsAppBtn 
-                                        whatsApp={data.whatsApp}
-                                        brandName={data.brandName}
-                                        modelName={data.modelName}
-                                        version={data.version}
-                                    />
-                                </div>
+                                {data.whatsApp &&
+                                    <div className="mt-3">
+                                        <CarWhatsAppBtn
+                                            whatsApp={data.whatsApp}
+                                            brandName={data.brandName}
+                                            modelName={data.modelName}
+                                            version={data.version}
+                                        />
+                                    </div>}
                             </Col>
                         </Row>
                         <Row>
                             <Col md={7} className="ps-0 pe-4">
-                                {data.features && (
+                                {data.features && data.features.length > 0 && (
                                     <CarFeatures features={data.features} />
                                 )}
                             </Col>
                             <Col md={5} className={`${styles.titleBox} mt-4 p-4`}>
-                                <CarMap 
+                                <CarMap
                                     latitude={data.latitude}
                                     longitude={data.length}
                                 />
