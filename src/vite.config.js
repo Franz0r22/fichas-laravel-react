@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import react from '@vitejs/plugin-react';
+import path from 'path';
 
 export default defineConfig({
     plugins: [
@@ -14,6 +15,7 @@ export default defineConfig({
         alias: {
             "@": "/resources/js",
             "@public": "/public",
+            'ziggy-js': path.resolve('vendor/tightenco/ziggy'),
         }
     },
     server: {

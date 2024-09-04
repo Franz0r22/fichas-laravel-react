@@ -6,10 +6,10 @@ use App\Http\Controllers\CarDetailController;
 use App\Http\Controllers\CarQuoteController;
 use Inertia\Inertia;
 
-Route::get('/', [CarsController::class, 'getCarsForHome']);
+Route::get('/', [CarsController::class, 'getCarsForHome'])->name('home');
 
-Route::get('/autos', [CarsController::class, 'getCars']);
+Route::get('/autos', [CarsController::class, 'getCars'])->name('cars');
 
-Route::get('/{brand}/{model}/{autoid}', [CarDetailController::class, 'getSingleCar']);
+Route::get('/{brand}/{model}/{autoid}', [CarDetailController::class, 'getSingleCar'])->name('carDetail');
 
 route::post('/quote', [CarQuoteController::class, 'store']);
