@@ -21,3 +21,7 @@ a {
 p {
     text-wrap:pretty;
 }
+
+.fs-14 {
+    font-size: 14px;
+}
