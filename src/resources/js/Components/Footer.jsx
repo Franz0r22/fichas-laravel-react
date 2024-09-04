@@ -10,7 +10,7 @@ const Footer = () => {
       <Container>
         <Row>
           <Col>
-              <img src="/images/logo-agencia.png" alt="logo" width={200}/>
+            <img src="/images/logo-agencia.png" alt="logo" width={200} />
           </Col>
           <Col>
             <h6 className='text-uppercase fw-bold'>
@@ -24,11 +24,14 @@ const Footer = () => {
             </span>
           </Col>
           <Col>
-            <h4>
-
-            </h4>
+            <h6 className='text-uppercase fw-bold'>
+              Contacto
+            </h6>
             <span>
-
+              <div className='d-flex justify-content-center align-items-center text-uppercase fs-14 text-sec '>
+                <IoLocationSharp />
+                ######
+              </div>
             </span>
           </Col>
         </Row>
