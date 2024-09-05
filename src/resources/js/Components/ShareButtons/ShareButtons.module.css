@@ -1,0 +1,28 @@
+.btnShare {
+    background: var(--primary-gray);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    height: 35px;
+    width: 35px;
+    transition: 0.3s;
+}
+
+.btnShare:hover {
+    border: 1px solid black;
+    transition: 0.3s;
+}
+
+.shareContainer {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 1000;
+    gap: 10px;
+}

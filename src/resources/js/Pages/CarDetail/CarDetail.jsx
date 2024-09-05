@@ -12,9 +12,13 @@ import CarTitle from "../../Components/CarTitle/CarTitle";
 import CarMap from "../../Components/CarMap/CarMap";
 import CarQuoteForm from "../../Components/CarQuoteForm/CarQuoteForm";
 import CarWhatsAppBtn from "../../Components/CarWhatsAppBtn/CarWhatsAppBtn";
+import ShareButtons from "../../Components/ShareButtons/ShareButtons";
 
 const CarDetail = () => {
     const { data, error } = usePage().props;
+
+    const shareUrl = window.location.href;
+    const shareTitle = '¡Me gustó este vehículo!'
 
     if (error) {
         return (
@@ -32,13 +36,17 @@ const CarDetail = () => {
                     <Head title={`${data?.brandName} ${data?.modelName}`} />
 
                     <Container style={{ minHeight: "100vh" }} className="my-5">
-                        <Breadcrumb
-                            brandName={data.brandName}
-                            modelName={data.modelName}
-                            version={data.version}
-                        />
-
-                        <Row className={`${styles.titleBox} mt-3`}>
+                        <Row>
+                            <Col md={12} className="d-flex justify-content-between align-items-center">
+                                <Breadcrumb
+                                    brandName={data.brandName}
+                                    modelName={data.modelName}
+                                    version={data.version}
+                                />
+                                <ShareButtons url={shareUrl} title={shareTitle} />
+                            </Col>
+                        </Row>
+                        <Row className={`${styles.titleBox} mt-2`}>
                             <Col md={6}>
                                 <CarTitle
                                     brand={data.brandName}
