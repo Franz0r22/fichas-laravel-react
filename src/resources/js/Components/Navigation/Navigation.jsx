@@ -2,6 +2,7 @@ import { Navbar, Nav, Container } from "react-bootstrap";
 import { Link } from '@inertiajs/react';
 import { useRoute } from 'ziggy-js';
 import navLogo from '@public/images/logo-agencia.png';
+import styles from './Navigation.module.css'
 
 const Navigation = () => {
 
@@ -26,12 +27,12 @@ const Navigation = () => {
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="me-auto">
+                    <Nav className="me-auto ms-5">
                         {menuItems.map((item, index) => (
                             <a 
                                 key={index} 
                                 href={route(item.route)} 
-                                className="nav-link"
+                                className={`nav-link ${styles.menuItem}`}
                             >
                                 {item.name}
                             </a>
