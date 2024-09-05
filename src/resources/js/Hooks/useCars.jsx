@@ -6,6 +6,8 @@ import usePriceRange from './filterData/usePriceRange';
 import useUniqueBrands from './filterData/useUniqueBrands';
 import useUniqueModelsByBrand from './filterData/useUniqueModelsByBrand';
 import useUniqueYears from './filterData/useUniqueYears';
+import useUniqueFuels from './filterData/useUniqueFuels';
+
 
 const useCars = () => {
     // Obtiene los datos y posibles errores desde el contexto de Inertia.js
@@ -17,6 +19,7 @@ const useCars = () => {
         selectedBrand, setSelectedBrand, 
         selectedModel, setSelectedModel, 
         selectedPriceRange, setSelectedPriceRange,
+        selectedFuel, setSelectedFuel,
         handleFilter
     } = useFilter();
     
@@ -25,9 +28,10 @@ const useCars = () => {
 
     // Usa hooks específicos para obtener datos únicos y rangos de precios
     const { minPrice, maxPrice } = usePriceRange(data);
-    const uniqueBrands = useUniqueBrands(data);
-    const uniqueModels = useUniqueModelsByBrand(data, selectedBrand);
+    const uniqueBrands = useUniqueBrands(filteredData);
+    const uniqueModels = useUniqueModelsByBrand(filteredData, selectedBrand);
     const uniqueYears = useUniqueYears(filteredData);
+    const uniqueFuels = useUniqueFuels(filteredData);
 
     // Usa el hook usePagination para manejar la lógica de paginación
     const {
@@ -61,6 +65,7 @@ const useCars = () => {
         uniqueYears,
         uniqueBrands,
         uniqueModels,
+        uniqueFuels,
         minPrice,
         maxPrice,
         selectedYear,
@@ -71,6 +76,8 @@ const useCars = () => {
         setSelectedModel,
         selectedPriceRange,
         setSelectedPriceRange,
+        selectedFuel,
+        setSelectedFuel,
         currentPage,
         setCurrentPage,
         pageSize,

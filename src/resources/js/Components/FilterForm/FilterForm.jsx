@@ -8,6 +8,7 @@ const FilterForm = ({
     uniqueYears,
     uniqueBrands,
     uniqueModels,
+    uniqueFuels,
     selectedYear,
     setSelectedYear,
     selectedBrand,
@@ -16,6 +17,8 @@ const FilterForm = ({
     setSelectedModel,
     selectedPriceRange,
     setSelectedPriceRange,
+    selectedFuel,
+    setSelectedFuel,
     minPrice,
     maxPrice,
     setCurrentPage
@@ -29,7 +32,7 @@ const FilterForm = ({
     return (
         <Form className='mb-4'>
             <Row>
-                <Col>
+                <Col lg={3}>
                     <Form.Group>
                         <Form.Label>Marca</Form.Label>
                         <Form.Select
@@ -37,7 +40,8 @@ const FilterForm = ({
                             onChange={e => {
                                 setSelectedBrand(e.target.value);
                                 setSelectedModel('');
-                                setSelectedYear('');
+                                // setSelectedYear('');
+                                // setSelectedFuel('');
                                 setSelectedPriceRange([minPrice, maxPrice]);
                                 setCurrentPage(1);
                             }}
@@ -51,7 +55,7 @@ const FilterForm = ({
                         </Form.Select>
                     </Form.Group>
                 </Col>
-                <Col>
+                <Col lg={3}>
                     <Form.Group>
                         <Form.Label>Modelo</Form.Label>
                         <Form.Select
@@ -74,7 +78,7 @@ const FilterForm = ({
                         </Form.Select>
                     </Form.Group>
                 </Col>
-                <Col>
+                <Col lg={3}>
                     <Form.Group>
                         <Form.Label>Año</Form.Label>
                         <Form.Select
@@ -93,7 +97,26 @@ const FilterForm = ({
                         </Form.Select>
                     </Form.Group>
                 </Col>
-                <Col>
+                <Col lg={3}>
+                    <Form.Group>
+                        <Form.Label>Combustible</Form.Label>
+                        <Form.Select
+                            value={selectedFuel}
+                            onChange={e => {
+                                setSelectedFuel(e.target.value);
+                                setCurrentPage(1);
+                            }}
+                        >
+                            <option value="">Todos</option>
+                            {uniqueFuels.map(fuel => (
+                                <option key={fuel} value={fuel}>
+                                    {fuel}
+                                </option>
+                            ))}
+                        </Form.Select>
+                    </Form.Group>
+                </Col>
+                <Col lg={3}>
                     <Form.Group>
                         <Form.Label>Precio</Form.Label>
                         <RangeSlider
