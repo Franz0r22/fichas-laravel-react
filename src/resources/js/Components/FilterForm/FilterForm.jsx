@@ -5,12 +5,13 @@ import 'react-range-slider-input/dist/style.css';
 import styles from './FilterForm.module.css';
 
 const FilterForm = ({
-    uniqueYears,
     uniqueBrands,
     uniqueModels,
     uniqueFuels,
-    selectedYear,
-    setSelectedYear,
+    selectedYearRange,
+    setSelectedYearRange,
+    minYear,
+    maxYear,
     selectedBrand,
     setSelectedBrand,
     selectedModel,
@@ -24,11 +25,16 @@ const FilterForm = ({
     setCurrentPage
 }) => {
 
-    const handleRangeChange = (value) => {
+    const handleRangePriceChange = (value) => {
         setSelectedPriceRange(value);
         setCurrentPage(1);
     };
-    
+
+    const handleRangeYearChange = (value) => {
+        setSelectedYearRange(value);
+        setCurrentPage(1);
+    };
+    console.log(minYear, maxYear)
     return (
         <Form className='mb-4'>
             <Row>
@@ -80,25 +86,6 @@ const FilterForm = ({
                 </Col>
                 <Col lg={3}>
                     <Form.Group>
-                        <Form.Label>Año</Form.Label>
-                        <Form.Select
-                            value={selectedYear}
-                            onChange={e => {
-                                setSelectedYear(e.target.value);
-                                setCurrentPage(1);
-                            }}
-                        >
-                            <option value="">{uniqueYears.length > 0 ? 'Todos los años' : 'No existen años para los filtros aplicados'}</option>
-                            {uniqueYears.map(year => (
-                                <option key={year} value={year}>
-                                    {year}
-                                </option>
-                            ))}
-                        </Form.Select>
-                    </Form.Group>
-                </Col>
-                <Col lg={3}>
-                    <Form.Group>
                         <Form.Label>Combustible</Form.Label>
                         <Form.Select
                             value={selectedFuel}
@@ -118,13 +105,29 @@ const FilterForm = ({
                 </Col>
                 <Col lg={3}>
                     <Form.Group>
+                        <Form.Label>Año</Form.Label>
+                        <RangeSlider
+                            min={minYear}
+                            max={maxYear}
+                            step={1}
+                            value={selectedYearRange}
+                            onInput={handleRangeYearChange}
+                        />
+                        <div className="d-flex justify-content-between">
+                            <span>{`${selectedYearRange[0]}`}</span>
+                            <span>{`${selectedYearRange[1]}`}</span>
+                        </div>
+                    </Form.Group>
+                </Col>
+                <Col lg={3}>
+                    <Form.Group>
                         <Form.Label>Precio</Form.Label>
                         <RangeSlider
                             min={minPrice}
                             max={maxPrice}
-                            step={10000000}
-                            defaultValue={selectedPriceRange}
-                            onInput={handleRangeChange}
+                            step={1000000}
+                            value={selectedPriceRange}
+                            onInput={handleRangePriceChange}
                         />
                         <div className="d-flex justify-content-between">
                             <span>{`$${selectedPriceRange[0].toLocaleString()}`}</span>

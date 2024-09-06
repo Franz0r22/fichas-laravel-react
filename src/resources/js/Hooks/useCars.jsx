@@ -5,7 +5,7 @@ import usePagination from './usePagination';
 import usePriceRange from './filterData/usePriceRange';
 import useUniqueBrands from './filterData/useUniqueBrands';
 import useUniqueModelsByBrand from './filterData/useUniqueModelsByBrand';
-import useUniqueYears from './filterData/useUniqueYears';
+import useYearRange from './filterData/useYearRange';
 import useUniqueFuels from './filterData/useUniqueFuels';
 
 
@@ -15,7 +15,7 @@ const useCars = () => {
     
     // Usa el hook useFilter para manejar los filtros y el estado de los filtros
     const { 
-        selectedYear, setSelectedYear, 
+        selectedYearRange, setSelectedYearRange, 
         selectedBrand, setSelectedBrand, 
         selectedModel, setSelectedModel, 
         selectedPriceRange, setSelectedPriceRange,
@@ -30,7 +30,7 @@ const useCars = () => {
     const { minPrice, maxPrice } = usePriceRange(data);
     const uniqueBrands = useUniqueBrands(filteredData);
     const uniqueModels = useUniqueModelsByBrand(filteredData, selectedBrand);
-    const uniqueYears = useUniqueYears(filteredData);
+    const { minYear, maxYear } = useYearRange(data);
     const uniqueFuels = useUniqueFuels(filteredData);
 
     // Usa el hook usePagination para manejar la lógica de paginación
@@ -50,6 +50,13 @@ const useCars = () => {
         }
     }, [data, minPrice, maxPrice, setSelectedPriceRange]);
 
+    // Efecto que actualiza el rango de años seleccionado cuando los datos o los precios cambian
+    useEffect(() => {
+        if (data) {
+            setSelectedYearRange([minYear, maxYear]);
+        }
+    }, [data, minYear, maxYear, setSelectedYearRange]);
+
     // Efecto que limpia el modelo seleccionado cuando cambia la marca seleccionada
     useEffect(() => {
         if (selectedBrand) {
@@ -62,20 +69,23 @@ const useCars = () => {
     return {
         data,
         error,
-        uniqueYears,
         uniqueBrands,
         uniqueModels,
         uniqueFuels,
         minPrice,
         maxPrice,
-        selectedYear,
-        setSelectedYear,
+        minYear,
+        maxYear,
+        selectedYearRange,
+        setSelectedYearRange,
         selectedBrand,
         setSelectedBrand,
         selectedModel,
         setSelectedModel,
         selectedPriceRange,
         setSelectedPriceRange,
+        selectedYearRange,
+        setSelectedYearRange,
         selectedFuel,
         setSelectedFuel,
         currentPage,

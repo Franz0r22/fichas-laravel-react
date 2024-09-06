@@ -10,7 +10,6 @@ import useCars from '../../Hooks/useCars';
 const Autos = () => {
     const { props: { data, error } } = usePage();
     const {
-        uniqueYears,
         uniqueBrands,
         uniqueModels,
         uniqueFuels,
@@ -22,10 +21,14 @@ const Autos = () => {
         setSelectedModel,
         selectedPriceRange,
         setSelectedPriceRange,
+        selectedYearRange,
+        setSelectedYearRange,
         selectedFuel,
         setSelectedFuel,
         minPrice,
         maxPrice,
+        minYear,
+        maxYear,
         currentPage,
         setCurrentPage,
         currentItems,
@@ -48,7 +51,6 @@ const Autos = () => {
                 />
                 
                 <FilterForm
-                    uniqueYears={uniqueYears}
                     uniqueBrands={uniqueBrands}
                     uniqueModels={uniqueModels}
                     uniqueFuels={uniqueFuels}
@@ -60,10 +62,14 @@ const Autos = () => {
                     setSelectedModel={setSelectedModel}
                     selectedPriceRange={selectedPriceRange}
                     setSelectedPriceRange={setSelectedPriceRange}
+                    selectedYearRange={selectedYearRange}
+                    setSelectedYearRange={setSelectedYearRange}
                     selectedFuel={selectedFuel}
                     setSelectedFuel={setSelectedFuel}
                     minPrice={minPrice}
                     maxPrice={maxPrice}
+                    minYear={minYear}
+                    maxYear={maxYear}
                     setCurrentPage={setCurrentPage}
                 />
 
