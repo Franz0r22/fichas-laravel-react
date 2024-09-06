@@ -11,20 +11,24 @@ const FilterForm = ({
     uniqueLabels,
     selectedYearRange,
     setSelectedYearRange,
+    selectedPriceRange,
+    setSelectedPriceRange,
+    selectedKmRange,
+    setSelectedKmRange,
     minYear,
     maxYear,
+    minPrice,
+    maxPrice,
+    minKm,
+    maxKm,
     selectedBrand,
     setSelectedBrand,
     selectedModel,
     setSelectedModel,
-    selectedPriceRange,
-    setSelectedPriceRange,
     selectedFuel,
     setSelectedFuel,
     selectedLabel,
     setSelectedLabel,
-    minPrice,
-    maxPrice,
     setCurrentPage
 }) => {
 
@@ -37,7 +41,12 @@ const FilterForm = ({
         setSelectedYearRange(value);
         setCurrentPage(1);
     };
-    console.log(minYear, maxYear)
+
+    const handleRangeKmChange = (value) => {
+        setSelectedKmRange(value);
+        setCurrentPage(1);
+    };
+
     return (
         <Form className='mb-4'>
             <Row>
@@ -147,13 +156,29 @@ const FilterForm = ({
                         <RangeSlider
                             min={minPrice}
                             max={maxPrice}
-                            step={1000000}
+                            step={100}
                             value={selectedPriceRange}
                             onInput={handleRangePriceChange}
                         />
                         <div className="d-flex justify-content-between">
                             <span>{`$${selectedPriceRange[0].toLocaleString()}`}</span>
                             <span>{`$${selectedPriceRange[1].toLocaleString()}`}</span>
+                        </div>
+                    </Form.Group>
+                </Col>
+                <Col lg={3}>
+                    <Form.Group>
+                        <Form.Label>Kilometraje</Form.Label>
+                        <RangeSlider
+                            min={minKm}
+                            max={maxKm}
+                            step={1}
+                            value={selectedKmRange}
+                            onInput={handleRangeKmChange}
+                        />
+                        <div className="d-flex justify-content-between">
+                            <span>{`${selectedKmRange[0].toLocaleString()} Km`}</span>
+                            <span>{`${selectedKmRange[1].toLocaleString()} Km`}</span>
                         </div>
                     </Form.Group>
                 </Col>

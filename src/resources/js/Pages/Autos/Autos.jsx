@@ -24,6 +24,8 @@ const Autos = () => {
         setSelectedPriceRange,
         selectedYearRange,
         setSelectedYearRange,
+        selectedKmRange,
+        setSelectedKmRange,
         selectedFuel,
         setSelectedFuel,
         selectedLabel,
@@ -32,12 +34,14 @@ const Autos = () => {
         maxPrice,
         minYear,
         maxYear,
+        minKm,
+        maxKm,
         currentPage,
         setCurrentPage,
         currentItems,
         totalPages,
     } = useCars(data);
-
+    console.log(data);
     if (!data) return <Spinner animation="border" />;
     if (error) return <Alert variant="danger">{error}</Alert>;
 
@@ -68,6 +72,8 @@ const Autos = () => {
                     setSelectedPriceRange={setSelectedPriceRange}
                     selectedYearRange={selectedYearRange}
                     setSelectedYearRange={setSelectedYearRange}
+                    selectedKmRange={selectedKmRange}
+                    setSelectedKmRange={setSelectedKmRange}
                     selectedFuel={selectedFuel}
                     setSelectedFuel={setSelectedFuel}
                     selectedLabel={selectedLabel}
@@ -76,6 +82,8 @@ const Autos = () => {
                     maxPrice={maxPrice}
                     minYear={minYear}
                     maxYear={maxYear}
+                    minKm={minKm}
+                    maxKm={maxKm}
                     setCurrentPage={setCurrentPage}
                 />
 

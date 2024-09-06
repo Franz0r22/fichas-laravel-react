@@ -8,6 +8,7 @@ import useUniqueModelsByBrand from './filterData/useUniqueModelsByBrand';
 import useYearRange from './filterData/useYearRange';
 import useUniqueFuels from './filterData/useUniqueFuels';
 import useUniqueLabels from './filterData/useUniqueLabels';
+import useKmRange from './filterData/useKmRange';
 
 
 const useCars = () => {
@@ -17,9 +18,10 @@ const useCars = () => {
     // Usa el hook useFilter para manejar los filtros y el estado de los filtros
     const { 
         selectedYearRange, setSelectedYearRange, 
+        selectedPriceRange, setSelectedPriceRange,
+        selectedKmRange, setSelectedKmRange,
         selectedBrand, setSelectedBrand, 
         selectedModel, setSelectedModel, 
-        selectedPriceRange, setSelectedPriceRange,
         selectedFuel, setSelectedFuel,
         selectedLabel, setSelectedLabel,
         handleFilter
@@ -31,6 +33,7 @@ const useCars = () => {
     // Usa hooks específicos para obtener datos únicos y rangos de precios
     const { minPrice, maxPrice } = usePriceRange(data);
     const { minYear, maxYear } = useYearRange(data);
+    const { minKm, maxKm } = useKmRange(data);
     const uniqueBrands = useUniqueBrands(filteredData);
     const uniqueModels = useUniqueModelsByBrand(filteredData, selectedBrand);
     const uniqueFuels = useUniqueFuels(filteredData);
@@ -54,12 +57,19 @@ const useCars = () => {
         }
     }, [data, minPrice, maxPrice, setSelectedPriceRange]);
 
-    // Efecto que actualiza el rango de años seleccionado cuando los datos o los precios cambian
+    // Efecto que actualiza el rango de años seleccionado cuando los datos o los años cambian
     useEffect(() => {
         if (data) {
             setSelectedYearRange([minYear, maxYear]);
         }
     }, [data, minYear, maxYear, setSelectedYearRange]);
+
+    // Efecto que actualiza el rango de Kilómetros seleccionado cuando los datos o los kms cambian
+    useEffect(() => {
+        if (data) {
+            setSelectedKmRange([minKm, maxKm]);
+        }
+    }, [data, minKm, maxKm, setSelectedKmRange]);
 
     // Efecto que limpia el modelo seleccionado cuando cambia la marca seleccionada
     useEffect(() => {
@@ -81,8 +91,12 @@ const useCars = () => {
         maxPrice,
         minYear,
         maxYear,
+        minKm,
+        maxKm,
         selectedYearRange,
         setSelectedYearRange,
+        selectedKmRange,
+        setSelectedKmRange,
         selectedBrand,
         setSelectedBrand,
         selectedModel,
