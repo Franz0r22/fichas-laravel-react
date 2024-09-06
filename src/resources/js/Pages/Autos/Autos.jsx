@@ -4,6 +4,7 @@ import { Container, Alert, Spinner } from "react-bootstrap";
 import FilterForm from "../../Components/FilterForm/FilterForm";
 import CarList from "../../Components/CarList/CarList";
 import PaginationControl from "../../Components/PaginationControl/PaginationControl";
+import Breadcrumb from "../../Components/Breadcrumb/Breadcrumb";
 import useCars from '../../Hooks/useCars';
 
 const Autos = () => {
@@ -39,6 +40,12 @@ const Autos = () => {
             <Head title="Autos" />
 
             <Container style={{ minHeight: "100vh" }} className="my-5">
+
+                <Breadcrumb 
+                    items={[
+                        { name: 'Catálogo' }
+                    ]}
+                />
                 
                 <FilterForm
                     uniqueYears={uniqueYears}

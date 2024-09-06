@@ -39,9 +39,11 @@ const CarDetail = () => {
                         <Row>
                             <Col md={12} className="d-flex justify-content-between align-items-center">
                                 <Breadcrumb
-                                    brandName={data.brandName}
-                                    modelName={data.modelName}
-                                    version={data.version}
+                                    items={[
+                                        { name: data.brandName, link: `/${data.brandName}` },
+                                        { name: data.modelName, link: `/${data.brandName}/${data.modelName}` },
+                                        { name: data.version }
+                                    ]}
                                 />
                                 <ShareButtons url={shareUrl} title={shareTitle} />
                             </Col>
