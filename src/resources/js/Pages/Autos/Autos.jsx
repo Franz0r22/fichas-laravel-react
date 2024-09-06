@@ -13,6 +13,7 @@ const Autos = () => {
         uniqueBrands,
         uniqueModels,
         uniqueFuels,
+        uniqueLabels,
         selectedYear,
         setSelectedYear,
         selectedBrand,
@@ -25,6 +26,8 @@ const Autos = () => {
         setSelectedYearRange,
         selectedFuel,
         setSelectedFuel,
+        selectedLabel,
+        setSelectedLabel,
         minPrice,
         maxPrice,
         minYear,
@@ -54,6 +57,7 @@ const Autos = () => {
                     uniqueBrands={uniqueBrands}
                     uniqueModels={uniqueModels}
                     uniqueFuels={uniqueFuels}
+                    uniqueLabels={uniqueLabels}
                     selectedYear={selectedYear}
                     setSelectedYear={setSelectedYear}
                     selectedBrand={selectedBrand}
@@ -66,6 +70,8 @@ const Autos = () => {
                     setSelectedYearRange={setSelectedYearRange}
                     selectedFuel={selectedFuel}
                     setSelectedFuel={setSelectedFuel}
+                    selectedLabel={selectedLabel}
+                    setSelectedLabel={setSelectedLabel}
                     minPrice={minPrice}
                     maxPrice={maxPrice}
                     minYear={minYear}

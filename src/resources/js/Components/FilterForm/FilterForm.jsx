@@ -8,6 +8,7 @@ const FilterForm = ({
     uniqueBrands,
     uniqueModels,
     uniqueFuels,
+    uniqueLabels,
     selectedYearRange,
     setSelectedYearRange,
     minYear,
@@ -20,6 +21,8 @@ const FilterForm = ({
     setSelectedPriceRange,
     selectedFuel,
     setSelectedFuel,
+    selectedLabel,
+    setSelectedLabel,
     minPrice,
     maxPrice,
     setCurrentPage
@@ -98,6 +101,25 @@ const FilterForm = ({
                             {uniqueFuels.map(fuel => (
                                 <option key={fuel} value={fuel}>
                                     {fuel}
+                                </option>
+                            ))}
+                        </Form.Select>
+                    </Form.Group>
+                </Col>
+                <Col lg={3}>
+                    <Form.Group>
+                        <Form.Label>Promoción</Form.Label>
+                        <Form.Select
+                            value={selectedLabel}
+                            onChange={e => {
+                                setSelectedLabel(e.target.value);
+                                setCurrentPage(1);
+                            }}
+                        >
+                            <option value="">Todos</option>
+                            {uniqueLabels.map(label => (
+                                <option key={label} value={label}>
+                                    {label}
                                 </option>
                             ))}
                         </Form.Select>

@@ -7,6 +7,7 @@ import useUniqueBrands from './filterData/useUniqueBrands';
 import useUniqueModelsByBrand from './filterData/useUniqueModelsByBrand';
 import useYearRange from './filterData/useYearRange';
 import useUniqueFuels from './filterData/useUniqueFuels';
+import useUniqueLabels from './filterData/useUniqueLabels';
 
 
 const useCars = () => {
@@ -20,6 +21,7 @@ const useCars = () => {
         selectedModel, setSelectedModel, 
         selectedPriceRange, setSelectedPriceRange,
         selectedFuel, setSelectedFuel,
+        selectedLabel, setSelectedLabel,
         handleFilter
     } = useFilter();
     
@@ -28,10 +30,12 @@ const useCars = () => {
 
     // Usa hooks específicos para obtener datos únicos y rangos de precios
     const { minPrice, maxPrice } = usePriceRange(data);
+    const { minYear, maxYear } = useYearRange(data);
     const uniqueBrands = useUniqueBrands(filteredData);
     const uniqueModels = useUniqueModelsByBrand(filteredData, selectedBrand);
-    const { minYear, maxYear } = useYearRange(data);
     const uniqueFuels = useUniqueFuels(filteredData);
+    const uniqueLabels = useUniqueLabels(filteredData);
+
 
     // Usa el hook usePagination para manejar la lógica de paginación
     const {
@@ -72,6 +76,7 @@ const useCars = () => {
         uniqueBrands,
         uniqueModels,
         uniqueFuels,
+        uniqueLabels,
         minPrice,
         maxPrice,
         minYear,
@@ -88,6 +93,8 @@ const useCars = () => {
         setSelectedYearRange,
         selectedFuel,
         setSelectedFuel,
+        selectedLabel,
+        setSelectedLabel,
         currentPage,
         setCurrentPage,
         pageSize,
