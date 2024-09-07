@@ -1,14 +1,19 @@
 import React from "react";
 import { Head, usePage } from "@inertiajs/react";
-import { Container, Alert, Spinner } from "react-bootstrap";
+import { Container, Alert, Spinner, Row, Col } from "react-bootstrap";
 import FilterForm from "../../Components/FilterForm/FilterForm";
 import CarList from "../../Components/CarList/CarList";
 import PaginationControl from "../../Components/PaginationControl/PaginationControl";
 import Breadcrumb from "../../Components/Breadcrumb/Breadcrumb";
-import useCars from '../../Hooks/useCars';
+import CarsOrder from "../../Components/CarsOrder/CarsOrder";
+import StockTotal from "../../Components/StockTotal/StockTotal";
+import useCars from "../../Hooks/useCars";
+import useSort from "../../Hooks/useSort";
 
 const Autos = () => {
-    const { props: { data, error } } = usePage();
+    const {
+        props: { data, error },
+    } = usePage();
     const {
         uniqueBrands,
         uniqueModels,
@@ -41,7 +46,10 @@ const Autos = () => {
         currentItems,
         totalPages,
     } = useCars(data);
-    console.log(data);
+
+    const { sortedItems, sortCriteria, setSortCriteria } =
+        useSort(currentItems);
+
     if (!data) return <Spinner animation="border" />;
     if (error) return <Alert variant="danger">{error}</Alert>;
 
@@ -50,13 +58,8 @@ const Autos = () => {
             <Head title="Autos" />
 
             <Container style={{ minHeight: "100vh" }} className="my-5">
+                <Breadcrumb items={[{ name: "Catálogo" }]} />
 
-                <Breadcrumb 
-                    items={[
-                        { name: 'Catálogo' }
-                    ]}
-                />
-                
                 <FilterForm
                     uniqueBrands={uniqueBrands}
                     uniqueModels={uniqueModels}
@@ -87,14 +90,27 @@ const Autos = () => {
                     setCurrentPage={setCurrentPage}
                 />
 
-                <CarList currentItems={currentItems} />
+                <Row className="mb-3 justify-content-between align-items-center">
+                    <Col xs={3}>
+                        <StockTotal
+                            currentItems={currentItems}
+                            totalItems={data.length}
+                        />
+                    </Col>
+                    <Col xs={3}>
+                        <CarsOrder
+                            setSortCriteria={setSortCriteria}
+                            sortCriteria={sortCriteria}
+                        />
+                    </Col>
+                </Row>
+                <CarList currentItems={sortedItems} />
 
                 <PaginationControl
                     totalPages={totalPages}
                     currentPage={currentPage}
                     setCurrentPage={setCurrentPage}
                 />
-
             </Container>
         </>
     );

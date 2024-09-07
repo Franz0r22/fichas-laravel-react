@@ -37,7 +37,7 @@ select option {
 
 .custom-slider .range-slider__range {
     height: 6px;
-    background-color: black;
+    background-color: var(--primary-black);
     border-radius: 4px;
 }
 
@@ -48,7 +48,7 @@ select option {
     width: 22px;
     background-color: var(--primary-white);
     border-radius: 50%;
-    border: 4px solid black;
+    border: 4px solid var(--primary-black);
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
     cursor: pointer;
     transition: background-color 0.2s ease;
