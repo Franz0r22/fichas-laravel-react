@@ -142,6 +142,7 @@ const FilterForm = ({
                     <Form.Group>
                         <Form.Label className={styles.formLabel}>Año</Form.Label>
                         <RangeSlider
+                            className="custom-slider"
                             min={minYear}
                             max={maxYear}
                             step={1}
@@ -158,6 +159,7 @@ const FilterForm = ({
                     <Form.Group>
                         <Form.Label className={styles.formLabel}>Precio</Form.Label>
                         <RangeSlider
+                            className="custom-slider"
                             min={minPrice}
                             max={maxPrice}
                             step={100}
@@ -174,6 +176,7 @@ const FilterForm = ({
                     <Form.Group>
                         <Form.Label className={styles.formLabel}>Kilometraje</Form.Label>
                         <RangeSlider
+                            className="custom-slider"
                             min={minKm}
                             max={maxKm}
                             step={1}
