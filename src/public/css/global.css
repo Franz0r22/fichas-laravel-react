@@ -29,3 +29,7 @@ p {
 .fs-12 {
     font-size: 12px;
 }
+
+select option {
+    background-color: var(--primary-gray);
+}

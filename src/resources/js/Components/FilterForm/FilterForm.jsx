@@ -48,12 +48,13 @@ const FilterForm = ({
     };
 
     return (
-        <Form className='mb-4'>
-            <Row>
+        <Form className={styles.formBox}>
+            <Row className='gy-3'>
                 <Col lg={3}>
                     <Form.Group>
-                        <Form.Label>Marca</Form.Label>
+                        <Form.Label className={styles.formLabel}>Marca</Form.Label>
                         <Form.Select
+                            className={styles.formSelect}
                             value={selectedBrand}
                             onChange={e => {
                                 setSelectedBrand(e.target.value);
@@ -75,8 +76,9 @@ const FilterForm = ({
                 </Col>
                 <Col lg={3}>
                     <Form.Group>
-                        <Form.Label>Modelo</Form.Label>
+                        <Form.Label className={styles.formLabel}>Modelo</Form.Label>
                         <Form.Select
+                            className={styles.formSelect}
                             value={selectedModel}
                             onChange={e => {
                                 setSelectedModel(e.target.value);
@@ -98,8 +100,9 @@ const FilterForm = ({
                 </Col>
                 <Col lg={3}>
                     <Form.Group>
-                        <Form.Label>Combustible</Form.Label>
+                        <Form.Label className={styles.formLabel}>Combustible</Form.Label>
                         <Form.Select
+                            className={styles.formSelect}
                             value={selectedFuel}
                             onChange={e => {
                                 setSelectedFuel(e.target.value);
@@ -117,8 +120,9 @@ const FilterForm = ({
                 </Col>
                 <Col lg={3}>
                     <Form.Group>
-                        <Form.Label>Promoción</Form.Label>
+                        <Form.Label className={styles.formLabel}>Promoción</Form.Label>
                         <Form.Select
+                            className={styles.formSelect}
                             value={selectedLabel}
                             onChange={e => {
                                 setSelectedLabel(e.target.value);
@@ -136,7 +140,7 @@ const FilterForm = ({
                 </Col>
                 <Col lg={3}>
                     <Form.Group>
-                        <Form.Label>Año</Form.Label>
+                        <Form.Label className={styles.formLabel}>Año</Form.Label>
                         <RangeSlider
                             min={minYear}
                             max={maxYear}
@@ -144,7 +148,7 @@ const FilterForm = ({
                             value={selectedYearRange}
                             onInput={handleRangeYearChange}
                         />
-                        <div className="d-flex justify-content-between">
+                        <div className="d-flex justify-content-between fs-14 mt-2">
                             <span>{`${selectedYearRange[0]}`}</span>
                             <span>{`${selectedYearRange[1]}`}</span>
                         </div>
@@ -152,7 +156,7 @@ const FilterForm = ({
                 </Col>
                 <Col lg={3}>
                     <Form.Group>
-                        <Form.Label>Precio</Form.Label>
+                        <Form.Label className={styles.formLabel}>Precio</Form.Label>
                         <RangeSlider
                             min={minPrice}
                             max={maxPrice}
@@ -160,7 +164,7 @@ const FilterForm = ({
                             value={selectedPriceRange}
                             onInput={handleRangePriceChange}
                         />
-                        <div className="d-flex justify-content-between">
+                        <div className="d-flex justify-content-between fs-14 mt-2">
                             <span>{`$${selectedPriceRange[0].toLocaleString()}`}</span>
                             <span>{`$${selectedPriceRange[1].toLocaleString()}`}</span>
                         </div>
@@ -168,7 +172,7 @@ const FilterForm = ({
                 </Col>
                 <Col lg={3}>
                     <Form.Group>
-                        <Form.Label>Kilometraje</Form.Label>
+                        <Form.Label className={styles.formLabel}>Kilometraje</Form.Label>
                         <RangeSlider
                             min={minKm}
                             max={maxKm}
@@ -176,7 +180,7 @@ const FilterForm = ({
                             value={selectedKmRange}
                             onInput={handleRangeKmChange}
                         />
-                        <div className="d-flex justify-content-between">
+                        <div className="d-flex justify-content-between fs-14 mt-2">
                             <span>{`${selectedKmRange[0].toLocaleString()} Km`}</span>
                             <span>{`${selectedKmRange[1].toLocaleString()} Km`}</span>
                         </div>
