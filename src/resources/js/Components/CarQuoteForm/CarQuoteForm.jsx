@@ -37,8 +37,9 @@ const CarQuoteForm = () => {
             <h5 className={`${styles.carTitle}`}>Cotízalo Aquí</h5>
 
             <Form.Group controlId="name">
-                <Form.Label>Nombre</Form.Label>
+                <Form.Label className={styles.formLabel}>Nombre</Form.Label>
                 <Form.Control
+                    className={styles.formInput}
                     type="text"
                     value={data.name}
                     onChange={(e) => setData('name', e.target.value)}
@@ -51,8 +52,9 @@ const CarQuoteForm = () => {
             </Form.Group>
 
             <Form.Group controlId="email">
-                <Form.Label>Email</Form.Label>
+                <Form.Label className={styles.formLabel}>Email</Form.Label>
                 <Form.Control
+                    className={styles.formInput}
                     type="email"
                     value={data.email}
                     onChange={(e) => setData('email', e.target.value)}
@@ -65,8 +67,9 @@ const CarQuoteForm = () => {
             </Form.Group>
 
             <Form.Group controlId="rut">
-                <Form.Label>RUT</Form.Label>
+                <Form.Label className={styles.formLabel}>Rut</Form.Label>
                 <Form.Control
+                    className={styles.formInput}
                     type="text"
                     value={data.rut}
                     onChange={(e) => setData('rut', e.target.value)}
@@ -79,8 +82,9 @@ const CarQuoteForm = () => {
             </Form.Group>
 
             <Form.Group controlId="message">
-                <Form.Label>Mensaje</Form.Label>
+                <Form.Label className={styles.formLabel}>Mensaje</Form.Label>
                 <Form.Control
+                    className={styles.formMessage}
                     as="textarea"
                     rows={3}
                     value={data.message}

@@ -34,7 +34,7 @@ select option {
     background-color: var(--primary-gray);
 }
 
-
+/* Filtro de rangos */
 .custom-slider .range-slider__range {
     height: 6px;
     background-color: var(--primary-black);
@@ -42,7 +42,7 @@ select option {
 }
 
 
-/* Estilo para el thumb (el círculo que arrastras) */
+/* Estilo para el thumb */
 .custom-slider .range-slider__thumb {
     height: 22px;
     width: 22px;
@@ -59,4 +59,15 @@ select option {
 .custom-slider .range-slider__thumb:focus {
     outline: 0;
     box-shadow: 0 0 0 5px rgba(97, 97, 97, 0.5);
+}
+
+/* Paginación */
+
+.active>.page-link {
+    background-color: var(--primary-black);
+    border-color: var(--primary-black);
+}
+
+.page-link {
+    color: var(--primary-black);
 }
