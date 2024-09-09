@@ -26,6 +26,9 @@ const useCars = () => {
         selectedLabel, setSelectedLabel,
         handleFilter
     } = useFilter();
+
+    //Tipo de filtro a usar
+    const isLatFilter = import.meta.env.VITE_FILTER_LAT === 'true';
     
     // Filtra los datos usando la función handleFilter proporcionada por useFilter
     const filteredData = useMemo(() => handleFilter(data || []), [handleFilter, data]);
@@ -37,7 +40,7 @@ const useCars = () => {
     const uniqueBrands = useUniqueBrands(filteredData);
     const uniqueModels = useUniqueModelsByBrand(filteredData, selectedBrand);
     const uniqueFuels = useUniqueFuels(filteredData);
-    const uniqueLabels = useUniqueLabels(filteredData);
+    const uniqueLabels = useUniqueLabels(isLatFilter ? data : filteredData);
 
 
     // Usa el hook usePagination para manejar la lógica de paginación

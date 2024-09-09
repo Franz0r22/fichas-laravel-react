@@ -48,6 +48,18 @@ const FilterForm = ({
         setCurrentPage(1);
     };
 
+    const handleCheckboxChange = (event) => {
+        const { value, checked } = event.target;
+
+        if (checked) {
+            // Agregar etiqueta seleccionada al array
+            setSelectedLabel([...selectedLabel, value]);
+        } else {
+            // Remover etiqueta deseleccionada del array
+            setSelectedLabel(selectedLabel.filter(label => label !== value));
+        }
+    };
+
     const isLatFilter = import.meta.env.VITE_FILTER_LAT === 'true';
 
     return (
@@ -122,26 +134,46 @@ const FilterForm = ({
                             </Form.Select>
                         </Form.Group>
                     </Col>
-                    <Col lg={isLatFilter ? 12 : 3}>
-                        <Form.Group>
-                            <Form.Label className={styles.formLabel}>Promoción</Form.Label>
-                            <Form.Select
-                                className={styles.formSelect}
-                                value={selectedLabel}
-                                onChange={e => {
-                                    setSelectedLabel(e.target.value);
-                                    setCurrentPage(1);
-                                }}
-                            >
-                                <option value="">Todos</option>
+                    {isLatFilter ?
+                    //Checkboxes Filtro Lateral
+                        <Col lg={12}>
+                            <Form.Group>
+                                <Form.Label className={styles.formLabel}>Promoción</Form.Label>
                                 {uniqueLabels.map(label => (
-                                    <option key={label} value={label}>
-                                        {label}
-                                    </option>
+                                    <Form.Check
+                                        key={label}
+                                        type="checkbox"
+                                        label={label}
+                                        id={label}
+                                        value={label}
+                                        checked={selectedLabel.includes(label)}
+                                        onChange={handleCheckboxChange}
+                                    />
                                 ))}
-                            </Form.Select>
-                        </Form.Group>
-                    </Col>
+                            </Form.Group>
+                        </Col> :
+                        //Select Filtro Superior
+                        <Col lg={3}>
+                            <Form.Group>
+                                <Form.Label className={styles.formLabel}>Promoción</Form.Label>
+                                <Form.Select
+                                    className={styles.formSelect}
+                                    value={selectedLabel}
+                                    onChange={e => {
+                                        setSelectedLabel(e.target.value);
+                                        setCurrentPage(1);
+                                    }}
+                                >
+                                    <option value="">Todos</option>
+                                    {uniqueLabels.map(label => (
+                                        <option key={label} value={label}>
+                                            {label}
+                                        </option>
+                                    ))}
+                                </Form.Select>
+                            </Form.Group>
+                        </Col>
+                    }
                     <Col lg={isLatFilter ? 12 : 3}>
                         <Form.Group>
                             <Form.Label className={styles.formLabel}>Año</Form.Label>
