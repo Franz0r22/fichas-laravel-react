@@ -1,7 +1,7 @@
 .formBox {
     margin: 30px 0px;
     padding: 20px;
-    border: nonet;
+    border: none;
     background-color: var(--primary-gray);
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     border-radius: 16px;

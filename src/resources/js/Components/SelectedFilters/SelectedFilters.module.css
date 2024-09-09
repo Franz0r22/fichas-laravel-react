@@ -1,0 +1,46 @@
+.selectedFilters {
+    margin: 30px 0px;
+    padding: 20px;
+    border: none;
+    background-color: var(--primary-gray);
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-radius: 16px;
+}
+
+.filtersList {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.filterLabel {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 5px 10px;
+    background-color: #c0c0c0;
+    border-radius: 50px;
+    color: var(--primary-white);
+}
+
+.filtersTitle {
+    text-transform: uppercase;
+    font-weight: 900;
+    font-size: 14px;
+}
+
+.closeIcon {
+    font-size: 16px;
+    margin-left: 3px;
+    color: #555555;
+}
+
+.clerFiltersBtn {
+    background: none;
+    border: none;
+    font-size: 14px;
+    text-decoration: underline;
+}
