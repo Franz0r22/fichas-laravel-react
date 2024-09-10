@@ -8,9 +8,9 @@ const useSort = (items) => {
 
         const sorted = [...items].sort((a, b) => {
             if (sortCriteria === "asc") {
-                return a.VCHPRECIO - b.VCHPRECIO;
+                return a.precio - b.precio;
             } else if (sortCriteria === "desc") {
-                return b.VCHPRECIO - a.VCHPRECIO;
+                return b.precio - a.precio;
             } else if (sortCriteria === "newest") {
                 return b.AUTOID - a.AUTOID;
             } else if (sortCriteria === "oldest") {

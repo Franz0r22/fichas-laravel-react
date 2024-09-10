@@ -34,7 +34,7 @@ const useCars = () => {
     // Filtra los datos usando la función handleFilter proporcionada por useFilter
     const filteredData = useMemo(() => handleFilter(data || []), [handleFilter, data]);
 
-    // Usa hooks específicos para obtener datos únicos y rangos de precios
+    // Usa hooks específicos para obtener datos únicos y rangos de auto.precios
     const { minPrice, maxPrice } = usePriceRange(data);
     const { minYear, maxYear } = useYearRange(data);
     const { minKm, maxKm } = useKmRange(data);
@@ -54,7 +54,7 @@ const useCars = () => {
         totalPages,
     } = usePagination(filteredData);
 
-    // Efecto que actualiza el rango de precios seleccionado cuando los datos o los precios cambian
+    // Efecto que actualiza el rango de auto.precios seleccionado cuando los datos o los auto.precios cambian
     useEffect(() => {
         if (data) {
             setSelectedPriceRange([minPrice, maxPrice]);

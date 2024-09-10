@@ -19,14 +19,14 @@ const useFilter = () => {
 
     const handleFilter = useCallback((data) => {
         return data.filter(auto => {
-            const yearMatch = auto.INTANO >= selectedYearRange[0] && auto.INTANO <= selectedYearRange[1];
-            const priceMatch = auto.VCHPRECIO >= selectedPriceRange[0] && auto.VCHPRECIO <= selectedPriceRange[1];
+            const yearMatch = auto.year >= selectedYearRange[0] && auto.year <= selectedYearRange[1];
+            const priceMatch = auto.precio >= selectedPriceRange[0] && auto.precio <= selectedPriceRange[1];
             const KmMatch = auto.VCHKILOMETROS >= selectedKmRange[0] && auto.VCHKILOMETROS <= selectedKmRange[1];
-            const brandMatch = selectedBrand ? auto.MARCA === selectedBrand : true;
-            const modelMatch = selectedModel ? auto.MODELO === selectedModel : true;
+            const brandMatch = selectedBrand ? auto.marca === selectedBrand : true;
+            const modelMatch = selectedModel ? auto.modelo === selectedModel : true;
             const fuelMatch = selectedFuel.length > 0 ? selectedFuel.includes(auto.COMBUSTIBLE) : true;
             const labelMatch = selectedLabel.length > 0 ? selectedLabel.includes(auto.VCHETIQUETA_TITULO) : true;
-            const keywordMatch = keyword ? auto.MARCA.toLowerCase().includes(keyword) || auto.MODELO.toLowerCase().includes(keyword) || auto.VCHVERSION.toLowerCase().includes(keyword) : true;
+            const keywordMatch = keyword ? auto.marca.toLowerCase().includes(keyword) || auto.modelo.toLowerCase().includes(keyword) || version.toLowerCase().includes(keyword) : true;
             return yearMatch && brandMatch && modelMatch && priceMatch && fuelMatch && labelMatch && KmMatch && keywordMatch;
         });
     }, [selectedYearRange, selectedBrand, selectedModel, selectedPriceRange, selectedKmRange, selectedFuel, selectedLabel, keyword]);

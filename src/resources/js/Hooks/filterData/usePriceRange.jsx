@@ -7,7 +7,7 @@ const usePriceRange = (data) => {
 
     useEffect(() => {
         if (data) {
-            const prices = data.map(auto => auto.VCHPRECIO);
+            const prices = data.map(auto => auto.precio);
             const minPrice = Math.min(...prices);
             const maxPrice = Math.max(...prices);
             setMinPrice(minPrice);

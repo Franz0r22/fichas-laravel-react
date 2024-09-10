@@ -34,7 +34,7 @@ const CarCarousel = ({ currentItems }) => {
             }}
         >
             {currentItems.map((auto) => (
-                <SwiperSlide key={auto.AUTOID}>
+                <SwiperSlide key={auto.idauto}>
                     <CarItem auto={auto} />
                 </SwiperSlide>
             ))}

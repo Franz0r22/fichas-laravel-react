@@ -21,7 +21,7 @@ const CarItem = ({ auto }) => {
     }, [auto.url_foto_particular]);
 
     return (
-        <a href={`/${auto.MARCA.toLowerCase()}/${auto.MODELO.toLowerCase()}/${auto.AUTOID}`} className={styles.hasCta}>
+        <a href={`/${auto.marca.toLowerCase()}/${auto.modelo.toLowerCase()}/${auto.idauto}`} className={styles.hasCta}>
             <Card className={styles.cardBox}>
 
                 {loading ? (
@@ -39,15 +39,15 @@ const CarItem = ({ auto }) => {
                         </div>
                         <Card.Body>
                             <Card.Title className='mb-0 text-truncate'>
-                                {auto.MARCA} {auto.MODELO}
+                                {auto.marca} {auto.modelo}
                             </Card.Title>
                             <div className='text-truncate'>
-                                <span>{auto.VCHVERSION}</span>
+                                <span>{version}</span>
                             </div>
                             <div className={`${styles.featuresWrapper} mt-3`}>
                                 <div className={styles.featuresBox}>
                                     <BsCalendar2 className={styles.iconSize} />
-                                    <span>{auto.INTANO}</span>
+                                    <span>{auto.year}</span>
                                 </div>
                                 <div className={styles.featuresBox}>
                                     <GiCarWheel className={styles.iconSize} />
@@ -63,8 +63,8 @@ const CarItem = ({ auto }) => {
                                 </div>
                             </div>
                             <Card.Text className={`${styles.priceSize} mt-3`}>
-                                <span className={styles.monedaSize}>{auto.VCHMONEDA}</span>
-                                {formatNumber(auto.VCHPRECIO)}
+                                <span className={styles.monedaSize}>{auto.moneda}</span>
+                                {formatNumber(auto.precio)}
                             </Card.Text>
                             <button className={styles.btnCard}>
                                 Ver más detalles

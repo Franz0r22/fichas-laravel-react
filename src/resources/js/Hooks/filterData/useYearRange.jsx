@@ -7,7 +7,7 @@ const useYearRange = (data) => {
 
     useEffect(() => {
         if (data) {
-            const years = data.map(auto => auto.INTANO);
+            const years = data.map(auto => auto.year);
             const minYear = Math.min(...years);
             const maxYear = Math.max(...years);
             setMinYear(minYear);

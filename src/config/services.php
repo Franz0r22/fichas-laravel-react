@@ -18,6 +18,10 @@ return [
         'url' => env('API_DTK2_URL'),
         'url_v2' => env('API_DTK2_URL_V2'),
         'token' => env('API_DTK2_TOKEN'),
+        'urlfichas' => env('API_FICHAS_URL'),
+        'tokenfichas' => env('API_FICHAS_TOKEN'),
+        'urlfichasv2' => env('API_FICHAS_URL_V2'),
+        'tokenfichasv2' => env('API_FICHAS_TOKEN_V2'),
     ],
 
     'postmark' => [
