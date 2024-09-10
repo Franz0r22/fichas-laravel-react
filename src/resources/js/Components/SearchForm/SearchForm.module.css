@@ -1,0 +1,16 @@
+.searchForm {
+    display: inline-flex;
+    border: none;
+}
+
+.searchInput {
+    border: none !important;
+    border-radius: 50px !important;
+    background-color: var(--primary-gray) !important;
+    width: 280px !important;
+}
+
+.searchInput::placeholder {
+    font-size: 14px;
+    color: var(--primary-black);
+}

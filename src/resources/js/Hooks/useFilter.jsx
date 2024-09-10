@@ -13,7 +13,9 @@ const useFilter = () => {
     //Filtros Select o Checkboxes (Depende del filtro)
     const [selectedFuel, setSelectedFuel] = useState([]);
     const [selectedLabel, setSelectedLabel] = useState([]);
-
+    
+    // Búsqueda por palabra clave
+    const [keyword, setKeyword] = useState('');
 
     const handleFilter = useCallback((data) => {
         return data.filter(auto => {
@@ -24,9 +26,10 @@ const useFilter = () => {
             const modelMatch = selectedModel ? auto.MODELO === selectedModel : true;
             const fuelMatch = selectedFuel.length > 0 ? selectedFuel.includes(auto.COMBUSTIBLE) : true;
             const labelMatch = selectedLabel.length > 0 ? selectedLabel.includes(auto.VCHETIQUETA_TITULO) : true;
-            return yearMatch && brandMatch && modelMatch && priceMatch && fuelMatch && labelMatch && KmMatch;
+            const keywordMatch = keyword ? auto.MARCA.toLowerCase().includes(keyword) || auto.MODELO.toLowerCase().includes(keyword) || auto.VCHVERSION.toLowerCase().includes(keyword) : true;
+            return yearMatch && brandMatch && modelMatch && priceMatch && fuelMatch && labelMatch && KmMatch && keywordMatch;
         });
-    }, [selectedYearRange, selectedBrand, selectedModel, selectedPriceRange, selectedKmRange, selectedFuel, selectedLabel]);
+    }, [selectedYearRange, selectedBrand, selectedModel, selectedPriceRange, selectedKmRange, selectedFuel, selectedLabel, keyword]);
 
     return {
         selectedYearRange,
@@ -43,6 +46,8 @@ const useFilter = () => {
         setSelectedFuel,
         selectedLabel,
         setSelectedLabel,
+        keyword,
+        setKeyword,
         handleFilter,
     };
 };

@@ -7,6 +7,7 @@ import PaginationControl from "../../Components/PaginationControl/PaginationCont
 import Breadcrumb from "../../Components/Breadcrumb/Breadcrumb";
 import CarsOrder from "../../Components/CarsOrder/CarsOrder";
 import StockTotal from "../../Components/StockTotal/StockTotal";
+import SearchForm from "../../Components/SearchForm/SearchForm";
 import useCars from "../../Hooks/useCars";
 import useSort from "../../Hooks/useSort";
 
@@ -35,6 +36,8 @@ const Autos = () => {
         setSelectedFuel,
         selectedLabel,
         setSelectedLabel,
+        keyword,
+        setKeyword,
         minPrice,
         maxPrice,
         minYear,
@@ -47,8 +50,7 @@ const Autos = () => {
         totalPages,
     } = useCars(data);
 
-    const { sortedItems, sortCriteria, setSortCriteria } =
-        useSort(currentItems);
+    const { sortedItems, sortCriteria, setSortCriteria } = useSort(currentItems);
 
     const isLatFilter = import.meta.env.VITE_FILTER_LAT === "true";
 
@@ -61,6 +63,11 @@ const Autos = () => {
 
             <Container style={{ minHeight: "100vh" }} className="my-5">
                 <Breadcrumb items={[{ name: "Catálogo" }]} />
+
+                <SearchForm 
+                    keyword={keyword}
+                    setKeyword={setKeyword}
+                />
 
                 {!isLatFilter && (
                     <FilterForm

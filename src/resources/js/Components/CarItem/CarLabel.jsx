@@ -1,9 +1,9 @@
 import React from 'react'
 import styles from './CarLabel.module.css'
 
-const CarLabel = ({ labelName }) => {
+const CarLabel = ({ labelName, labelColor, fontcolor }) => {
   return (
-    <div className={styles.labelPosition}>
+    <div className={styles.labelPosition} style={{ backgroundColor: labelColor, color: fontcolor}}>
       {labelName}
     </div>
   )

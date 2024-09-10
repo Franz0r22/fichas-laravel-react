@@ -24,6 +24,7 @@ const useCars = () => {
         selectedModel, setSelectedModel, 
         selectedFuel, setSelectedFuel,
         selectedLabel, setSelectedLabel,
+        keyword, setKeyword,
         handleFilter
     } = useFilter();
 
@@ -112,6 +113,8 @@ const useCars = () => {
         setSelectedFuel,
         selectedLabel,
         setSelectedLabel,
+        keyword,
+        setKeyword,
         currentPage,
         setCurrentPage,
         pageSize,

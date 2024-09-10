@@ -20,7 +20,7 @@ const CarItem = ({ auto }) => {
         img.onload = () => setLoading(false);
     }, [auto.url_foto_particular]);
 
-
+    console.log(auto);
     return (
         <a href={`/${auto.MARCA.toLowerCase()}/${auto.MODELO.toLowerCase()}/${auto.AUTOID}`} className={styles.hasCta}>
             <Card className={styles.cardBox}>
@@ -34,6 +34,8 @@ const CarItem = ({ auto }) => {
                             {auto.VCHETIQUETA_TITULO &&
                                 <CarLabel
                                     labelName={auto.VCHETIQUETA_TITULO}
+                                    labelColor={auto.VCHETIQUETA_COLOR}
+                                    fontColor={auto.fontcolor}
                                 />}
                         </div>
                         <Card.Body>
