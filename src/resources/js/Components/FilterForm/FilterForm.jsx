@@ -187,11 +187,12 @@ const FilterForm = ({
                                     <Form.Check
                                         key={label}
                                         type="checkbox"
-                                        label={label}
+                                        label={label.toLowerCase()}
                                         id={label}
                                         value={label}
                                         checked={selectedLabel.includes(label)}
                                         onChange={handleCheckboxChange}
+                                        style={{textTransform: 'capitalize'}}
                                     />
                                 ))}
                             </Form.Group>

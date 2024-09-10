@@ -65,8 +65,8 @@ const SelectedFilters = ({
                             </div>
                         )}
                         {selectedLabel.length > 0 && (
-                            <div className={styles.filterLabel} onClick={clearLabel} role="button">
-                                {selectedLabel.join(", ")}
+                            <div className={styles.filterLabel} onClick={clearLabel} role="button" style={{ textTransform: 'capitalize' }}>
+                                {selectedLabel.map(label => label.toLowerCase()).join(", ")}
                                 <IoClose className={styles.closeIcon}/>
                             </div>
                         )}

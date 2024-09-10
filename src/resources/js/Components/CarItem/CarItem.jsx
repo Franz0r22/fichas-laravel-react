@@ -20,7 +20,6 @@ const CarItem = ({ auto }) => {
         img.onload = () => setLoading(false);
     }, [auto.url_foto_particular]);
 
-    console.log(auto);
     return (
         <a href={`/${auto.MARCA.toLowerCase()}/${auto.MODELO.toLowerCase()}/${auto.AUTOID}`} className={styles.hasCta}>
             <Card className={styles.cardBox}>
