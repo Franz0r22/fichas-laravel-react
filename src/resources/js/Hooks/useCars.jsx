@@ -39,7 +39,7 @@ const useCars = () => {
     const { minKm, maxKm } = useKmRange(data);
     const uniqueBrands = useUniqueBrands(filteredData);
     const uniqueModels = useUniqueModelsByBrand(filteredData, selectedBrand);
-    const uniqueFuels = useUniqueFuels(filteredData);
+    const uniqueFuels = useUniqueFuels(isLatFilter ? data : filteredData);
     const uniqueLabels = useUniqueLabels(isLatFilter ? data : filteredData);
 
 

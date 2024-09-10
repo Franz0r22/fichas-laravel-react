@@ -1,9 +1,9 @@
-import React from 'react';
-import { Row, Col, Form } from 'react-bootstrap';
-import RangeSlider from 'react-range-slider-input';
-import 'react-range-slider-input/dist/style.css';
-import SelectedFilters from '../SelectedFilters/SelectedFilters';
-import styles from './FilterForm.module.css';
+import React from "react";
+import { Row, Col, Form } from "react-bootstrap";
+import RangeSlider from "react-range-slider-input";
+import "react-range-slider-input/dist/style.css";
+import SelectedFilters from "../SelectedFilters/SelectedFilters";
+import styles from "./FilterForm.module.css";
 
 const FilterForm = ({
     uniqueBrands,
@@ -30,9 +30,8 @@ const FilterForm = ({
     setSelectedFuel,
     selectedLabel,
     setSelectedLabel,
-    setCurrentPage
+    setCurrentPage,
 }) => {
-
     const handleRangePriceChange = (value) => {
         setSelectedPriceRange(value);
         setCurrentPage(1);
@@ -52,29 +51,39 @@ const FilterForm = ({
         const { value, checked } = event.target;
 
         if (checked) {
-            // Agregar etiqueta seleccionada al array
             setSelectedLabel([...selectedLabel, value]);
         } else {
-            // Remover etiqueta deseleccionada del array
-            setSelectedLabel(selectedLabel.filter(label => label !== value));
+            setSelectedLabel(selectedLabel.filter((label) => label !== value));
         }
     };
 
-    const isLatFilter = import.meta.env.VITE_FILTER_LAT === 'true';
+    const handleCheckboxChangeFuel = (event) => {
+        const { value, checked } = event.target;
+
+        if (checked) {
+            setSelectedFuel([...selectedFuel, value]);
+        } else {
+            setSelectedFuel(selectedFuel.filter((fuel) => fuel !== value));
+        }
+    };
+
+    const isLatFilter = import.meta.env.VITE_FILTER_LAT === "true";
 
     return (
         <>
-            <Form className={styles.formBox}>
-                <Row className='gy-3'>
+            <Form className={isLatFilter ? styles.formBox : `${styles.formBox} my-4`}>
+                <Row className="gy-3">
                     <Col lg={isLatFilter ? 12 : 3}>
                         <Form.Group>
-                            <Form.Label className={styles.formLabel}>Marca</Form.Label>
+                            <Form.Label className={styles.formLabel}>
+                                Marca
+                            </Form.Label>
                             <Form.Select
                                 className={styles.formSelect}
                                 value={selectedBrand}
-                                onChange={e => {
+                                onChange={(e) => {
                                     setSelectedBrand(e.target.value);
-                                    setSelectedModel('');
+                                    setSelectedModel("");
                                     // setSelectedYear('');
                                     // setSelectedFuel('');
                                     setSelectedPriceRange([minPrice, maxPrice]);
@@ -82,7 +91,7 @@ const FilterForm = ({
                                 }}
                             >
                                 <option value="">Todas las marcas</option>
-                                {uniqueBrands.map(brand => (
+                                {uniqueBrands.map((brand) => (
                                     <option key={brand} value={brand}>
                                         {brand}
                                     </option>
@@ -92,21 +101,31 @@ const FilterForm = ({
                     </Col>
                     <Col lg={isLatFilter ? 12 : 3}>
                         <Form.Group>
-                            <Form.Label className={styles.formLabel}>Modelo</Form.Label>
+                            <Form.Label className={styles.formLabel}>
+                                Modelo
+                            </Form.Label>
                             <Form.Select
                                 className={styles.formSelect}
                                 value={selectedModel}
-                                onChange={e => {
+                                onChange={(e) => {
                                     setSelectedModel(e.target.value);
                                     setCurrentPage(1);
-                                    setSelectedYear('');
+                                    setSelectedYear("");
                                     setSelectedPriceRange([minPrice, maxPrice]);
                                 }}
                                 disabled={!selectedBrand}
-                                style={{ cursor: !selectedBrand ? 'not-allowed' : 'default' }}
+                                style={{
+                                    cursor: !selectedBrand
+                                        ? "not-allowed"
+                                        : "default",
+                                }}
                             >
-                                <option value="">{selectedBrand ? 'Todos los modelos' : 'Debes seleccionar una marca'}</option>
-                                {uniqueModels.map(model => (
+                                <option value="">
+                                    {selectedBrand
+                                        ? "Todos los modelos"
+                                        : "Debes seleccionar una marca"}
+                                </option>
+                                {uniqueModels.map((model) => (
                                     <option key={model} value={model}>
                                         {model}
                                     </option>
@@ -114,32 +133,57 @@ const FilterForm = ({
                             </Form.Select>
                         </Form.Group>
                     </Col>
-                    <Col lg={isLatFilter ? 12 : 3}>
-                        <Form.Group>
-                            <Form.Label className={styles.formLabel}>Combustible</Form.Label>
-                            <Form.Select
-                                className={styles.formSelect}
-                                value={selectedFuel}
-                                onChange={e => {
-                                    setSelectedFuel(e.target.value);
-                                    setCurrentPage(1);
-                                }}
-                            >
-                                <option value="">Todos</option>
-                                {uniqueFuels.map(fuel => (
-                                    <option key={fuel} value={fuel}>
-                                        {fuel}
-                                    </option>
-                                ))}
-                            </Form.Select>
-                        </Form.Group>
-                    </Col>
-                    {isLatFilter ?
-                    //Checkboxes Filtro Lateral
+                    {isLatFilter ? (
                         <Col lg={12}>
                             <Form.Group>
-                                <Form.Label className={styles.formLabel}>Promoción</Form.Label>
-                                {uniqueLabels.map(label => (
+                                <Form.Label className={styles.formLabel}>
+                                    Combustible
+                                </Form.Label>
+                                {uniqueFuels.map((fuel) => (
+                                    <Form.Check
+                                        key={fuel}
+                                        type="checkbox"
+                                        label={fuel}
+                                        id={fuel}
+                                        value={fuel}
+                                        checked={selectedFuel.includes(fuel)}
+                                        onChange={handleCheckboxChangeFuel}
+                                    />
+                                ))}
+                            </Form.Group>
+                        </Col>
+                    ) : (
+                        <Col lg={3}>
+                            <Form.Group>
+                                <Form.Label className={styles.formLabel}>
+                                    Combustible
+                                </Form.Label>
+                                <Form.Select
+                                    className={styles.formSelect}
+                                    value={selectedFuel}
+                                    onChange={(e) => {
+                                        setSelectedFuel(e.target.value);
+                                        setCurrentPage(1);
+                                    }}
+                                >
+                                    <option value="">Todos</option>
+                                    {uniqueFuels.map((fuel) => (
+                                        <option key={fuel} value={fuel}>
+                                            {fuel}
+                                        </option>
+                                    ))}
+                                </Form.Select>
+                            </Form.Group>
+                        </Col>
+                    )}
+                    {isLatFilter ? (
+                        //Checkboxes Filtro Lateral
+                        <Col lg={12}>
+                            <Form.Group>
+                                <Form.Label className={styles.formLabel}>
+                                    Promoción
+                                </Form.Label>
+                                {uniqueLabels.map((label) => (
                                     <Form.Check
                                         key={label}
                                         type="checkbox"
@@ -151,21 +195,24 @@ const FilterForm = ({
                                     />
                                 ))}
                             </Form.Group>
-                        </Col> :
+                        </Col>
+                    ) : (
                         //Select Filtro Superior
                         <Col lg={3}>
                             <Form.Group>
-                                <Form.Label className={styles.formLabel}>Promoción</Form.Label>
+                                <Form.Label className={styles.formLabel}>
+                                    Promoción
+                                </Form.Label>
                                 <Form.Select
                                     className={styles.formSelect}
                                     value={selectedLabel}
-                                    onChange={e => {
+                                    onChange={(e) => {
                                         setSelectedLabel(e.target.value);
                                         setCurrentPage(1);
                                     }}
                                 >
                                     <option value="">Todos</option>
-                                    {uniqueLabels.map(label => (
+                                    {uniqueLabels.map((label) => (
                                         <option key={label} value={label}>
                                             {label}
                                         </option>
@@ -173,10 +220,12 @@ const FilterForm = ({
                                 </Form.Select>
                             </Form.Group>
                         </Col>
-                    }
+                    )}
                     <Col lg={isLatFilter ? 12 : 3}>
                         <Form.Group>
-                            <Form.Label className={styles.formLabel}>Año</Form.Label>
+                            <Form.Label className={styles.formLabel}>
+                                Año
+                            </Form.Label>
                             <RangeSlider
                                 className="custom-slider"
                                 min={minYear}
@@ -193,7 +242,9 @@ const FilterForm = ({
                     </Col>
                     <Col lg={isLatFilter ? 12 : 3}>
                         <Form.Group>
-                            <Form.Label className={styles.formLabel}>Precio</Form.Label>
+                            <Form.Label className={styles.formLabel}>
+                                Precio
+                            </Form.Label>
                             <RangeSlider
                                 className="custom-slider"
                                 min={minPrice}
@@ -210,7 +261,9 @@ const FilterForm = ({
                     </Col>
                     <Col lg={isLatFilter ? 12 : 3}>
                         <Form.Group>
-                            <Form.Label className={styles.formLabel}>Kilometraje</Form.Label>
+                            <Form.Label className={styles.formLabel}>
+                                Kilometraje
+                            </Form.Label>
                             <RangeSlider
                                 className="custom-slider"
                                 min={minKm}
@@ -241,18 +294,20 @@ const FilterForm = ({
                 maxPrice={maxPrice}
                 minKm={minKm}
                 maxKm={maxKm}
-                clearBrand={() => setSelectedBrand('')}
-                clearModel={() => setSelectedModel('')}
-                clearFuel={() => setSelectedFuel('')}
-                clearLabel={() => setSelectedLabel('')}
+                clearBrand={() => setSelectedBrand("")}
+                clearModel={() => setSelectedModel("")}
+                clearFuel={() => setSelectedFuel("")}
+                clearLabel={() => setSelectedLabel("")}
                 clearYearRange={() => setSelectedYearRange([minYear, maxYear])}
-                clearPriceRange={() => setSelectedPriceRange([minPrice, maxPrice])}
+                clearPriceRange={() =>
+                    setSelectedPriceRange([minPrice, maxPrice])
+                }
                 clearKmRange={() => setSelectedKmRange([minKm, maxKm])}
                 clearAllFilters={() => {
-                    setSelectedBrand('');
-                    setSelectedModel('');
-                    setSelectedFuel('');
-                    setSelectedLabel('');
+                    setSelectedBrand("");
+                    setSelectedModel("");
+                    setSelectedFuel("");
+                    setSelectedLabel("");
                     setSelectedYearRange([minYear, maxYear]);
                     setSelectedPriceRange([minPrice, maxPrice]);
                     setSelectedKmRange([minKm, maxKm]);

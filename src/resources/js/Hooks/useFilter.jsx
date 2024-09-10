@@ -11,7 +11,7 @@ const useFilter = () => {
     const [selectedModel, setSelectedModel] = useState('');
 
     //Filtros Select o Checkboxes (Depende del filtro)
-    const [selectedFuel, setSelectedFuel] = useState('');
+    const [selectedFuel, setSelectedFuel] = useState([]);
     const [selectedLabel, setSelectedLabel] = useState([]);
 
 
@@ -22,8 +22,7 @@ const useFilter = () => {
             const KmMatch = auto.VCHKILOMETROS >= selectedKmRange[0] && auto.VCHKILOMETROS <= selectedKmRange[1];
             const brandMatch = selectedBrand ? auto.MARCA === selectedBrand : true;
             const modelMatch = selectedModel ? auto.MODELO === selectedModel : true;
-            const fuelMatch = selectedFuel ? auto.COMBUSTIBLE === selectedFuel : true;
-            // const labelMatch = selectedLabel ? auto.VCHETIQUETA_TITULO === selectedLabel: true;
+            const fuelMatch = selectedFuel.length > 0 ? selectedFuel.includes(auto.COMBUSTIBLE) : true;
             const labelMatch = selectedLabel.length > 0 ? selectedLabel.includes(auto.VCHETIQUETA_TITULO) : true;
             return yearMatch && brandMatch && modelMatch && priceMatch && fuelMatch && labelMatch && KmMatch;
         });

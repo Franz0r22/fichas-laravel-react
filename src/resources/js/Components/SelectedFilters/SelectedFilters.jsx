@@ -30,14 +30,15 @@ const SelectedFilters = ({
     const anyFilterSelected =
         selectedBrand !== '' ||
         selectedModel !== '' ||
-        selectedFuel !== '' ||
-        selectedLabel !== '' ||
+        selectedFuel.length > 0 ||
+        selectedLabel.length > 0 ||
         selectedYearRange[0] !== minYear ||
         selectedYearRange[1] !== maxYear ||
         selectedPriceRange[0] !== minPrice ||
         selectedPriceRange[1] !== maxPrice ||
         selectedKmRange[0] !== minKm ||
         selectedKmRange[1] !== maxKm;
+
 
     return (
         <>
@@ -57,15 +58,15 @@ const SelectedFilters = ({
                                 <IoClose className={styles.closeIcon}/>
                             </div>
                         )}
-                        {selectedFuel && (
+                        {selectedFuel.length > 0 && (
                             <div className={styles.filterLabel} onClick={clearFuel} role="button">
-                                {selectedFuel}
+                                {selectedFuel.join(", ")}
                                 <IoClose className={styles.closeIcon}/>
                             </div>
                         )}
-                        {selectedLabel && (
+                        {selectedLabel.length > 0 && (
                             <div className={styles.filterLabel} onClick={clearLabel} role="button">
-                                {selectedLabel}
+                                {selectedLabel.join(", ")}
                                 <IoClose className={styles.closeIcon}/>
                             </div>
                         )}

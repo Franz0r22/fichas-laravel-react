@@ -3,7 +3,11 @@ import { useMemo } from 'react';
 const useUniqueFuels = (data) => {
     return useMemo(() => {
         if (!data) return [];
-        return [...new Set(data.map(auto => auto.COMBUSTIBLE))].sort((a, b) => b - a);
+
+        const filteredData = data
+            .map(auto => auto.COMBUSTIBLE)
+            .filter(fuel => fuel && fuel.trim() !== '');
+        return [...new Set(filteredData)].sort();
     }, [data]);
 };
 
