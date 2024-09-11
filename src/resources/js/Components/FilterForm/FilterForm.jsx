@@ -4,12 +4,14 @@ import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
 import SelectedFilters from "../SelectedFilters/SelectedFilters";
 import styles from "./FilterForm.module.css";
+import { formatCategory } from "../../utils/formatCategory";
 
 const FilterForm = ({
     uniqueBrands,
     uniqueModels,
     uniqueFuels,
     uniqueLabels,
+    uniqueCategories,
     selectedYearRange,
     setSelectedYearRange,
     selectedPriceRange,
@@ -22,6 +24,8 @@ const FilterForm = ({
     maxPrice,
     minKm,
     maxKm,
+    selectedCategory,
+    setSelectedCategory,
     selectedBrand,
     setSelectedBrand,
     selectedModel,
@@ -57,6 +61,16 @@ const FilterForm = ({
         }
     };
 
+    const handleCheckboxChangeCategory = (event) => {
+        const { value, checked } = event.target;
+
+        if (checked) {
+            setSelectedCategory([...selectedCategory, value]);
+        } else {
+            setSelectedCategory(selectedCategory.filter((category) => category !== value));
+        }
+    };
+
     const handleCheckboxChangeFuel = (event) => {
         const { value, checked } = event.target;
 
@@ -73,6 +87,48 @@ const FilterForm = ({
         <>
             <Form className={isLatFilter ? styles.formBox : `${styles.formBox} my-4`}>
                 <Row className="gy-3">
+                    {!isLatFilter ? (
+                        <Col lg={3}>
+                            <Form.Group>
+                                <Form.Label className={styles.formLabel}>
+                                    Categoría
+                                </Form.Label>
+                                <Form.Select
+                                    className={styles.formSelect}
+                                    value={selectedCategory}
+                                    onChange={(e) => {
+                                        setSelectedCategory(e.target.value);
+                                        setCurrentPage(1);
+                                    }}
+                                >
+                                    <option value="">Todas las categorías</option>
+                                    {uniqueCategories.map((category) => (
+                                        <option key={category} value={category}>
+                                            {formatCategory(category)}
+                                        </option>
+                                    ))}
+                                </Form.Select>
+                            </Form.Group>
+                        </Col>) :
+                        (
+                            <Col lg={3}>
+                                <Form.Group>
+                                    <Form.Label className={styles.formLabel}>
+                                        Categoría
+                                    </Form.Label>
+                                    {uniqueCategories.map((category) => (
+                                        <Form.Check
+                                            key={category}
+                                            type="checkbox"
+                                            label={formatCategory(category)}
+                                            id={category}
+                                            value={category}
+                                            checked={selectedCategory.includes(category)}
+                                            onChange={handleCheckboxChangeCategory}
+                                        />))}
+                                </Form.Group>
+                            </Col>)}
+
                     <Col lg={isLatFilter ? 12 : 3}>
                         <Form.Group>
                             <Form.Label className={styles.formLabel}>
@@ -192,7 +248,7 @@ const FilterForm = ({
                                         value={label}
                                         checked={selectedLabel.includes(label)}
                                         onChange={handleCheckboxChange}
-                                        style={{textTransform: 'capitalize'}}
+                                        style={{ textTransform: 'capitalize' }}
                                     />
                                 ))}
                             </Form.Group>
@@ -282,6 +338,7 @@ const FilterForm = ({
                 </Row>
             </Form>
             <SelectedFilters
+                selectedCategory={selectedCategory}
                 selectedBrand={selectedBrand}
                 selectedModel={selectedModel}
                 selectedFuel={selectedFuel}
@@ -297,6 +354,7 @@ const FilterForm = ({
                 maxKm={maxKm}
                 clearBrand={() => setSelectedBrand("")}
                 clearModel={() => setSelectedModel("")}
+                clearCategory={() => setSelectedCategory("")}
                 clearFuel={() => setSelectedFuel("")}
                 clearLabel={() => setSelectedLabel("")}
                 clearYearRange={() => setSelectedYearRange([minYear, maxYear])}
@@ -308,6 +366,7 @@ const FilterForm = ({
                     setSelectedBrand("");
                     setSelectedModel("");
                     setSelectedFuel("");
+                    setSelectedCategory("");
                     setSelectedLabel("");
                     setSelectedYearRange([minYear, maxYear]);
                     setSelectedPriceRange([minPrice, maxPrice]);

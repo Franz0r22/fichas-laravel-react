@@ -11,6 +11,7 @@ const useFilter = () => {
     const [selectedModel, setSelectedModel] = useState('');
 
     //Filtros Select o Checkboxes (Depende del filtro)
+    const [selectedCategory, setSelectedCategory] = useState([]);
     const [selectedFuel, setSelectedFuel] = useState([]);
     const [selectedLabel, setSelectedLabel] = useState([]);
     
@@ -26,10 +27,11 @@ const useFilter = () => {
             const modelMatch = selectedModel ? ad.model === selectedModel : true;
             const fuelMatch = selectedFuel.length > 0 ? selectedFuel.includes(ad.fuelType) : true;
             const labelMatch = selectedLabel.length > 0 ? selectedLabel.includes(ad.ribbonName) : true;
-            const keywordMatch = keyword ? ad.brand.toLowerCase().includes(keyword) || ad.model.toLowerCase().includes(keyword) || ad.version.toLowerCase().includes(keyword) : true;
-            return yearMatch && brandMatch && modelMatch && priceMatch && fuelMatch && labelMatch && KmMatch && keywordMatch;
+            const categoryMatch = selectedCategory.length > 0 ? selectedCategory.includes(ad.category) : true;
+            const keywordMatch = keyword ? ad.brand.toLowerCase().includes(keyword) || ad.model.toLowerCase().includes(keyword) || ad.version.toLowerCase().includes(keyword) || ad.transmissionType.toLowerCase().includes(keyword) || ad.category.toLowerCase().includes(keyword) || ad.fuelType.toLowerCase().includes(keyword) : true;
+            return yearMatch && brandMatch && modelMatch && priceMatch && fuelMatch && labelMatch && KmMatch && categoryMatch && keywordMatch;
         });
-    }, [selectedYearRange, selectedBrand, selectedModel, selectedPriceRange, selectedKmRange, selectedFuel, selectedLabel, keyword]);
+    }, [selectedYearRange, selectedBrand, selectedModel, selectedPriceRange, selectedKmRange, selectedFuel, selectedLabel, keyword, selectedCategory]);
 
     return {
         selectedYearRange,
@@ -46,6 +48,8 @@ const useFilter = () => {
         setSelectedFuel,
         selectedLabel,
         setSelectedLabel,
+        selectedCategory,
+        setSelectedCategory,
         keyword,
         setKeyword,
         handleFilter,

@@ -2,12 +2,14 @@ import React from 'react';
 import { Button, Badge } from 'react-bootstrap';
 import styles from './SelectedFilters.module.css'
 import { IoClose } from "react-icons/io5";
+import { formatCategory } from '../../utils/formatCategory';
 
 const SelectedFilters = ({
     selectedBrand,
     selectedModel,
     selectedFuel,
     selectedLabel,
+    selectedCategory,
     selectedYearRange,
     selectedPriceRange,
     selectedKmRange,
@@ -21,6 +23,7 @@ const SelectedFilters = ({
     clearModel,
     clearFuel,
     clearLabel,
+    clearCategory,
     clearYearRange,
     clearPriceRange,
     clearKmRange,
@@ -28,6 +31,7 @@ const SelectedFilters = ({
 }) => {
     // Verificar si hay algún filtro aplicado
     const anyFilterSelected =
+        selectedCategory.length > 0 ||
         selectedBrand !== '' ||
         selectedModel !== '' ||
         selectedFuel.length > 0 ||
@@ -47,6 +51,14 @@ const SelectedFilters = ({
                 <div className={styles.selectedFilters}>
                     <h6 className={styles.filtersTitle}>Filtros aplicados:</h6>
                     <div className={styles.filtersList}>
+                        {selectedCategory.length > 0 && (
+                            <div className={styles.filterLabel} onClick={clearCategory} role="button">
+                                {isLatFilter
+                                    ? selectedCategory.map(formatCategory).join(", ")
+                                    : formatCategory(selectedCategory)}
+                                <IoClose className={styles.closeIcon} />
+                            </div>
+                        )}
                         {selectedBrand && (
                             <div className={styles.filterLabel} onClick={clearBrand} role="button">
                                 {selectedBrand}

@@ -20,6 +20,7 @@ const Autos = () => {
         uniqueModels,
         uniqueFuels,
         uniqueLabels,
+        uniqueCategories,
         selectedYear,
         setSelectedYear,
         selectedBrand,
@@ -27,6 +28,8 @@ const Autos = () => {
         selectedModel,
         setSelectedModel,
         selectedPriceRange,
+        selectedCategory,
+        setSelectedCategory,
         setSelectedPriceRange,
         selectedYearRange,
         setSelectedYearRange,
@@ -75,6 +78,7 @@ const Autos = () => {
                         uniqueModels={uniqueModels}
                         uniqueFuels={uniqueFuels}
                         uniqueLabels={uniqueLabels}
+                        uniqueCategories={uniqueCategories}
                         selectedYear={selectedYear}
                         setSelectedYear={setSelectedYear}
                         selectedBrand={selectedBrand}
@@ -91,6 +95,8 @@ const Autos = () => {
                         setSelectedFuel={setSelectedFuel}
                         selectedLabel={selectedLabel}
                         setSelectedLabel={setSelectedLabel}
+                        selectedCategory={selectedCategory}
+                        setSelectedCategory={setSelectedCategory}
                         minPrice={minPrice}
                         maxPrice={maxPrice}
                         minYear={minYear}
@@ -122,7 +128,8 @@ const Autos = () => {
                                 uniqueBrands={uniqueBrands}
                                 uniqueModels={uniqueModels}
                                 uniqueFuels={uniqueFuels}
-                                uniqueLabels={uniqueLabels}
+                                uniqueLabels={uniqueLabels} 
+                                uniqueCategories={uniqueCategories}
                                 selectedYear={selectedYear}
                                 setSelectedYear={setSelectedYear}
                                 selectedBrand={selectedBrand}
@@ -139,6 +146,8 @@ const Autos = () => {
                                 setSelectedFuel={setSelectedFuel}
                                 selectedLabel={selectedLabel}
                                 setSelectedLabel={setSelectedLabel}
+                                selectedCategory={selectedCategory}
+                                setSelectedCategory={setSelectedCategory}
                                 minPrice={minPrice}
                                 maxPrice={maxPrice}
                                 minYear={minYear}
