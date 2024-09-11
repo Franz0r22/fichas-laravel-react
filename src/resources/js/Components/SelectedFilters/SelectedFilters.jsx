@@ -28,6 +28,8 @@ const SelectedFilters = ({
     clearPriceRange,
     clearKmRange,
     clearAllFilters,
+    selectedSeller,
+    clearSeller,
 }) => {
     // Verificar si hay algún filtro aplicado
     const anyFilterSelected =
@@ -41,7 +43,8 @@ const SelectedFilters = ({
         selectedPriceRange[0] !== minPrice ||
         selectedPriceRange[1] !== maxPrice ||
         selectedKmRange[0] !== minKm ||
-        selectedKmRange[1] !== maxKm;
+        selectedKmRange[1] !== maxKm ||
+        selectedSeller.length > 0;
 
     const isLatFilter = import.meta.env.VITE_FILTER_LAT === 'true';
 
@@ -103,6 +106,14 @@ const SelectedFilters = ({
                                 <IoClose className={styles.closeIcon} />
                             </div>
                         ) : null}
+                        {selectedSeller.length > 0 && (
+                            <div className={styles.filterLabel} onClick={clearSeller} role="button">
+                                {isLatFilter
+                                    ? selectedSeller.join(", ")
+                                    : selectedSeller[0]}
+                                <IoClose className={styles.closeIcon} />
+                            </div>
+                        )}
                     </div>
 
                     <button className={`${styles.clerFiltersBtn} mt-3`} onClick={clearAllFilters}>

@@ -21,6 +21,7 @@ const Autos = () => {
         uniqueFuels,
         uniqueLabels,
         uniqueCategories,
+        uniqueSellers,
         selectedYear,
         setSelectedYear,
         selectedBrand,
@@ -30,6 +31,8 @@ const Autos = () => {
         selectedPriceRange,
         selectedCategory,
         setSelectedCategory,
+        selectedSeller,
+        setSelectedSeller,
         setSelectedPriceRange,
         selectedYearRange,
         setSelectedYearRange,
@@ -79,6 +82,7 @@ const Autos = () => {
                         uniqueFuels={uniqueFuels}
                         uniqueLabels={uniqueLabels}
                         uniqueCategories={uniqueCategories}
+                        uniqueSellers={uniqueSellers}
                         selectedYear={selectedYear}
                         setSelectedYear={setSelectedYear}
                         selectedBrand={selectedBrand}
@@ -97,6 +101,8 @@ const Autos = () => {
                         setSelectedLabel={setSelectedLabel}
                         selectedCategory={selectedCategory}
                         setSelectedCategory={setSelectedCategory}
+                        selectedSeller={selectedSeller}
+                        setSelectedSeller={setSelectedSeller}
                         minPrice={minPrice}
                         maxPrice={maxPrice}
                         minYear={minYear}
@@ -130,6 +136,7 @@ const Autos = () => {
                                 uniqueFuels={uniqueFuels}
                                 uniqueLabels={uniqueLabels} 
                                 uniqueCategories={uniqueCategories}
+                                uniqueSellers={uniqueSellers}
                                 selectedYear={selectedYear}
                                 setSelectedYear={setSelectedYear}
                                 selectedBrand={selectedBrand}
@@ -148,6 +155,8 @@ const Autos = () => {
                                 setSelectedLabel={setSelectedLabel}
                                 selectedCategory={selectedCategory}
                                 setSelectedCategory={setSelectedCategory}
+                                selectedSeller={selectedSeller}
+                                setSelectedSeller={setSelectedSeller}
                                 minPrice={minPrice}
                                 maxPrice={maxPrice}
                                 minYear={minYear}

@@ -12,6 +12,7 @@ const FilterForm = ({
     uniqueFuels,
     uniqueLabels,
     uniqueCategories,
+    uniqueSellers,
     selectedYearRange,
     setSelectedYearRange,
     selectedPriceRange,
@@ -34,6 +35,8 @@ const FilterForm = ({
     setSelectedFuel,
     selectedLabel,
     setSelectedLabel,
+    selectedSeller,
+    setSelectedSeller,
     setCurrentPage,
 }) => {
     const handleRangePriceChange = (value) => {
@@ -81,51 +84,62 @@ const FilterForm = ({
         }
     };
 
+    const handleCheckboxChangeSeller = (event) => {
+        const { value, checked } = event.target;
+
+        if (checked) {
+            setSelectedSeller([...selectedSeller, value]);
+        } else {
+            setSelectedSeller(selectedSeller.filter((seller) => seller !== value));
+        }
+    };
+
     const isLatFilter = import.meta.env.VITE_FILTER_LAT === "true";
 
     return (
         <>
             <Form className={isLatFilter ? styles.formBox : `${styles.formBox} my-4`}>
                 <Row className="gy-3">
-                    {!isLatFilter ? (
+                    {isLatFilter ? (
                         <Col lg={3}>
                             <Form.Group>
                                 <Form.Label className={styles.formLabel}>
                                     Categoría
                                 </Form.Label>
-                                <Form.Select
-                                    className={styles.formSelect}
-                                    value={selectedCategory}
-                                    onChange={(e) => {
-                                        setSelectedCategory(e.target.value);
-                                        setCurrentPage(1);
-                                    }}
-                                >
-                                    <option value="">Todas las categorías</option>
-                                    {uniqueCategories.map((category) => (
-                                        <option key={category} value={category}>
-                                            {formatCategory(category)}
-                                        </option>
-                                    ))}
-                                </Form.Select>
+                                {uniqueCategories.map((category) => (
+                                    <Form.Check
+                                        key={category}
+                                        type="checkbox"
+                                        label={formatCategory(category)}
+                                        id={category}
+                                        value={category}
+                                        checked={selectedCategory.includes(category)}
+                                        onChange={handleCheckboxChangeCategory}
+                                    />))}
                             </Form.Group>
-                        </Col>) :
+                        </Col>
+                    ) :
                         (
                             <Col lg={3}>
                                 <Form.Group>
                                     <Form.Label className={styles.formLabel}>
                                         Categoría
                                     </Form.Label>
-                                    {uniqueCategories.map((category) => (
-                                        <Form.Check
-                                            key={category}
-                                            type="checkbox"
-                                            label={formatCategory(category)}
-                                            id={category}
-                                            value={category}
-                                            checked={selectedCategory.includes(category)}
-                                            onChange={handleCheckboxChangeCategory}
-                                        />))}
+                                    <Form.Select
+                                        className={styles.formSelect}
+                                        value={selectedCategory}
+                                        onChange={(e) => {
+                                            setSelectedCategory(e.target.value);
+                                            setCurrentPage(1);
+                                        }}
+                                    >
+                                        <option value="">Todas las categorías</option>
+                                        {uniqueCategories.map((category) => (
+                                            <option key={category} value={category}>
+                                                {formatCategory(category)}
+                                            </option>
+                                        ))}
+                                    </Form.Select>
                                 </Form.Group>
                             </Col>)}
 
@@ -278,6 +292,49 @@ const FilterForm = ({
                             </Form.Group>
                         </Col>
                     )}
+                    {isLatFilter ? (
+                        <Col lg={12}>
+                            <Form.Group>
+                                <Form.Label className={styles.formLabel}>
+                                    Sucursal
+                                </Form.Label>
+                                {uniqueSellers.map((seller) => (
+                                    <Form.Check
+                                        key={seller}
+                                        type="checkbox"
+                                        label={seller}
+                                        id={seller}
+                                        value={seller}
+                                        checked={selectedSeller.includes(seller)}
+                                        onChange={handleCheckboxChangeSeller}
+                                    />
+                                ))}
+                            </Form.Group>
+                        </Col>
+                    ) : (
+                        <Col lg={3}>
+                            <Form.Group>
+                                <Form.Label className={styles.formLabel}>
+                                    Sucursal
+                                </Form.Label>
+                                <Form.Select
+                                    className={styles.formSelect}
+                                    value={selectedSeller}
+                                    onChange={(e) => {
+                                        setSelectedSeller(e.target.value ? [e.target.value] : []);
+                                        setCurrentPage(1);
+                                    }}
+                                >
+                                    <option value="">Todas las sucursales</option>
+                                    {uniqueSellers.map((seller) => (
+                                        <option key={seller} value={seller}>
+                                            {seller}
+                                        </option>
+                                    ))}
+                                </Form.Select>
+                            </Form.Group>
+                        </Col>
+                    )}
                     <Col lg={isLatFilter ? 12 : 3}>
                         <Form.Group>
                             <Form.Label className={styles.formLabel}>
@@ -352,6 +409,7 @@ const FilterForm = ({
                 maxPrice={maxPrice}
                 minKm={minKm}
                 maxKm={maxKm}
+                selectedSeller={selectedSeller}
                 clearBrand={() => setSelectedBrand("")}
                 clearModel={() => setSelectedModel("")}
                 clearCategory={() => setSelectedCategory("")}
@@ -362,6 +420,7 @@ const FilterForm = ({
                     setSelectedPriceRange([minPrice, maxPrice])
                 }
                 clearKmRange={() => setSelectedKmRange([minKm, maxKm])}
+                clearSeller={() => setSelectedSeller([])}
                 clearAllFilters={() => {
                     setSelectedBrand("");
                     setSelectedModel("");
@@ -371,6 +430,7 @@ const FilterForm = ({
                     setSelectedYearRange([minYear, maxYear]);
                     setSelectedPriceRange([minPrice, maxPrice]);
                     setSelectedKmRange([minKm, maxKm]);
+                    setSelectedSeller([]);
                     setCurrentPage(1);
                 }}
             />

@@ -18,6 +18,9 @@ const useFilter = () => {
     // Búsqueda por palabra clave
     const [keyword, setKeyword] = useState('');
 
+    // Añadir estado para sellerName
+    const [selectedSeller, setSelectedSeller] = useState([]);
+
     const handleFilter = useCallback((ads) => {
         return ads.filter(ad => {
             const yearMatch = ad.year >= selectedYearRange[0] && ad.year <= selectedYearRange[1];
@@ -29,9 +32,10 @@ const useFilter = () => {
             const labelMatch = selectedLabel.length > 0 ? selectedLabel.includes(ad.ribbonName) : true;
             const categoryMatch = selectedCategory.length > 0 ? selectedCategory.includes(ad.category) : true;
             const keywordMatch = keyword ? ad.brand.toLowerCase().includes(keyword) || ad.model.toLowerCase().includes(keyword) || ad.version.toLowerCase().includes(keyword) || ad.transmissionType.toLowerCase().includes(keyword) || ad.category.toLowerCase().includes(keyword) || ad.fuelType.toLowerCase().includes(keyword) : true;
-            return yearMatch && brandMatch && modelMatch && priceMatch && fuelMatch && labelMatch && KmMatch && categoryMatch && keywordMatch;
+            const sellerMatch = selectedSeller.length > 0 ? selectedSeller.includes(ad.sellerName) : true;
+            return yearMatch && brandMatch && modelMatch && priceMatch && fuelMatch && labelMatch && KmMatch && categoryMatch && keywordMatch && sellerMatch;
         });
-    }, [selectedYearRange, selectedBrand, selectedModel, selectedPriceRange, selectedKmRange, selectedFuel, selectedLabel, keyword, selectedCategory]);
+    }, [selectedYearRange, selectedBrand, selectedModel, selectedPriceRange, selectedKmRange, selectedFuel, selectedLabel, keyword, selectedCategory, selectedSeller]);
 
     return {
         selectedYearRange,
@@ -52,6 +56,8 @@ const useFilter = () => {
         setSelectedCategory,
         keyword,
         setKeyword,
+        selectedSeller,
+        setSelectedSeller,
         handleFilter,
     };
 };

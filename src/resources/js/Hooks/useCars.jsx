@@ -10,6 +10,7 @@ import useUniqueFuels from './filterData/useUniqueFuels';
 import useUniqueLabels from './filterData/useUniqueLabels';
 import useKmRange from './filterData/useKmRange';
 import useUniqueCategories from './filterData/useUniqueCategories';
+import useUniqueSeller from './filterData/useUniqueSeller';
 
 const useCars = () => {
     // Obtiene los datos y posibles errores desde el contexto de Inertia.js
@@ -25,6 +26,7 @@ const useCars = () => {
         selectedFuel, setSelectedFuel,
         selectedLabel, setSelectedLabel,
         selectedCategory, setSelectedCategory,
+        selectedSeller, setSelectedSeller,
         keyword, setKeyword,
         handleFilter
     } = useFilter();
@@ -44,6 +46,7 @@ const useCars = () => {
     const uniqueFuels = useUniqueFuels(isLatFilter ? data : filteredData);
     const uniqueLabels = useUniqueLabels(isLatFilter ? data : filteredData);
     const uniqueCategories = useUniqueCategories(isLatFilter ? data : filteredData);
+    const uniqueSellers = useUniqueSeller(isLatFilter ? data : filteredData);
 
     // Usa el hook usePagination para manejar la lógica de paginación
     const {
@@ -93,6 +96,7 @@ const useCars = () => {
         uniqueFuels,
         uniqueLabels,
         uniqueCategories,
+        uniqueSellers,
         minPrice,
         maxPrice,
         minYear,
@@ -125,6 +129,9 @@ const useCars = () => {
         setPageSize,
         currentItems,
         totalPages,
+        uniqueSellers,
+        selectedSeller,
+        setSelectedSeller,
     };
 };
 
