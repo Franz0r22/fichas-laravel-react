@@ -105,7 +105,7 @@ const Autos = () => {
                     <Col xs={3}>
                         <StockTotal
                             currentItems={currentItems}
-                            totalItems={data.length}
+                            totalItems={data.total}
                         />
                     </Col>
                     <Col xs={3}>

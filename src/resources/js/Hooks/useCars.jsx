@@ -32,7 +32,7 @@ const useCars = () => {
     const isLatFilter = import.meta.env.VITE_FILTER_LAT === 'true';
     
     // Filtra los datos usando la función handleFilter proporcionada por useFilter
-    const filteredData = useMemo(() => handleFilter(data || []), [handleFilter, data]);
+    const filteredData = useMemo(() => handleFilter(data?.ads || []), [handleFilter, data]);
 
     // Usa hooks específicos para obtener datos únicos y rangos de precios
     const { minPrice, maxPrice } = usePriceRange(data);

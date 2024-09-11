@@ -19,19 +19,19 @@ export const CarsProvider = ({ children, initialData }) => {
     const [pageSize, setPageSize] = useState(20);
 
     useEffect(() => {
-        if (data) {
-            const years = [...new Set(data.map(auto => auto.INTANO))].sort((a, b) => b - a);
-            const brands = [...new Set(data.map(auto => auto.MARCA))].sort();
+        if (data && data.ads) {
+            const years = [...new Set(data.ads.map(ad => ad.year))].sort((a, b) => b - a);
+            const brands = [...new Set(data.ads.map(ad => ad.brand))].sort();
             const modelsMap = {};
 
-            data.forEach(auto => {
-                if (!modelsMap[auto.MARCA]) {
-                    modelsMap[auto.MARCA] = new Set();
+            data.ads.forEach(ad => {
+                if (!modelsMap[ad.brand]) {
+                    modelsMap[ad.brand] = new Set();
                 }
-                modelsMap[auto.MARCA].add(auto.MODELO);
+                modelsMap[ad.brand].add(ad.model);
             });
 
-            const prices = data.map(auto => auto.VCHPRECIO);
+            const prices = data.ads.map(ad => ad.price);
             const minPrice = Math.min(...prices);
             const maxPrice = Math.max(...prices);
             setMinPrice(minPrice);
@@ -46,7 +46,7 @@ export const CarsProvider = ({ children, initialData }) => {
 
     useEffect(() => {
         const filtered = handleFilter();
-        const years = [...new Set(filtered.map(auto => auto.INTANO))].sort((a, b) => b - a);
+        const years = [...new Set(filtered.map(ad => ad.year))].sort((a, b) => b - a);
         setUniqueYears(years);
     }, [selectedBrand, selectedModel, selectedYear, selectedPriceRange, data]);
 
@@ -59,11 +59,11 @@ export const CarsProvider = ({ children, initialData }) => {
     }, [selectedBrand, modelsByBrand]);
 
     const handleFilter = () => {
-        return data.filter(auto => {
-            const yearMatch = selectedYear ? auto.INTANO === parseInt(selectedYear) : true;
-            const brandMatch = selectedBrand ? auto.MARCA === selectedBrand : true;
-            const modelMatch = selectedModel ? auto.MODELO === selectedModel : true;
-            const priceMatch = auto.VCHPRECIO >= selectedPriceRange[0] && auto.VCHPRECIO <= selectedPriceRange[1];
+        return data.ads.filter(ad => {
+            const yearMatch = selectedYear ? ad.year === parseInt(selectedYear) : true;
+            const brandMatch = selectedBrand ? ad.brand === selectedBrand : true;
+            const modelMatch = selectedModel ? ad.model === selectedModel : true;
+            const priceMatch = ad.price >= selectedPriceRange[0] && ad.price <= selectedPriceRange[1];
             return yearMatch && brandMatch && modelMatch && priceMatch;
         });
     };

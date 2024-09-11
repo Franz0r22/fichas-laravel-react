@@ -6,8 +6,8 @@ const useKmRange = (data) => {
     const [kmRange, setKmRange] = useState([0, 1000000]);
 
     useEffect(() => {
-        if (data) {
-            const kms = data.map(auto => auto.VCHKILOMETROS);
+        if (data && data.ads) {
+            const kms = data.ads.map(ad => ad.mileage);
             const minKm = Math.min(...kms);
             const maxKm = Math.max(...kms);
             setMinKm(minKm);

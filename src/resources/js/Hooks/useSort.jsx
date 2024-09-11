@@ -8,13 +8,13 @@ const useSort = (items) => {
 
         const sorted = [...items].sort((a, b) => {
             if (sortCriteria === "asc") {
-                return a.VCHPRECIO - b.VCHPRECIO;
+                return a.price - b.price;
             } else if (sortCriteria === "desc") {
-                return b.VCHPRECIO - a.VCHPRECIO;
+                return b.price - a.price;
             } else if (sortCriteria === "newest") {
-                return b.AUTOID - a.AUTOID;
+                return b.carId - a.carId;
             } else if (sortCriteria === "oldest") {
-                return a.AUTOID - b.AUTOID;
+                return a.carId - b.carId;
             }
             return 0;
         });

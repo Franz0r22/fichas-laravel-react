@@ -11,7 +11,7 @@ const CarList = ({ currentItems }) => {
         <Row>
             {currentItems.length > 0 ? (
                 currentItems.map((auto) => (
-                    <Col xl={isLatFilter ? 4 : 3} sm={12} md={6} className="mb-4" key={auto.AUTOID}>
+                    <Col xl={isLatFilter ? 4 : 3} sm={12} md={6} className="mb-4" key={auto.carId}>
                         <CarItem auto={auto} />
                     </Col>
                 ))

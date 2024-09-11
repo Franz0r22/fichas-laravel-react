@@ -5,9 +5,10 @@ const useUniqueModelsByBrand = (data, selectedBrand) => {
 
     useEffect(() => {
         if (data && selectedBrand) {
-            const models = data
-                .filter(auto => auto.MARCA === selectedBrand)
-                .map(auto => auto.MODELO);
+            const adsArray = Array.isArray(data) ? data : (data.ads || []);
+            const models = adsArray
+                .filter(ad => ad.brand === selectedBrand)
+                .map(ad => ad.model);
             setUniqueModels([...new Set(models)].sort());
         } else {
             setUniqueModels([]);

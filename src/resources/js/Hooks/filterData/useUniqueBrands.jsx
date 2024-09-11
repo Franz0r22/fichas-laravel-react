@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
 
-const useUniqueBrands = (data) => {
+const useUniqueBrands = (ads) => {
     return useMemo(() => {
-        if (!data) return [];
-        return [...new Set(data.map(auto => auto.MARCA))].sort();
-    }, [data]);
+        if (!ads || !Array.isArray(ads)) return [];
+        return [...new Set(ads.map(ad => ad.brand))].sort();
+    }, [ads]);
 };
 
 export default useUniqueBrands;

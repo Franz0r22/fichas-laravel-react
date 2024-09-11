@@ -11,60 +11,66 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import { useState, useEffect } from 'react';
 
 const CarItem = ({ auto }) => {
-
-    const [loading, setLoading] = useState(true);
+    const [imageStatus, setImageStatus] = useState('loading');
 
     useEffect(() => {
         const img = new Image();
-        img.src = auto.url_foto_particular;
-        img.onload = () => setLoading(false);
-    }, [auto.url_foto_particular]);
+        img.src = auto.photo;
+        img.onload = () => setImageStatus('loaded');
+        img.onerror = () => setImageStatus('error');
+    }, [auto.photo]);
+
+    const getImageSrc = () => {
+        if (imageStatus === 'error') {
+            return '/images/placeholder-noimage.jpg';
+        }
+        return auto.photo;
+    };
 
     return (
-        <a href={`/${auto.MARCA.toLowerCase()}/${auto.MODELO.toLowerCase()}/${auto.AUTOID}`} className={styles.hasCta}>
+        <a href={`/${auto.brand.toLowerCase()}/${auto.model.toLowerCase()}/${auto.carId}`} className={styles.hasCta}>
             <Card className={styles.cardBox}>
-
-                {loading ? (
+                {imageStatus === 'loading' ? (
                     <Skeleton height={400} width="100%" />
                 ) : (
                     <>
                         <div className={styles.imgWrapper}>
-                            <Card.Img variant="top" src={auto.url_foto_particular} className={styles.cardImg} />
-                            {auto.VCHETIQUETA_TITULO &&
+                            <Card.Img variant="top" src={getImageSrc()} className={styles.cardImg} />
+                            {auto.labelTitle &&
                                 <CarLabel
-                                    labelName={auto.VCHETIQUETA_TITULO}
-                                    labelColor={auto.VCHETIQUETA_COLOR}
-                                    fontColor={auto.fontcolor}
+                                    labelName={auto.labelTitle}
+                                    labelColor={auto.labelColor}
+                                    fontColor="#000000" // Valor por defecto, ya que no está en transformNewApiData
                                 />}
                         </div>
                         <Card.Body>
                             <Card.Title className='mb-0 text-truncate'>
-                                {auto.MARCA} {auto.MODELO}
+                                {auto.brand} {auto.model}
                             </Card.Title>
                             <div className='text-truncate'>
-                                <span>{auto.VCHVERSION}</span>
+                                <span>{auto.version}</span>
                             </div>
                             <div className={`${styles.featuresWrapper} mt-3`}>
                                 <div className={styles.featuresBox}>
                                     <BsCalendar2 className={styles.iconSize} />
-                                    <span>{auto.INTANO}</span>
+                                    <span>{auto.year}</span>
                                 </div>
                                 <div className={styles.featuresBox}>
                                     <GiCarWheel className={styles.iconSize} />
-                                    <span className='text-truncate'>{formatNumber(auto.VCHKILOMETROS)} Km</span>
+                                    <span className='text-truncate'>{formatNumber(auto.mileage)} Km</span>
                                 </div>
                                 <div className={styles.featuresBox}>
                                     <GiGearStick className={styles.iconSize} />
-                                    <span>{auto.TRANSMISION.replace('Transmisión', '')}</span>
+                                    <span>{auto.transmissionType.replace('Transmisión', '')}</span>
                                 </div>
                                 <div className={styles.featuresBox}>
                                     <GiGasPump className={styles.iconSize} />
-                                    <span>{auto.COMBUSTIBLE}</span>
+                                    <span>{auto.fuelType}</span>
                                 </div>
                             </div>
                             <Card.Text className={`${styles.priceSize} mt-3`}>
-                                <span className={styles.monedaSize}>{auto.VCHMONEDA}</span>
-                                {formatNumber(auto.VCHPRECIO)}
+                                <span className={styles.monedaSize}>{auto.currency}</span>
+                                {formatNumber(auto.price)}
                             </Card.Text>
                             <button className={styles.btnCard}>
                                 Ver más detalles
