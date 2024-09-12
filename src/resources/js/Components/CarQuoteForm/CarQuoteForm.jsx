@@ -1,106 +1,103 @@
 import React, { useState } from 'react';
 import { useForm } from '@inertiajs/react';
-import { Form, Button, Alert } from 'react-bootstrap';
+import InputField from './InputField';
+import useFormValidation from '../../Hooks/useFormValidation';
+import { formatRut } from '../../utils/validations';
+import Notification from '../Notification/Notification';
 import styles from './CarQuoteForm.module.css';
 
-const CarQuoteForm = () => {
-    const { data, setData, post, processing, errors, reset } = useForm({
+const CarQuoteForm = ({ carData }) => {
+    const { data, setData, post, processing, errors: serverErrors, reset } = useForm({
         name: '',
         email: '',
         rut: '',
         message: '',
+        carBrand: carData.brandName,
+        carModel: carData.modelName,
+        carVersion: carData.version,
+        carKilometers: carData.kilometers,
+        carYear: carData.year,
+        carImage: carData.photos[0],
+        carUrl: window.location.href,
     });
 
-    const [validated, setValidated] = useState(false);
+    const [showNotification, setShowNotification] = useState(false);
+    const { validateForm, getError } = useFormValidation(data, serverErrors);
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        if (name === 'rut') {
+            setData(name, formatRut(value));
+        } else {
+            setData(name, value);
+        }
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const form = e.currentTarget;
-
-        if (form.checkValidity() === false) {
-            e.stopPropagation();
-        } else {
+        if (validateForm(data)) {
             post('/quote', {
-                onSuccess: () => {
-                    reset();
-                    setValidated(false);
-                },
-                onError: (errors) => console.error(errors),
                 preserveScroll: true,
+                onSuccess: () => {
+                    reset('name', 'email', 'rut', 'message');
+                    setShowNotification(true);
+                }
             });
         }
-        setValidated(true);
     };
 
     return (
-        <Form noValidate validated={validated} onSubmit={handleSubmit}>
-            <h5 className={`${styles.carTitle}`}>Cotízalo Aquí</h5>
+        <>
+            <Notification 
+                message="¡Gracias! Tu mensaje ha sido enviado con éxito. Nos pondremos en contacto contigo pronto."
+                isVisible={showNotification}
+                onClose={() => setShowNotification(false)}
+            />
+            <form onSubmit={handleSubmit} className={styles.form} noValidate>
+                <h5 className={styles.carTitle}>Cotízalo Aquí</h5>
 
-            <Form.Group controlId="name">
-                <Form.Label className={styles.formLabel}>Nombre</Form.Label>
-                <Form.Control
-                    className={styles.formInput}
-                    type="text"
+                <InputField
+                    label="Nombre"
+                    name="name"
                     value={data.name}
-                    onChange={(e) => setData('name', e.target.value)}
-                    isInvalid={!!errors.name}
-                    required
+                    onChange={handleChange}
+                    error={getError('name')}
                 />
-                <Form.Control.Feedback type="invalid">
-                    {errors.name || 'Por favor ingresa tu nombre.'}
-                </Form.Control.Feedback>
-            </Form.Group>
 
-            <Form.Group controlId="email">
-                <Form.Label className={styles.formLabel}>Email</Form.Label>
-                <Form.Control
-                    className={styles.formInput}
+                <InputField
+                    label="Email"
+                    name="email"
                     type="email"
                     value={data.email}
-                    onChange={(e) => setData('email', e.target.value)}
-                    isInvalid={!!errors.email}
-                    required
+                    onChange={handleChange}
+                    error={getError('email')}
                 />
-                <Form.Control.Feedback type="invalid">
-                    {errors.email || 'Por favor ingresa un email válido.'}
-                </Form.Control.Feedback>
-            </Form.Group>
 
-            <Form.Group controlId="rut">
-                <Form.Label className={styles.formLabel}>Rut</Form.Label>
-                <Form.Control
-                    className={styles.formInput}
-                    type="text"
+                <InputField
+                    label="RUT"
+                    name="rut"
                     value={data.rut}
-                    onChange={(e) => setData('rut', e.target.value)}
-                    isInvalid={!!errors.rut}
-                    required
+                    onChange={handleChange}
+                    error={getError('rut')}
                 />
-                <Form.Control.Feedback type="invalid">
-                    {errors.rut || 'Por favor ingresa un RUT válido.'}
-                </Form.Control.Feedback>
-            </Form.Group>
 
-            <Form.Group controlId="message">
-                <Form.Label className={styles.formLabel}>Mensaje</Form.Label>
-                <Form.Control
-                    className={styles.formMessage}
-                    as="textarea"
-                    rows={3}
-                    value={data.message}
-                    onChange={(e) => setData('message', e.target.value)}
-                    isInvalid={!!errors.message}
-                    required
-                />
-                <Form.Control.Feedback type="invalid">
-                    {errors.message || 'Por favor ingresa un mensaje.'}
-                </Form.Control.Feedback>
-            </Form.Group>
+                <div className="form-group">
+                    <label htmlFor="message" className={styles.formLabel}>Mensaje</label>
+                    <textarea
+                        id="message"
+                        name="message"
+                        value={data.message}
+                        onChange={handleChange}
+                        className={`form-control ${styles.formMessage} ${getError('message') ? 'is-invalid' : ''}`}
+                    />
+                    {getError('message') && <div className="invalid-feedback">{getError('message')}</div>}
+                </div>
 
-            <button type="submit" disabled={processing} className={`${styles.btnForm} mt-3`}>
-                Enviar
-            </button>
-        </Form>
+                <button type="submit" disabled={processing} className={`${styles.btnForm} mt-3 ${processing ? styles.btnDisabled : ''}`}>
+                    {processing ? 'Enviando...' : 'Enviar'}
+                </button>
+            </form>
+        </>
     );
 };
 

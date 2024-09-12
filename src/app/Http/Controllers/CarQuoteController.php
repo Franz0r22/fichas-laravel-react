@@ -14,7 +14,14 @@ class CarQuoteController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'rut' => 'required',
-            'message' => 'required|string',
+            'message' => 'nullable|string',
+            'carBrand' => 'required|string',
+            'carModel' => 'required|string',
+            'carVersion' => 'required|string',
+            'carKilometers' => 'required|integer',
+            'carYear' => 'required|integer',
+            'carImage' => 'required|url',
+            'carUrl' => 'required|url',
         ]);
 
         Mail::to('francisco.davila@destacados.cl')->send(new QuoteMail($validated));

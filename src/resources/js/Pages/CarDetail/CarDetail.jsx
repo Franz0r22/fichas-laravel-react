@@ -83,7 +83,7 @@ const CarDetail = () => {
                                     />
                                 )}
                                 <div>
-                                    <CarQuoteForm />
+                                    <CarQuoteForm carData={data} />
                                 </div>
                                 {data.whatsApp &&
                                     <div className="mt-3">
