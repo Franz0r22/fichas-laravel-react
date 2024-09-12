@@ -15,7 +15,7 @@ import CarWhatsAppBtn from "../../Components/CarWhatsAppBtn/CarWhatsAppBtn";
 import ShareButtons from "../../Components/ShareButtons/ShareButtons";
 
 const CarDetail = () => {
-    const { data, error } = usePage().props;
+    const { data, error, honeypot } = usePage().props;
 
     const shareUrl = window.location.href;
     const shareTitle = '¡Me gustó este vehículo!'
@@ -83,7 +83,7 @@ const CarDetail = () => {
                                     />
                                 )}
                                 <div>
-                                    <CarQuoteForm carData={data} />
+                                    <CarQuoteForm carData={data} honeypot={honeypot}/>
                                 </div>
                                 {data.whatsApp &&
                                     <div className="mt-3">

@@ -9,7 +9,7 @@ use App\Mail\ThankYouQuoteMail;
 
 class CarQuoteController extends Controller
 {
-    public function store(Request $request)
+    public function __invoke(Request $request)
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',

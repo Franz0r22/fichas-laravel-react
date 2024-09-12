@@ -6,7 +6,7 @@ import { formatRut } from '../../utils/validations';
 import Notification from '../Notification/Notification';
 import styles from './CarQuoteForm.module.css';
 
-const CarQuoteForm = ({ carData }) => {
+const CarQuoteForm = ({ carData, honeypot }) => {
     const { data, setData, post, processing, errors: serverErrors, reset } = useForm({
         name: '',
         email: '',
@@ -19,7 +19,11 @@ const CarQuoteForm = ({ carData }) => {
         carYear: carData.year,
         carImage: carData.photos[0],
         carUrl: window.location.href,
+        [honeypot.nameFieldName]: '',
+        [honeypot.validFromFieldName]: honeypot.encryptedValidFrom || '',
     });
+
+    console.log(honeypot);
 
     const [showNotification, setShowNotification] = useState(false);
     const { validateForm, getError } = useFormValidation(data, serverErrors);
@@ -55,6 +59,25 @@ const CarQuoteForm = ({ carData }) => {
             />
             <form onSubmit={handleSubmit} className={styles.form} noValidate>
                 <h5 className={styles.carTitle}>Cotízalo Aquí</h5>
+
+                {/* Campos Honeypot */}
+               
+                {honeypot.enabled && (
+                    <div style={{ display: 'none' }}>
+                        <input
+                            type="text"
+                            name={honeypot.nameFieldName}
+                            value={data[honeypot.nameFieldName] || ''}
+                            onChange={(e) => setData(honeypot.nameFieldName, e.target.value)}
+                        />
+                        <input
+                            type="text"
+                            name={honeypot.validFromFieldName}
+                            value={data[honeypot.validFromFieldName] || ''}
+                            onChange={(e) => setData(honeypot.validFromFieldName, e.target.value)}
+                        />
+                    </div>
+                )}
 
                 <InputField
                     label="Nombre"
