@@ -18,38 +18,40 @@ class CarsController extends Controller
         return $this->fetchAutos($request, 'Autos', 1000);
     }
 
-    
+
     private function fetchAutos(Request $request, $page, $quantity)
     {
-        $apiUrl = config('services.api.urlfichasv2');
-        $apiToken = config('services.api.tokenfichasv2');
-        $endpoint = 'vehicles';
-        $pageNumber = 1;
+        $cacheKey = "cars_{$page}_{$quantity}";
+        $cacheTTL = now()->addMinutes(10);
 
-        $queryParams = [
-            'idClient' => env('APP_SUCURSALES'),
-            'page' => $pageNumber,
-            'quantity' => $quantity,
-        ];
+        $cachedData = cache()->remember($cacheKey, $cacheTTL, function () use ($quantity) {
+            $apiUrl = config('services.api.urlfichasv2');
+            $apiToken = config('services.api.tokenfichasv2');
+            $endpoint = 'vehicles';
+            $pageNumber = 1;
 
-        $response = Http::withToken($apiToken)
-            ->get("$apiUrl/$endpoint", $queryParams);
+            $queryParams = [
+                'idClient' => env('APP_SUCURSALES'),
+                'page' => $pageNumber,
+                'quantity' => $quantity,
+            ];
 
+            $response = Http::withToken($apiToken)->get("$apiUrl/$endpoint", $queryParams);
 
-        if ($response->successful()) {
-            $data = $response->json();
-            // Transformar los datos
-            $transformedData = $this->transformNewApiData($data);
-            //dd($data);
-            return Inertia::render($page, [
-                'data' => $transformedData,
-            ]);
+            if ($response->successful()) {
+                return $this->transformNewApiData($response->json());
+            } else {
+                return null;
+            }
+        });
+
+        if ($cachedData) {
+            return Inertia::render($page, ['data' => $cachedData]);
         } else {
-            return Inertia::render($page, [
-                'error' => 'Failed to fetch data'
-            ]);
+            return Inertia::render($page, ['error' => 'Failed to fetch data']);
         }
     }
+
 
     function transformNewApiData($newApiData)
     {

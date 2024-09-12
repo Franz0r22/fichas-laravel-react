@@ -36,11 +36,11 @@ const CarItem = ({ auto }) => {
                     <>
                         <div className={styles.imgWrapper}>
                             <Card.Img variant="top" src={getImageSrc()} className={styles.cardImg} />
-                            {auto.labelTitle &&
+                            {auto.ribbonName &&
                                 <CarLabel
-                                    labelName={auto.labelTitle}
-                                    labelColor={auto.labelColor}
-                                    fontColor="#000000" // Valor por defecto, ya que no está en transformNewApiData
+                                    ribbonName={auto.ribbonName}
+                                    ribbonColor={auto.ribbonColor}
+                                    ribbonTextColor={auto.ribbonTextColor}
                                 />}
                         </div>
                         <Card.Body>
