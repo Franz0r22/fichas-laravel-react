@@ -23,8 +23,6 @@ const CarQuoteForm = ({ carData, honeypot }) => {
         [honeypot.validFromFieldName]: honeypot.encryptedValidFrom || '',
     });
 
-    console.log(honeypot);
-
     const [showNotification, setShowNotification] = useState(false);
     const { validateForm, getError } = useFormValidation(data, serverErrors);
 
@@ -61,7 +59,6 @@ const CarQuoteForm = ({ carData, honeypot }) => {
                 <h5 className={styles.carTitle}>Cotízalo Aquí</h5>
 
                 {/* Campos Honeypot */}
-               
                 {honeypot.enabled && (
                     <div style={{ display: 'none' }}>
                         <input
