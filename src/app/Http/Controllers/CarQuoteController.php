@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\QuoteMail;
+use App\Mail\ThankYouQuoteMail;
 
 class CarQuoteController extends Controller
 {
@@ -24,7 +25,11 @@ class CarQuoteController extends Controller
             'carUrl' => 'required|url',
         ]);
 
+        // Enviar correo al administrador
         Mail::to('francisco.davila@destacados.cl')->send(new QuoteMail($validated));
+
+        // Enviar correo de agradecimiento al usuario
+        Mail::to($validated['email'])->send(new ThankYouQuoteMail($validated));
 
         return redirect()->back()->with('success', 'Cotización enviada con éxito');
     }
