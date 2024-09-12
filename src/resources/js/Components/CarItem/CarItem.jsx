@@ -35,7 +35,7 @@ const CarItem = ({ auto }) => {
                 ) : (
                     <>
                         <div className={styles.imgWrapper}>
-                            <Card.Img variant="top" src={getImageSrc()} className={styles.cardImg} />
+                            <Card.Img variant="top" loading="lazy" src={getImageSrc()} className={styles.cardImg} />
                             {auto.ribbonName &&
                                 <CarLabel
                                     ribbonName={auto.ribbonName}
