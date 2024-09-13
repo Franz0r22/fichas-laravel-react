@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from '@inertiajs/react';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import InputField from './InputField';
 import useFormValidation from '../../Hooks/useFormValidation';
 import { formatRut } from '../../utils/validations';
@@ -21,10 +22,30 @@ const CarQuoteForm = ({ carData, honeypot }) => {
         carUrl: window.location.href,
         [honeypot.nameFieldName]: '',
         [honeypot.validFromFieldName]: honeypot.encryptedValidFrom || '',
+        captcha_token: '',
     });
 
     const [showNotification, setShowNotification] = useState(false);
+    const [isReadyToPost, setIsReadyToPost] = useState(false);
     const { validateForm, getError } = useFormValidation(data, serverErrors);
+    const { executeRecaptcha } = useGoogleReCaptcha();
+
+    useEffect(() => {
+        if (isReadyToPost && data.captcha_token) {
+            post('/quote', {
+                preserveScroll: true,
+                onSuccess: (response) => {
+                    console.log('Formulario enviado con éxito:', response); // Log de éxito
+                    reset('name', 'email', 'rut', 'message');
+                    setShowNotification(true);
+                },
+                onError: (errors) => {
+                    console.error('Error al enviar el formulario:', errors); // Capturar errores
+                }
+            });
+            setIsReadyToPost(false);
+        }
+    }, [isReadyToPost, data.captcha_token]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -35,16 +56,22 @@ const CarQuoteForm = ({ carData, honeypot }) => {
         }
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (validateForm(data)) {
-            post('/quote', {
-                preserveScroll: true,
-                onSuccess: () => {
-                    reset('name', 'email', 'rut', 'message');
-                    setShowNotification(true);
-                }
-            });
+            if (!executeRecaptcha) {
+                console.log('Execute recaptcha not yet available');
+                return;
+            }
+            try {
+                const token = await executeRecaptcha('quote');
+                setData('captcha_token', token);
+                setIsReadyToPost(true);
+            } catch (error) {
+                console.error('Error al enviar el formulario:', error); 
+            }
+        } else {
+            console.log('Formulario no válido');
         }
     };
 

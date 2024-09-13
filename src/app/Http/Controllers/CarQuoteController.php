@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\QuoteMail;
 use App\Mail\ThankYouQuoteMail;
+use App\Rules\Recaptcha;
 
 class CarQuoteController extends Controller
 {
@@ -23,6 +24,7 @@ class CarQuoteController extends Controller
             'carYear' => 'required|integer',
             'carImage' => 'required|url',
             'carUrl' => 'required|url',
+            'captcha_token' => ['required', new Recaptcha],
         ]);
 
         // Enviar correo al administrador
