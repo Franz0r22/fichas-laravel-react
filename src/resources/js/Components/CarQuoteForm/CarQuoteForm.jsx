@@ -3,8 +3,12 @@ import InputField from './InputField';
 import Notification from '../Notification/Notification';
 import styles from './CarQuoteForm.module.css';
 import useFormHandler from '../../Hooks/useFormHandler';
+import QuoteYourCredit from './QuoteYourCredit';
+
+
 
 const CarQuoteForm = ({ carData, honeypot }) => {
+
     const initialData = {
         name: '',
         email: '',
@@ -94,6 +98,14 @@ const CarQuoteForm = ({ carData, honeypot }) => {
                     {getError('message') && <div className="invalid-feedback">{getError('message')}</div>}
                 </div>
 
+                <div className="p-3">
+                    <QuoteYourCredit 
+                        data={data}
+                        handleChange={handleChange}
+                        getError={getError}
+                    />
+                </div>
+
                 <button type="submit" disabled={processing} className={`${styles.btnForm} mt-3 ${processing ? styles.btnDisabled : ''}`}>
                     {processing ? 'Enviando...' : 'Enviar'}
                 </button>
@@ -103,3 +115,5 @@ const CarQuoteForm = ({ carData, honeypot }) => {
 };
 
 export default CarQuoteForm;
+
+
