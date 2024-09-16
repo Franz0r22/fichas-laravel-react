@@ -16,7 +16,12 @@ const useCars = () => {
     // Obtiene los datos y posibles errores desde el contexto de Inertia.js
     const { props: { data, error } } = usePage();
     
-    // Usa el hook useFilter para manejar los filtros y el estado de los filtros
+    // Usa hooks específicos para obtener datos únicos y rangos de precios
+    const { minPrice, maxPrice } = usePriceRange(data);
+    const { minYear, maxYear } = useYearRange(data);
+    const { minKm, maxKm } = useKmRange(data);
+
+    // Usa useFilter pasando los valores mínimos y máximos dinámicos
     const { 
         selectedYearRange, setSelectedYearRange, 
         selectedPriceRange, setSelectedPriceRange,
@@ -26,27 +31,27 @@ const useCars = () => {
         selectedFuel, setSelectedFuel,
         selectedLabel, setSelectedLabel,
         selectedCategory, setSelectedCategory,
-        selectedSeller, setSelectedSeller,
         keyword, setKeyword,
+        selectedSeller, setSelectedSeller,
         handleFilter
-    } = useFilter();
+    } = useFilter({
+        minYear,
+        maxYear,
+        minPrice,
+        maxPrice,
+        minKm,
+        maxKm,
+    });
 
-    //Tipo de filtro a usar
-    const isLatFilter = import.meta.env.VITE_FILTER_LAT === 'true';
-    
     // Filtra los datos usando la función handleFilter proporcionada por useFilter
     const filteredData = useMemo(() => handleFilter(data?.ads || []), [handleFilter, data]);
 
-    // Usa hooks específicos para obtener datos únicos y rangos de precios
-    const { minPrice, maxPrice } = usePriceRange(data);
-    const { minYear, maxYear } = useYearRange(data);
-    const { minKm, maxKm } = useKmRange(data);
     const uniqueBrands = useUniqueBrands(filteredData);
     const uniqueModels = useUniqueModelsByBrand(filteredData, selectedBrand);
-    const uniqueFuels = useUniqueFuels(isLatFilter ? data : filteredData);
-    const uniqueLabels = useUniqueLabels(isLatFilter ? data : filteredData);
-    const uniqueCategories = useUniqueCategories(isLatFilter ? data : filteredData);
-    const uniqueSellers = useUniqueSeller(isLatFilter ? data : filteredData);
+    const uniqueFuels = useUniqueFuels(data); // Ajusta según tus necesidades
+    const uniqueLabels = useUniqueLabels(data); // Ajusta según tus necesidades
+    const uniqueCategories = useUniqueCategories(data); // Ajusta según tus necesidades
+    const uniqueSellers = useUniqueSeller(data); // Ajusta según tus necesidades
 
     // Usa el hook usePagination para manejar la lógica de paginación
     const {
@@ -85,7 +90,7 @@ const useCars = () => {
             // Restablece el modelo seleccionado cuando se cambia la marca
             setSelectedModel('');
         }
-    }, [selectedBrand]);
+    }, [selectedBrand, setSelectedModel]);
 
     // Devuelve todos los valores y funciones necesarias para ser usados por los componentes que consumen este hook
     return {
@@ -113,8 +118,6 @@ const useCars = () => {
         setSelectedModel,
         selectedPriceRange,
         setSelectedPriceRange,
-        selectedYearRange,
-        setSelectedYearRange,
         selectedFuel,
         setSelectedFuel,
         selectedLabel,
@@ -129,7 +132,6 @@ const useCars = () => {
         setPageSize,
         currentItems,
         totalPages,
-        uniqueSellers,
         selectedSeller,
         setSelectedSeller,
     };

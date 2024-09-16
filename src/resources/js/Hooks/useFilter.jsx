@@ -1,16 +1,37 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-const useFilter = () => {
-    //Filtros Rango
-    const [selectedYearRange, setSelectedYearRange] = useState([1900, 2024]);
-    const [selectedPriceRange, setSelectedPriceRange] = useState([0, 1000000000]);
-    const [selectedKmRange, setSelectedKmRange] = useState([0, 1000000]);
+/**
+ * Hook para manejar filtros de vehículos.
+ *
+ * @param {object} options - Opciones para configurar los filtros.
+ * @param {number} options.minYear - Año mínimo disponible.
+ * @param {number} options.maxYear - Año máximo disponible.
+ * @param {number} options.minPrice - Precio mínimo disponible.
+ * @param {number} options.maxPrice - Precio máximo disponible.
+ * @param {number} options.minKm - Kilometraje mínimo disponible.
+ * @param {number} options.maxKm - Kilometraje máximo disponible.
+ *
+ * @returns {object} Estados y funciones para manejar los filtros.
+ */
+const useFilter = ({
+    minYear,
+    maxYear,
+    minPrice,
+    maxPrice,
+    minKm,
+    maxKm,
+}) => {
+    // Filtros Rango
+    const [selectedYearRange, setSelectedYearRange] = useState([minYear, maxYear]);
+    const [selectedPriceRange, setSelectedPriceRange] = useState([minPrice, maxPrice]);
+    const [selectedKmRange, setSelectedKmRange] = useState([minKm, maxKm]);
 
-    //Filtros Select
+    // Filtros Select
     const [selectedBrand, setSelectedBrand] = useState('');
     const [selectedModel, setSelectedModel] = useState('');
 
-    //Filtros Select o Checkboxes (Depende del filtro)
+    // Filtros Select o Checkboxes (Depende del filtro)
     const [selectedCategory, setSelectedCategory] = useState([]);
     const [selectedFuel, setSelectedFuel] = useState([]);
     const [selectedLabel, setSelectedLabel] = useState([]);
@@ -20,6 +41,11 @@ const useFilter = () => {
 
     // Añadir estado para sellerName
     const [selectedSeller, setSelectedSeller] = useState([]);
+
+    const navigate = useNavigate();  // Hook para navegar entre rutas
+    const location = useLocation();  // Hook para obtener la ubicación actual
+
+    const isFirstRender = useRef(true); // Ref para rastrear el primer render
 
     const handleFilter = useCallback((ads) => {
         return ads.filter(ad => {
@@ -31,11 +57,107 @@ const useFilter = () => {
             const fuelMatch = selectedFuel.length > 0 ? selectedFuel.includes(ad.fuelType) : true;
             const labelMatch = selectedLabel.length > 0 ? selectedLabel.includes(ad.ribbonName) : true;
             const categoryMatch = selectedCategory.length > 0 ? selectedCategory.includes(ad.category) : true;
-            const keywordMatch = keyword ? ad.brand.toLowerCase().includes(keyword) || ad.model.toLowerCase().includes(keyword) || ad.version.toLowerCase().includes(keyword) || ad.transmissionType.toLowerCase().includes(keyword) || ad.category.toLowerCase().includes(keyword) || ad.fuelType.toLowerCase().includes(keyword) : true;
+            const keywordMatch = keyword ? 
+                ad.brand.toLowerCase().includes(keyword.toLowerCase()) || 
+                ad.model.toLowerCase().includes(keyword.toLowerCase()) || 
+                ad.version.toLowerCase().includes(keyword.toLowerCase()) || 
+                ad.transmissionType.toLowerCase().includes(keyword.toLowerCase()) || 
+                ad.category.toLowerCase().includes(keyword.toLowerCase()) || 
+                ad.fuelType.toLowerCase().includes(keyword.toLowerCase()) 
+                : true;
             const sellerMatch = selectedSeller.length > 0 ? selectedSeller.includes(ad.sellerName) : true;
             return yearMatch && brandMatch && modelMatch && priceMatch && fuelMatch && labelMatch && KmMatch && categoryMatch && keywordMatch && sellerMatch;
         });
-    }, [selectedYearRange, selectedBrand, selectedModel, selectedPriceRange, selectedKmRange, selectedFuel, selectedLabel, keyword, selectedCategory, selectedSeller]);
+    }, [
+        selectedYearRange, 
+        selectedBrand, 
+        selectedModel, 
+        selectedPriceRange, 
+        selectedKmRange, 
+        selectedFuel, 
+        selectedLabel, 
+        keyword, 
+        selectedCategory, 
+        selectedSeller
+    ]);
+
+    // Actualiza la URL con los filtros solo si han cambiado
+    useEffect(() => {
+        if (isFirstRender.current) {
+            isFirstRender.current = false;
+            return;
+        }
+
+        const queryParams = new URLSearchParams();
+
+        // Solo se agregan filtros que no están en su valor predeterminado
+        if (selectedYearRange[0] !== minYear || selectedYearRange[1] !== maxYear) {
+            queryParams.set('yearRange', selectedYearRange.join('-'));
+        }
+
+        if (selectedPriceRange[0] !== minPrice || selectedPriceRange[1] !== maxPrice) {
+            queryParams.set('priceRange', selectedPriceRange.join('-'));
+        }
+
+        if (selectedKmRange[0] !== minKm || selectedKmRange[1] !== maxKm) {
+            queryParams.set('kmRange', selectedKmRange.join('-'));
+        }
+
+        if (selectedBrand) {
+            queryParams.set('brand', selectedBrand);
+        }
+
+        if (selectedModel) {
+            queryParams.set('model', selectedModel);
+        }
+
+        if (selectedCategory.length > 0) {
+            queryParams.set('category', selectedCategory.join(','));
+        }
+
+        if (selectedFuel.length > 0) {
+            queryParams.set('fuel', selectedFuel.join(','));
+        }
+
+        if (selectedLabel.length > 0) {
+            queryParams.set('label', selectedLabel.join(','));
+        }
+
+        if (keyword) {
+            queryParams.set('keyword', keyword);
+        }
+
+        if (selectedSeller.length > 0) {
+            queryParams.set('seller', selectedSeller.join(','));
+        }
+
+        // Si no hay filtros activos, mantener la ruta sin query params
+        const search = queryParams.toString() ? `?${queryParams.toString()}` : '';
+
+        navigate({
+            pathname: location.pathname,
+            search,
+        }, { replace: true }); // Usar replace para evitar agregar al historial de navegación
+    }, [
+        selectedYearRange,
+        selectedPriceRange,
+        selectedKmRange,
+        selectedBrand,
+        selectedModel,
+        selectedCategory,
+        selectedFuel,
+        selectedLabel,
+        keyword,
+        selectedSeller,
+        navigate,
+        location.pathname,
+        minYear,
+        maxYear,
+        minPrice,
+        maxPrice,
+        minKm,
+        maxKm
+    ]);
 
     return {
         selectedYearRange,
