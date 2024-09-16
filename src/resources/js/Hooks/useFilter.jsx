@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useRef } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 /**
@@ -45,8 +45,6 @@ const useFilter = ({
     const navigate = useNavigate();  // Hook para navegar entre rutas
     const location = useLocation();  // Hook para obtener la ubicación actual
 
-    const isFirstRender = useRef(true); // Ref para rastrear el primer render
-
     const handleFilter = useCallback((ads) => {
         return ads.filter(ad => {
             const yearMatch = ad.year >= selectedYearRange[0] && ad.year <= selectedYearRange[1];
@@ -83,23 +81,20 @@ const useFilter = ({
 
     // Actualiza la URL con los filtros solo si han cambiado
     useEffect(() => {
-        if (isFirstRender.current) {
-            isFirstRender.current = false;
-            return;
-        }
+
 
         const queryParams = new URLSearchParams();
 
         // Solo se agregan filtros que no están en su valor predeterminado
-        if (selectedYearRange[0] !== minYear || selectedYearRange[1] !== maxYear) {
+        if (selectedYearRange[0] !== minYear && selectedYearRange[0] !== 1900 || selectedYearRange[1] !== maxYear && selectedYearRange[1] !== 2024) {
             queryParams.set('yearRange', selectedYearRange.join('-'));
         }
 
-        if (selectedPriceRange[0] !== minPrice || selectedPriceRange[1] !== maxPrice) {
+        if (selectedPriceRange[0] !== minPrice && selectedPriceRange[0] !== 0 || selectedPriceRange[1] !== maxPrice && selectedPriceRange[1] !== 1000000000) {
             queryParams.set('priceRange', selectedPriceRange.join('-'));
         }
 
-        if (selectedKmRange[0] !== minKm || selectedKmRange[1] !== maxKm) {
+        if (selectedKmRange[0] !== minKm && selectedKmRange[0] !== 0 || selectedKmRange[1] !== maxKm && selectedKmRange[1] !== 1000000) {
             queryParams.set('kmRange', selectedKmRange.join('-'));
         }
 
