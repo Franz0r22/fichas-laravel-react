@@ -1,22 +1,14 @@
 import React from 'react';
-import InputField from './InputField';
+import InputField from '../../Components/CarQuoteForm/InputField';
 import Notification from '../Notification/Notification';
-import styles from './CarQuoteForm.module.css';
+import styles from './ContactForm.module.css';
 import useFormHandler from '../../Hooks/useFormHandler';
 
-const CarQuoteForm = ({ carData, honeypot }) => {
+const ContactForm = ({ honeypot }) => {
     const initialData = {
         name: '',
         email: '',
-        rut: '',
         message: '',
-        carBrand: carData.brandName,
-        carModel: carData.modelName,
-        carVersion: carData.version,
-        carKilometers: carData.kilometers,
-        carYear: carData.year,
-        carImage: carData.photos[0],
-        carUrl: window.location.href,
     };
 
     const {
@@ -27,7 +19,7 @@ const CarQuoteForm = ({ carData, honeypot }) => {
         showNotification,
         setShowNotification,
         getError,
-    } = useFormHandler(initialData, honeypot, '/quote');
+    } = useFormHandler(initialData, honeypot, '/contact');
 
     return (
         <>
@@ -37,7 +29,7 @@ const CarQuoteForm = ({ carData, honeypot }) => {
                 onClose={() => setShowNotification(false)}
             />
             <form onSubmit={handleSubmit} className={styles.form} noValidate>
-                <h5 className={styles.carTitle}>Cotízalo Aquí</h5>
+                <h5 className={styles.formTitle}>Contáctanos</h5>
 
                 {/* Campos Honeypot */}
                 {honeypot.enabled && (
@@ -74,14 +66,6 @@ const CarQuoteForm = ({ carData, honeypot }) => {
                     error={getError('email')}
                 />
 
-                <InputField
-                    label="RUT"
-                    name="rut"
-                    value={data.rut}
-                    onChange={handleChange}
-                    error={getError('rut')}
-                />
-
                 <div className="form-group">
                     <label htmlFor="message" className={styles.formLabel}>Mensaje</label>
                     <textarea
@@ -102,4 +86,4 @@ const CarQuoteForm = ({ carData, honeypot }) => {
     );
 };
 
-export default CarQuoteForm;
+export default ContactForm;
