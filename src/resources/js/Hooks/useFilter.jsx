@@ -13,7 +13,29 @@ import { useNavigate, useLocation } from 'react-router-dom';
  * @param {number} options.maxKm - Kilometraje máximo disponible.
  *
  * @returns {object} Estados y funciones para manejar los filtros.
+ * @property {Array<number>} selectedYearRange - Rango de años seleccionado.
+ * @property {function} setSelectedYearRange - Función para actualizar el rango de años seleccionado.
+ * @property {Array<number>} selectedKmRange - Rango de kilometraje seleccionado.
+ * @property {function} setSelectedKmRange - Función para actualizar el rango de kilometraje seleccionado.
+ * @property {string} selectedBrand - Marca seleccionada.
+ * @property {function} setSelectedBrand - Función para actualizar la marca seleccionada.
+ * @property {string} selectedModel - Modelo seleccionado.
+ * @property {function} setSelectedModel - Función para actualizar el modelo seleccionado.
+ * @property {Array<number>} selectedPriceRange - Rango de precios seleccionado.
+ * @property {function} setSelectedPriceRange - Función para actualizar el rango de precios seleccionado.
+ * @property {Array<string>} selectedFuel - Tipos de combustible seleccionados.
+ * @property {function} setSelectedFuel - Función para actualizar los tipos de combustible seleccionados.
+ * @property {Array<string>} selectedLabel - Etiquetas seleccionadas.
+ * @property {function} setSelectedLabel - Función para actualizar las etiquetas seleccionadas.
+ * @property {Array<string>} selectedCategory - Categorías seleccionadas.
+ * @property {function} setSelectedCategory - Función para actualizar las categorías seleccionadas.
+ * @property {string} keyword - Palabra clave para búsqueda.
+ * @property {function} setKeyword - Función para actualizar la palabra clave.
+ * @property {Array<string>} selectedSeller - Vendedores seleccionados.
+ * @property {function} setSelectedSeller - Función para actualizar los vendedores seleccionados.
+ * @property {function} handleFilter - Función para filtrar los anuncios según los filtros seleccionados.
  */
+
 const useFilter = ({
     minYear,
     maxYear,
@@ -22,29 +44,56 @@ const useFilter = ({
     minKm,
     maxKm,
 }) => {
-    // Filtros Rango
-    const [selectedYearRange, setSelectedYearRange] = useState([minYear, maxYear]);
-    const [selectedPriceRange, setSelectedPriceRange] = useState([minPrice, maxPrice]);
-    const [selectedKmRange, setSelectedKmRange] = useState([minKm, maxKm]);
-
-    // Filtros Select
-    const [selectedBrand, setSelectedBrand] = useState('');
-    const [selectedModel, setSelectedModel] = useState('');
-
-    // Filtros Select o Checkboxes (Depende del filtro)
-    const [selectedCategory, setSelectedCategory] = useState([]);
-    const [selectedFuel, setSelectedFuel] = useState([]);
-    const [selectedLabel, setSelectedLabel] = useState([]);
-    
-    // Búsqueda por palabra clave
-    const [keyword, setKeyword] = useState('');
-
-    // Añadir estado para sellerName
-    const [selectedSeller, setSelectedSeller] = useState([]);
-
     const navigate = useNavigate();  // Hook para navegar entre rutas
     const location = useLocation();  // Hook para obtener la ubicación actual
 
+    // Parsear los parámetros de la URL
+    const getQueryParams = () => {
+        const params = new URLSearchParams(location.search);
+        return {
+            yearRange: params.get('yearRange')?.split('-').map(Number) || [minYear, maxYear],
+            priceRange: params.get('priceRange')?.split('-').map(Number) || [minPrice, maxPrice],
+            kmRange: params.get('kmRange')?.split('-').map(Number) || [minKm, maxKm],
+            brand: params.get('brand') || '',
+            model: params.get('model') || '',
+            category: params.get('category')?.split(',') || [],
+            fuel: params.get('fuel')?.split(',') || [],
+            label: params.get('label')?.split(',') || [],
+            keyword: params.get('keyword') || '',
+            seller: params.get('seller')?.split(',') || [],
+        };
+    };
+
+    const initialParams = getQueryParams();
+
+    // Filtros Rango
+    const [selectedYearRange, setSelectedYearRange] = useState(initialParams.yearRange);
+    const [selectedPriceRange, setSelectedPriceRange] = useState(initialParams.priceRange);
+    const [selectedKmRange, setSelectedKmRange] = useState(initialParams.kmRange);
+
+    // Filtros Select
+    const [selectedBrand, setSelectedBrand] = useState(initialParams.brand);
+    const [selectedModel, setSelectedModel] = useState(initialParams.model);
+
+    // Filtros Select o Checkboxes (Depende del filtro)
+    const [selectedCategory, setSelectedCategory] = useState(initialParams.category);
+    const [selectedFuel, setSelectedFuel] = useState(initialParams.fuel);
+    const [selectedLabel, setSelectedLabel] = useState(initialParams.label);
+    
+    // Búsqueda por palabra clave
+    const [keyword, setKeyword] = useState(initialParams.keyword);
+
+    // Añadir estado para sellerName
+    const [selectedSeller, setSelectedSeller] = useState(initialParams.seller);
+
+
+    /**
+     * Función para filtrar los anuncios según los filtros seleccionados.
+     *
+     * @param {Array<object>} ads - Array de anuncios de vehículos a filtrar.
+     *
+     * @returns {Array<object>} Array de anuncios que cumplen con los filtros seleccionados.
+     */
     const handleFilter = useCallback((ads) => {
         return ads.filter(ad => {
             const yearMatch = ad.year >= selectedYearRange[0] && ad.year <= selectedYearRange[1];
@@ -79,7 +128,10 @@ const useFilter = ({
         selectedSeller
     ]);
 
-    // Actualiza la URL con los filtros solo si han cambiado
+    /**
+     * useEffect para actualizar la URL con los filtros seleccionados.
+     * Solo se ejecuta si los filtros han cambiado y no en el montaje inicial.
+     */
     useEffect(() => {
 
 
