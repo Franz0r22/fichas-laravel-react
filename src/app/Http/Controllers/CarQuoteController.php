@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use App\Mail\QuoteMail;
 use App\Mail\ThankYouQuoteMail;
@@ -29,9 +28,6 @@ class CarQuoteController extends Controller
             'captcha_token' => ['required', new Recaptcha],
         ]);
 
-        $validated['tipo_mail'] = '687';
-        $validated['mensaje'] = 'Mensaje de prueba';
-
         $this->GuardaCorreo($validated);
 
         // Enviar correo al administrador
@@ -43,17 +39,10 @@ class CarQuoteController extends Controller
         return redirect()->back()->with('success', 'Cotización enviada con éxito');
     }
 
-    protected function GuardaCorreo($parametros)
+    protected function GuardaCorreo($lead)
     {
-        $url = 'https://apiau4-hq33atf2lq-uc.a.run.app/auto/guardarCorreo';
-
-        try {
-            Http::withToken('88022924501')->post($url, $parametros); // Agregar token Bearer
-        } catch (\Exception $e) {
-            // Manejar excepciones, como problemas de conexión
-            Log::error('Excepción al intentar guardar correo:', [
-                'mensaje' => $e->getMessage(),
-            ]);
-        }
+        Log::channel('leads')->info('Lead guardado temporalmente:', [
+            'lead' => $lead,
+        ]);
     }
 }
