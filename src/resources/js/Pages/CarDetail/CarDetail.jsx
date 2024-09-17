@@ -106,6 +106,7 @@ const CarDetail = () => {
                                 <CarMap
                                     latitude={data.latitude}
                                     longitude={data.length}
+                                    clientLogo={data.clientLogo}
                                 />
                             </Col>
                         </Row>

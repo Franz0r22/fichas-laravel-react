@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useMap, Marker, Popup } from 'react-leaflet';
 
-const MarkerComponent = ({ position }) => {
+const MarkerComponent = ({ position, clientLogo }) => {
 
     const map = useMap();
 
@@ -17,7 +17,9 @@ const MarkerComponent = ({ position }) => {
     return (
         <Marker position={position}>
             <Popup>
-                A pretty CSS3 popup. <br /> Easily customizable.
+                <a href={`https://www.google.com/maps/search/?api=1&query=${position[0]},${position[1]}`} target="_blank">
+                    <img src={clientLogo} alt="Client Logo" width={100}/>
+                </a>
             </Popup>
         </Marker>
     );

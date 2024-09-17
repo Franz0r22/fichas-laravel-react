@@ -4,7 +4,7 @@ import { MapContainer, TileLayer} from 'react-leaflet';
 import MarkerComponent from './MarkerComponent';
 import styles from './CarMap.module.css';
 
-const CarMap = ({ latitude, longitude }) => {
+const CarMap = ({ latitude, longitude, clientLogo }) => {
   return (
     <>  
       <h3 className={`${styles.carTitle} mb-4`}>Ubicación</h3>
@@ -14,6 +14,7 @@ const CarMap = ({ latitude, longitude }) => {
         />
         <MarkerComponent 
             position={[latitude, longitude]}
+            clientLogo={clientLogo}
         />
       </MapContainer>
     </>
