@@ -1,4 +1,3 @@
-import { CarsProvider } from "./Contexts/CarsContext";
 import "./bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@public/css/global.css";
@@ -7,6 +6,7 @@ import { createInertiaApp } from "@inertiajs/react";
 import { createRoot } from "react-dom/client";
 import Layout from "@/Layouts/Layout";
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
+import { CarsProvider } from "./Contexts/CarsContext";
 
 createInertiaApp({
     title: (title) => `${title} - ${import.meta.env.VITE_APP_NAME}`,
