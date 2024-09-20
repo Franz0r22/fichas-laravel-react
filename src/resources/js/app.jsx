@@ -7,7 +7,6 @@ import { createInertiaApp } from "@inertiajs/react";
 import { createRoot } from "react-dom/client";
 import Layout from "@/Layouts/Layout";
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
-import { BrowserRouter } from "react-router-dom";
 
 createInertiaApp({
     title: (title) => `${title} - ${import.meta.env.VITE_APP_NAME}`,
@@ -21,13 +20,11 @@ createInertiaApp({
     setup({ el, App, props }) {
         const recaptchaKey = props.initialPage.props.recaptcha_site_key;
         createRoot(el).render(
-            <BrowserRouter>
                 <GoogleReCaptchaProvider reCaptchaKey={recaptchaKey}>
                     <CarsProvider>
                         <App {...props} />
                     </CarsProvider>
                 </GoogleReCaptchaProvider>
-            </BrowserRouter>
         );
     },
 });
