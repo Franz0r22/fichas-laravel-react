@@ -1,18 +1,17 @@
 import React from 'react';
 import styles from './CarQuoteForm.module.css';
 
-const InputField = ({ label, name, value, onChange, onBlur, error }) => {
+const InputField = ({ label, name, type = 'text', value, onChange, error }) => {
   return (
     <div className="form-group">
-      <label htmlFor={name}>{label}</label>
+      <label htmlFor={name} className={styles.formLabel}>{label}</label>
       <input
-        type="text"
-        className={`form-control ${error ? 'is-invalid' : ''}`}
         id={name}
         name={name}
+        type={type}
         value={value}
         onChange={onChange}
-        onBlur={onBlur}
+        className={`form-control ${styles.formInput} ${error ? 'is-invalid' : ''}`}
       />
       {error && <div className="invalid-feedback">{error}</div>}
     </div>
