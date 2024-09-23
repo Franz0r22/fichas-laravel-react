@@ -3,7 +3,7 @@ import InputField from './InputField';
 import Notification from '../Notification/Notification';
 import styles from './CarQuoteForm.module.css';
 import useFormHandler from '../../Hooks/useFormHandler';
-import QuoteYourCredit from './QuoteYourCredit';
+import QuoteYourCredit from './QuoteYourCredit/QuoteYourCredit';
 
 
 
@@ -98,7 +98,7 @@ const CarQuoteForm = ({ carData, honeypot }) => {
                     {getError('message') && <div className="invalid-feedback">{getError('message')}</div>}
                 </div>
 
-                <div className="p-3">
+                <div className="my-4">
                     <QuoteYourCredit 
                         data={data}
                         handleChange={handleChange}

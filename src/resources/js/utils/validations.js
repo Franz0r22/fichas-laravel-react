@@ -67,3 +67,19 @@
     
     return '';
   };
+  
+  export const validatePie = (pie) => {
+    if (pie === undefined || pie === null) return 'El pie es obligatorio';
+    
+    const pieNumber = Number(pie);
+    
+    if (isNaN(pieNumber)) return 'El pie debe ser un número válido';
+    if (!Number.isInteger(pieNumber)) return 'El pie debe ser un número entero';
+    if (pieNumber <= 0) return 'El pie debe ser un valor positivo';
+    if (pieNumber < 1000) return 'El pie debe ser al menos 1,000 pesos';
+    if (pieNumber > 1000000) return 'El pie no puede exceder 1,000,000 de pesos';
+    
+    return '';
+  };
+
+  

@@ -1,0 +1,16 @@
+.creditLink {
+    color: #000;
+}
+
+.radioInput:checked + .radioButton {
+    background-color: black;
+    border-color: black;
+}
+
+.radioInput:checked + .radioButton::after {
+    background-color: white;
+}
+
+.radioCredit{
+    accent-color: black;
+}
