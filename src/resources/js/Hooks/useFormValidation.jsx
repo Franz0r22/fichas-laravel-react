@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
-import { validateName, validateEmail, validateRut, validateMessage, validatePie } from '../utils/validations';
+import { validateName, validateEmail, validateRut, validateMessage, validatePie, validateCreditTerm } from '../utils/validations';
 
-const useFormValidation = (initialData, serverErrors) => {
+const useFormValidation = (data, serverErrors) => {
   const [clientErrors, setClientErrors] = useState({});
 
   const validateField = useCallback((name, value) => {
@@ -20,22 +20,11 @@ const useFormValidation = (initialData, serverErrors) => {
         error = validateMessage(value);
         break;
       case 'pie':
-        error = validatePie(value);
+        error = validatePie(value, data.carPrice); 
         break;
-      case 'marca':
-        error = validateMarca(value);
+      case 'creditTerm':
+        error = validateCreditTerm(value);
         break;
-      case 'modelo':
-        error = validateModelo(value);
-        break;
-      case 'anio':
-        error = validateAnio(value);
-        break;
-      case 'kilometraje':
-        error = validateKilometraje(value);
-        break;
-      default:
-      break;
     }
     return error;
   }, []);

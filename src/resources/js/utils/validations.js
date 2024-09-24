@@ -68,18 +68,25 @@
     return '';
   };
   
-  export const validatePie = (pie) => {
-    if (pie === undefined || pie === null) return 'El pie es obligatorio';
+  export const validatePie = (pie, carPrice) => {
+    if (pie === undefined || pie === null || pie === '') return ''; 
     
     const pieNumber = Number(pie);
     
     if (isNaN(pieNumber)) return 'El pie debe ser un número válido';
     if (!Number.isInteger(pieNumber)) return 'El pie debe ser un número entero';
-    if (pieNumber <= 0) return 'El pie debe ser un valor positivo';
-    if (pieNumber < 1000) return 'El pie debe ser al menos 1,000 pesos';
-    if (pieNumber > 1000000) return 'El pie no puede exceder 1,000,000 de pesos';
+    if (pieNumber > carPrice * 0.5) return 'El pie no puede ser mayor que el 50% del precio del auto';
+    if (pieNumber < carPrice * 0.1) return 'El pie debe ser al menos el 10% del precio del auto';
     
     return '';
   };
 
-  
+export const validateCreditTerm = (pie, creditTerm) => {
+
+  if (pie && pie.toString().trim() !== '') {
+      if (!creditTerm) {
+          return 'Debe seleccionar un plazo de crédito.';
+      }
+  }
+  return '';
+};

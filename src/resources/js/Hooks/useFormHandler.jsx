@@ -15,7 +15,7 @@ const useFormHandler = (initialData, honeypot, endpoint) => {
     const [isReadyToPost, setIsReadyToPost] = useState(false);
     const { validateForm, getError } = useFormValidation(data, serverErrors);
     const { executeRecaptcha } = useGoogleReCaptcha();
-
+    console.log(data);
     useEffect(() => {
         if (isReadyToPost && data.captcha_token) {
             post(endpoint, {

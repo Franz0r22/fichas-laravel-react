@@ -68,6 +68,43 @@
                     <em>No se proporcionó ningún mensaje.</em>
                 @endif
             </div>
+            <div class="field">
+                @if(!empty($data['pie']))
+                <strong>El cliente realizo una cotizacón de crédito:</strong> 
+                <strong>Pie:</strong> 
+                    {{ $data['pie'] }}
+                <strong>Cantidad de cuotas:</strong> 
+                    {{ $data['creditTerm'] }}
+                @endif
+            </div>
+
+            @if(!empty($data['marca']) || !empty($data['modelo']) || !empty($data['annio']) || !empty($data['kilometraje']))
+                <strong>El cliente desea dejar su auto como parte de pago:</strong>
+                <div class="field">
+                    @if(!empty($data['marca']))
+                    <strong>Marca:</strong> 
+                        {{ $data['marca'] }}
+                    @endif
+                </div>
+                <div class="field">
+                    @if(!empty($data['modelo']))
+                    <strong>Modelo:</strong> 
+                        {{ $data['modelo'] }}
+                    @endif
+                </div>
+                <div class="field">
+                    @if(!empty($data['annio']))
+                    <strong>Año:</strong> 
+                        {{ $data['annio'] }}
+                    @endif
+                </div>
+                <div class="field">
+                    @if(!empty($data['kilometraje']))
+                    <strong>Kilometraje:</strong> 
+                        {{ $data['kilometraje'] }}
+                    @endif
+                </div>
+            @endif
 
             <h2>Detalles del Vehículo</h2>
             <div class="field">
@@ -84,6 +121,9 @@
             </div>
             <div class="field">
                 <strong>Año:</strong> {{ $data['carYear'] }}
+            </div>
+            <div class="field">
+                <strong>Precio:</strong> {{ $data['carPrice'] }}
             </div>
             <div class="field">
                 <strong>Imagen del vehículo:</strong><br>

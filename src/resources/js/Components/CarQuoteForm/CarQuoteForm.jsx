@@ -5,8 +5,6 @@ import styles from './CarQuoteForm.module.css';
 import useFormHandler from '../../Hooks/useFormHandler';
 import QuoteYourCredit from './QuoteYourCredit/QuoteYourCredit';
 
-
-
 const CarQuoteForm = ({ carData, honeypot }) => {
 
     const initialData = {
@@ -14,6 +12,13 @@ const CarQuoteForm = ({ carData, honeypot }) => {
         email: '',
         rut: '',
         message: '',
+        pie: '',
+        creditTerm: '',
+        marca: '',
+        modelo: '',
+        anio: '',
+        kilometraje: '',
+        carPrice: carData.price,
         carBrand: carData.brandName,
         carModel: carData.modelName,
         carVersion: carData.version,

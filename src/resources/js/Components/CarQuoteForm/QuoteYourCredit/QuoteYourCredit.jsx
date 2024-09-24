@@ -1,19 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Collapse } from 'react-bootstrap';
 import InputField from "../InputField";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
 import styles from './QuoteYourCredit.module.css';
 import { formatNumber } from "../../../utils/formatNumber";
-// import CheckInlineExample from "./CheckInlineExample";
+import { validateCreditTerm } from "../../../utils/validations";
 
-const QuoteYourCredit = ({ data, handleChange, getError }) => {
+const QuoteYourCredit = ({ data, handleChange, getError}) => {
+
     const [openCredit, setOpenCredit] = useState(false);
     const [openConsignment, setOpenConsignment] = useState(false);
     const [unformattedPie, setUnformattedPie] = useState(data.pie || '');
+    const [creditTerm, setCreditTerm] = useState(data.creditTerm || '');
 
     const handlePieChange = (e) => {
         const { value } = e.target;
-        // Permite solo dígitos
         if (/^\d*$/.test(value)) {
             setUnformattedPie(value);
             handleChange(e);
@@ -29,6 +30,16 @@ const QuoteYourCredit = ({ data, handleChange, getError }) => {
                 },
             });
         }
+    };
+
+    useEffect(() => {
+        validateCreditTerm(data.pie, creditTerm);
+    }, [data.pie, creditTerm]);
+
+    const handleCreditTermChange = (e) => {
+        const { value } = e.target;
+        setCreditTerm(value);
+        handleChange(e);
     };
 
     return (
@@ -54,14 +65,16 @@ const QuoteYourCredit = ({ data, handleChange, getError }) => {
                         error={getError("pie")}
                     />
                     <div className="mt-3">
-                        <label>Cuotas</label>
+                        <label className={styles.formLabel}>Cuotas</label>
                         <div className={`d-flex align-items-center justify-content-between`}>
                             {[12, 24, 36, 48, 60].map((months) => (
-                                <label key={months} >
+                                <label key={months} className={styles.formLabel}>
                                     <input
                                         type="radio"
                                         name="creditTerm"
                                         value={months}
+                                        checked={creditTerm === months.toString()}
+                                        onChange={handleCreditTermChange}
                                         className={styles.radioCredit}
                                     />
                                     <span></span>
@@ -69,11 +82,15 @@ const QuoteYourCredit = ({ data, handleChange, getError }) => {
                                 </label>
                             ))}
                         </div>
+                        {/* Mostrar el mensaje de error si 'pie' está lleno y hay un error en 'creditTerm' */}
+                        {data.pie && (
+                            <div className="error-message text-danger mt-2">
+                                {validateCreditTerm(data.pie, creditTerm)}
+                            </div>
+                        )}
                     </div>
                 </div>
             </Collapse>
-
-
 
             <a role="button" 
                 onClick={() => setOpenConsignment(!openConsignment)}

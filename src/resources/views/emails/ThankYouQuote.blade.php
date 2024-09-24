@@ -39,7 +39,7 @@
         <div class="content">
             <p>Estimado/a {{ $data['name'] }},</p>
             <p>Gracias por solicitar una cotización para el vehículo:</p>
-            <p><strong>{{ $data['carBrand'] }} {{ $data['carModel'] }} {{ $data['carVersion'] }} ({{ $data['carYear'] }})</strong></p>
+            <p><strong>{{ $data['carBrand'] }} {{ $data['carModel'] }} {{ $data['carVersion'] }} ({{ $data['carYear'] }}) ({{ $data['carPrice'] }})</strong></p>
             <p>Hemos recibido tu solicitud y nos pondremos en contacto contigo a la brevedad posible para proporcionarte más información.</p>
             <p>Si tienes alguna pregunta adicional, no dudes en contactarnos.</p>
             <p>Saludos cordiales,</p>
