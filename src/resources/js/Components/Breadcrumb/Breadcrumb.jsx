@@ -5,7 +5,6 @@ import { HiArrowLongLeft } from "react-icons/hi2";
 import { RxDividerVertical } from "react-icons/rx";
 
 const Breadcrumb = ({ items = [] }) => {
-  const { url } = usePage();
 
   return (
     <Row>

@@ -14,9 +14,9 @@ import CarQuoteForm from "../../Components/CarQuoteForm/CarQuoteForm";
 import CarWhatsAppBtn from "../../Components/CarWhatsAppBtn/CarWhatsAppBtn";
 import ShareButtons from "../../Components/ShareButtons/ShareButtons";
 
+
 const CarDetail = () => {
     const { data, error, honeypot } = usePage().props;
-
     const shareUrl = window.location.href;
     const shareTitle = '¡Me gustó este vehículo!'
 
@@ -40,8 +40,8 @@ const CarDetail = () => {
                             <Col md={12} className="d-flex justify-content-between align-items-center">
                                 <Breadcrumb
                                     items={[
-                                        { name: data.brandName, link: `/${data.brandName}` },
-                                        { name: data.modelName, link: `/${data.brandName}/${data.modelName}` },
+                                        { name: data.brandName, link: `${route('cars')}/?brand=${data.brandName}` },
+                                        { name: data.modelName, link: `${route('cars')}/?model=${data.modelName}` },
                                         { name: data.version }
                                     ]}
                                 />
