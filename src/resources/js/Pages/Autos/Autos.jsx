@@ -56,7 +56,8 @@ const Autos = () => {
         totalPages,
     } = useCars(data);
 
-    const { sortedItems, sortCriteria, setSortCriteria } = useSort(currentItems);
+    const { sortedItems, sortCriteria, setSortCriteria } =
+        useSort(currentItems);
 
     const isLatFilter = import.meta.env.VITE_FILTER_LAT === "true";
 
@@ -65,15 +66,18 @@ const Autos = () => {
 
     return (
         <>
-            <Head title="Autos" />
+            <Head>
+                <title>Catálogo</title>
+                <meta
+                    name="description"
+                    content="Explora nuestro catálogo de autos usados. Filtra por marca, modelo y precio para encontrar el vehículo ideal. Cotiza fácilmente y descubre opciones que se ajustan a tus necesidades."
+                />
+            </Head>
 
             <Container style={{ minHeight: "100vh" }} className="my-5">
                 <Breadcrumb items={[{ name: "Catálogo" }]} />
 
-                <SearchForm 
-                    keyword={keyword}
-                    setKeyword={setKeyword}
-                />
+                <SearchForm keyword={keyword} setKeyword={setKeyword} />
 
                 {!isLatFilter && (
                     <FilterForm
@@ -134,7 +138,7 @@ const Autos = () => {
                                 uniqueBrands={uniqueBrands}
                                 uniqueModels={uniqueModels}
                                 uniqueFuels={uniqueFuels}
-                                uniqueLabels={uniqueLabels} 
+                                uniqueLabels={uniqueLabels}
                                 uniqueCategories={uniqueCategories}
                                 uniqueSellers={uniqueSellers}
                                 selectedYear={selectedYear}

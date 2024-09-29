@@ -89,6 +89,7 @@ const CarItem = ({ auto }) => {
                                     loading="lazy"
                                     src={getImageSrc()}
                                     className={styles.cardImg}
+                                    alt={`${auto.brand} ${auto.model}`}
                                 />
                                 {auto.ribbonName && (
                                     <CarLabel

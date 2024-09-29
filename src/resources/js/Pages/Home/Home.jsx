@@ -3,19 +3,19 @@ import { Head, usePage } from "@inertiajs/react";
 import { Container, Row, Col, Spinner, Alert } from "react-bootstrap";
 import CarCarousel from "../../Components/CarCarousel/CarCarousel";
 import TopCarousel from "../../Components/TopCarousel/TopCarousel";
-import useCars from '../../hooks/useCars';
-
+import useCars from "../../hooks/useCars";
 
 const Home = () => {
-
-    const { props: { data, error } } = usePage();
+    const {
+        props: { data, error },
+    } = usePage();
 
     const { currentItems } = useCars(data);
 
     const slides = [
         {
-            image: '/images/placeholder.webp',
-            label: 'Primer Slide',
+            image: "/images/placeholder.webp",
+            label: "Primer Slide",
             // text: 'Nulla vitae elit libero, a pharetra augue mollis interdum.'
         },
         // {
@@ -35,7 +35,13 @@ const Home = () => {
 
     return (
         <>
-            <Head title="Home" />
+            <Head>
+                <title>Home</title>
+                <meta
+                    name="description"
+                    content="Visita nuestra web para cotizar autos usados de forma rápida y sencilla. Compara precios, accede a detalles completos y encuentra el vehículo ideal para ti. Tu próximo auto te está esperando."
+                />
+            </Head>
 
             <TopCarousel slides={slides} />
 
