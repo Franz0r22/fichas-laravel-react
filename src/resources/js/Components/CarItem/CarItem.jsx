@@ -86,7 +86,6 @@ const CarItem = ({ auto }) => {
                             <div className={styles.imgWrapper}>
                                 <Card.Img
                                     variant="top"
-                                    loading="lazy"
                                     src={getImageSrc()}
                                     className={styles.cardImg}
                                     alt={`${auto.brand} ${auto.model}`}

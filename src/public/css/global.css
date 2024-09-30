@@ -30,6 +30,10 @@ p {
     font-size: 12px;
 }
 
+.fs-24 {
+    font-size: 24px;
+}
+
 select option {
     background-color: var(--primary-gray);
 }

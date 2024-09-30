@@ -15,7 +15,9 @@ const TopCarousel = ({ slides }) => {
             {slides.map((slide, i) => (
                 <Carousel.Item key={i}>
                     <img
-                        className="d-block w-100"
+                        className="img-fluid"
+                        width={'1519'}
+                        height={'396'}
                         src={slide.image}
                         alt={slide.label}
                     />

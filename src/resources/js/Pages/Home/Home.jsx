@@ -48,7 +48,7 @@ const Home = () => {
             <Container style={{ minHeight: "100vh" }} className="my-5">
                 <Row className="justify-content-md-center">
                     <Col md="auto" className="text-center mb-4">
-                        <h4 className="fw-bold text-uppercase">
+                        <h4 className="fw-bold text-uppercase fs-24">
                             Vehículos Destacados
                         </h4>
                     </Col>
