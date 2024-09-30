@@ -3,7 +3,7 @@ import { Head, usePage } from "@inertiajs/react";
 import { Container, Row, Col, Spinner, Alert } from "react-bootstrap";
 import CarCarousel from "../../Components/CarCarousel/CarCarousel";
 import TopCarousel from "../../Components/TopCarousel/TopCarousel";
-import useCars from "../../hooks/useCars";
+import useCars from "../../Hooks/useCars";
 
 const Home = () => {
     const {
