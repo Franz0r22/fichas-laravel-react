@@ -11,7 +11,8 @@ const Navigation = () => {
     const menuItems = [
         { name: 'Inicio', route: 'home' },
         { name: 'Autos', route: 'cars' },
-        { name: 'Contacto', route: 'contact' } 
+        { name: 'Contacto', route: 'contact' },
+        { name: 'Financiamiento', route: 'financing' }
     ];
 
     return (

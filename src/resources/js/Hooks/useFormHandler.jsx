@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useForm } from '@inertiajs/react';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import useFormValidation from './useFormValidation';
+import { usePage } from '@inertiajs/react';
 
 const useFormHandler = (initialData, honeypot, endpoint) => {
     const { data, setData, post, processing, errors: serverErrors, reset } = useForm({

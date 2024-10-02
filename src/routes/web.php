@@ -8,6 +8,8 @@ use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Artisan;
 use Spatie\Honeypot\ProtectAgainstSpam;
 use Inertia\Inertia;
+use App\Http\Controllers\FinancingController;
+
 
 Route::get('/', [CarsController::class, 'getCarsForHome'])->name('home');
 
@@ -18,6 +20,10 @@ Route::get('/{brand}/{model}/{autoid}', [CarDetailController::class, 'getSingleC
 Route::get('/contactanos', [ContactController::class, 'showContactForm'])->name('contact');
 
 Route::post('/contact', [ContactController::class, 'sendContactForm'])->middleware(ProtectAgainstSpam::class);
+
+Route::get('/financiamiento', [FinancingController::class, 'showFinancingForm'])->name('financing');
+
+Route::post('/financiamiento', [FinancingController::class, 'sendFinancingForm'])->middleware(ProtectAgainstSpam::class);
 
 Route::post('/quote', CarQuoteController::class)->middleware(ProtectAgainstSpam::class);
 
