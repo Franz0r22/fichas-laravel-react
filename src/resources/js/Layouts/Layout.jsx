@@ -1,7 +1,7 @@
 import Navigation from "../Components/Navigation/Navigation";
 import Footer from "../Components/Footer/Footer";
 import WhatsAppButton from "../Components/WhatsAppButton/WhatsAppButton";
-import { Comparator } from "../Components/comparator/Comparator";
+import { Comparator } from "../Components/ComparatorCanvas/Comparator";
 
 export default function Layout({ children }) {
     return (

@@ -16,6 +16,7 @@ Route::get('/', [CarsController::class, 'getCarsForHome'])->name('home');
 Route::get('/autos', [CarsController::class, 'getCars'])->name('cars');
 
 Route::get('/{brand}/{model}/{autoid}', [CarDetailController::class, 'getSingleCar'])->name('carDetail');
+Route::post('/comparador', [CarDetailController::class, 'getComparador'])->name('comparador');
 
 Route::get('/contactanos', [ContactController::class, 'showContactForm'])->name('contact');
 
@@ -27,12 +28,11 @@ Route::post('/financiamiento', [FinancingController::class, 'sendFinancingForm']
 
 Route::post('/quote', CarQuoteController::class)->middleware(ProtectAgainstSpam::class);
 
-Route::get('/clear-cache', function() {
-    
+Route::get('/clear-cache', function () {
     Artisan::call('cache:clear');
     Artisan::call('config:clear');
     Artisan::call('route:clear');
     Artisan::call('view:clear');
-    
-    return "Todas las cachés han sido borradas";
+
+    return 'Todas las cachés han sido borradas';
 });

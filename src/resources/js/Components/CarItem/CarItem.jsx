@@ -1,8 +1,6 @@
 import { Card } from "react-bootstrap";
 import { BsCalendar2 } from "react-icons/bs";
-import { GiCarWheel } from "react-icons/gi";
-import { GiGearStick } from "react-icons/gi";
-import { GiGasPump } from "react-icons/gi";
+import { GiCarWheel, GiGearStick, GiGasPump } from "react-icons/gi";
 import styles from "./CarItem.module.css";
 import { formatNumber } from "../../utils/formatNumber";
 import CarLabel from "./CarLabel";
@@ -14,8 +12,6 @@ import { useCars } from "../../Contexts/CarsContext";
 const CarItem = ({ auto }) => {
     const [imageStatus, setImageStatus] = useState("loading");
     const { comparator, setComparator } = useCars();
-    console.log(comparator);
-    // localStorage.clear();
 
     useEffect(() => {
         const img = new Image();
@@ -31,47 +27,35 @@ const CarItem = ({ auto }) => {
         return auto.photo;
     };
 
-    // Función para manejar la lógica de agregar o eliminar un coche del comparator
     const toggleCarInComparator = (car) => {
         setComparator((prev) => {
-            const prevCars = [...prev]; // Copia el array anterior
+            const prevCars = [...prev];
             const existingCarIndex = prevCars.findIndex(
                 (c) => c.carId === car.carId
             );
 
+            // Verificar si el coche ya está en el comparador
             if (existingCarIndex > -1) {
-                // Si el coche ya está, lo elimina
+                // Si ya está, eliminarlo
                 return prevCars.filter((c) => c.carId !== car.carId);
-            } else {
-                // Si no está, lo agrega
+            } else if (prevCars.length < 3) {
+                // Si no está y el comparador tiene menos de 3 coches, agregarlo
                 return [...prevCars, car];
+            } else {
+                // Mostrar una alerta si ya hay 3 coches
+                // alert("Solo puedes comparar hasta 3 coches.");
+
+                return prevCars;
             }
         });
     };
 
-    // Función para verificar si el coche está en el comparator
     const isCarInComparator = (car) => {
         return comparator.some((c) => c.carId === car.carId);
     };
 
     return (
         <>
-            <button
-                type="button"
-                onClick={() =>
-                    toggleCarInComparator({
-                        carId: auto.carId,
-                        brand: auto.brand,
-                        model: auto.model,
-                        photo: auto.photo,
-                    })
-                }
-                className={`${styles.btnCard} ${
-                    isCarInComparator(auto) ? styles.btnCardActive : ""
-                }`}
-            >
-                Comparar
-            </button>
             <a
                 href={`/${auto.brand.toLowerCase()}/${auto.model.toLowerCase()}/${
                     auto.carId
@@ -84,6 +68,25 @@ const CarItem = ({ auto }) => {
                     ) : (
                         <>
                             <div className={styles.imgWrapper}>
+                                <div className={styles["div-comparador"]}>
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            checked={isCarInComparator(auto)}
+                                            onChange={() =>
+                                                toggleCarInComparator({
+                                                    carId: auto.carId,
+                                                    brand: auto.brand,
+                                                    model: auto.model,
+                                                    photo: auto.photo,
+                                                    price: auto.price,
+                                                })
+                                            }
+                                            className={styles.checkbox}
+                                        />
+                                        <span className="px-2">Comparar</span>
+                                    </label>
+                                </div>
                                 <Card.Img
                                     variant="top"
                                     src={getImageSrc()}
