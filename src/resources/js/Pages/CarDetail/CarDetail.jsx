@@ -13,18 +13,19 @@ import CarMap from "../../Components/CarMap/CarMap";
 import CarQuoteForm from "../../Components/CarQuoteForm/CarQuoteForm";
 import CarWhatsAppBtn from "../../Components/CarWhatsAppBtn/CarWhatsAppBtn";
 import ShareButtons from "../../Components/ShareButtons/ShareButtons";
+import SuggestedCars from "../../Components/SuggestedCars/SuggestedCars";
 
 const CarDetail = () => {
-    const { data, error, honeypot } = usePage().props;
+    const { data, error, honeypot, suggestedCars } = usePage().props;
     const shareUrl = window.location.href;
     const shareTitle = "¡Me gustó este vehículo!";
 
     if (error) {
         return (
-            <div className="text-center mt-4">
+            <Container className="text-center mt-5">
                 <h1>Error</h1>
                 <p>{error}</p>
-            </div>
+            </Container>
         );
     }
 
@@ -33,10 +34,10 @@ const CarDetail = () => {
             {data ? (
                 <>
                     <Head>
-                        <title>{`${data?.brandName} ${data?.modelName}`}</title>
+                        <title>{`${data.brandName} ${data.modelName}`}</title>
                         <meta
                             name="description"
-                            content={`Conoce a fondo el ${data?.brandName} ${data?.modelName}. Revisa especificaciones, fotos y precio. Cotiza este auto usado y toma la mejor decisión para tu próxima compra.`}
+                            content={`Conoce a fondo el ${data.brandName} ${data.modelName}. Revisa especificaciones, fotos y precio. Cotiza este auto usado y toma la mejor decisión para tu próxima compra.`}
                         />
                     </Head>
 
@@ -50,23 +51,16 @@ const CarDetail = () => {
                                     items={[
                                         {
                                             name: data.brandName,
-                                            link: `${route("cars")}/?brand=${
-                                                data.brandName
-                                            }`,
+                                            link: `${route("cars")}/?brand=${data.brandName}`,
                                         },
                                         {
                                             name: data.modelName,
-                                            link: `${route("cars")}/?model=${
-                                                data.modelName
-                                            }`,
+                                            link: `${route("cars")}/?model=${data.modelName}`,
                                         },
                                         { name: data.version },
                                     ]}
                                 />
-                                <ShareButtons
-                                    url={shareUrl}
-                                    title={shareTitle}
-                                />
+                                <ShareButtons url={shareUrl} title={shareTitle} />
                             </Col>
                         </Row>
                         <Row className={`${styles.titleBox} mt-2`}>
@@ -84,10 +78,7 @@ const CarDetail = () => {
                                 />
                             </Col>
                             <Col md={6}>
-                                <CarPricing
-                                    currency={data.currency}
-                                    price={data.price}
-                                />
+                                <CarPricing currency={data.currency} price={data.price} />
                             </Col>
                         </Row>
                         <Row>
@@ -100,15 +91,12 @@ const CarDetail = () => {
                             >
                                 {data.description && (
                                     <CarDescription
-                                        description={data.description ? data.description : 'No hay descripción disponible'}
+                                        description={
+                                            data.description || "No hay descripción disponible"
+                                        }
                                     />
                                 )}
-                                <div>
-                                    <CarQuoteForm
-                                        carData={data}
-                                        honeypot={honeypot}
-                                    />
-                                </div>
+                                <CarQuoteForm carData={data} honeypot={honeypot} />
                                 {data.whatsApp && (
                                     <div className="mt-3">
                                         <CarWhatsAppBtn
@@ -127,10 +115,7 @@ const CarDetail = () => {
                                     <CarFeatures features={data.features} />
                                 )}
                             </Col>
-                            <Col
-                                md={5}
-                                className={`${styles.titleBox} mt-4 p-4`}
-                            >
+                            <Col md={5} className={`${styles.titleBox} p-4`}>
                                 <CarMap
                                     latitude={data.latitude}
                                     longitude={data.length}
@@ -141,8 +126,13 @@ const CarDetail = () => {
                     </Container>
                 </>
             ) : (
-                <div>Loading...</div>
+                <Container className="text-center mt-5">
+                    <div>Loading...</div>
+                </Container>
             )}
+            <Container className="my-5">
+                <SuggestedCars suggestedCars={suggestedCars} />
+            </Container>
         </>
     );
 };

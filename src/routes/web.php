@@ -10,7 +10,6 @@ use Spatie\Honeypot\ProtectAgainstSpam;
 use Inertia\Inertia;
 use App\Http\Controllers\FinancingController;
 
-
 Route::get('/', [CarsController::class, 'getCarsForHome'])->name('home');
 
 Route::get('/autos', [CarsController::class, 'getCars'])->name('cars');

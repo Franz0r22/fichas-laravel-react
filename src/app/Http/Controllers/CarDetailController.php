@@ -6,32 +6,53 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Inertia\Inertia;
 use Spatie\Honeypot\Honeypot;
+use App\Services\CarService;
+use Illuminate\Support\Facades\Cache;
 
 class CarDetailController extends Controller
 {
+    protected $carService;
+
+    public function __construct(CarService $carService)
+    {
+        $this->carService = $carService;
+    }
+    
     public function getSingleCar(Request $request, $brand, $model, $autoid, Honeypot $honeypot)
     {
         try {
-            $apiUrl = config('services.api.urlfichasv2');
-            $apiToken = config('services.api.tokenfichasv2');
-            $endpoint = 'vehicle';
+            $data = $this->carService->getCarDetails($autoid);
+            $transformedData = $this->transformCarDetailData($data);
 
-            $queryParams = [
-                'id' => $autoid,
-            ];
-            $response = Http::withToken($apiToken)->get("$apiUrl/$endpoint", $queryParams);
-
-            if ($response->successful()) {
-                $data = $response->json();
-                $transformedData = $this->transformCarDetailData($data);
-                // dd($transformedData, $data);
-                return Inertia::render('CarDetail', [
-                    'data' => $transformedData,
-                    'honeypot' => $honeypot->toArray(),
-                ]);
-            } else {
-                throw new \Exception('Failed to fetch data');
+            if (!isset($transformedData['price'])) {
+                throw new \Exception('Precio del vehículo no disponible');
             }
+
+            $price = $transformedData['price'];
+
+            $priceFrom = $price - 2000000;
+            $priceUp = $price + 2000000;            
+
+            // Parámetros para autos sugeridos
+            $suggestedCarsParams = [
+                'idClient' => env('APP_SUCURSALES'),
+                'page' => 1,
+                'quantity' => env('API_SUGGESTED_CARS_QUANTITY'),
+                'carid' => $autoid,
+                'priceFrom' => $priceFrom,
+                'priceUp' => $priceUp,
+            ];
+
+            // Obtener autos sugeridos con caché
+            $suggestedCars = Cache::remember("suggested_cars_{$autoid}", 60, function() use ($suggestedCarsParams) {
+                return $this->carService->getSuggestedCars($suggestedCarsParams);
+            });
+
+            return Inertia::render('CarDetail', [
+                'data' => $transformedData,
+                'honeypot' => $honeypot->toArray(),
+                'suggestedCars' => $suggestedCars,
+            ]);
         } catch (\Exception $e) {
             return Inertia::render('CarDetail', [
                 'error' => $e->getMessage(),
