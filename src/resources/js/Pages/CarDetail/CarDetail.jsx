@@ -100,7 +100,7 @@ const CarDetail = () => {
                             >
                                 {data.description && (
                                     <CarDescription
-                                        description={data.description}
+                                        description={data.description ? data.description : 'No hay descripción disponible'}
                                     />
                                 )}
                                 <div>
