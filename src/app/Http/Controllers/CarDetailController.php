@@ -17,7 +17,7 @@ class CarDetailController extends Controller
     {
         $this->carService = $carService;
     }
-    
+
     public function getSingleCar(Request $request, $brand, $model, $autoid, Honeypot $honeypot)
     {
         try {
@@ -29,9 +29,10 @@ class CarDetailController extends Controller
             }
 
             $price = $transformedData['price'];
-
+            $category = $transformedData['categoryID'];
+            $brand = $transformedData['brandID'];
             $priceFrom = $price - 2000000;
-            $priceUp = $price + 2000000;            
+            $priceUp = $price + 2000000;
 
             // Parámetros para autos sugeridos
             $suggestedCarsParams = [
@@ -43,10 +44,24 @@ class CarDetailController extends Controller
                 'priceUp' => $priceUp,
             ];
 
-            // Obtener autos sugeridos con caché
-            $suggestedCars = Cache::remember("suggested_cars_{$autoid}", 60, function() use ($suggestedCarsParams) {
+
+            $suggestedCars = Cache::remember("suggested_cars_{$autoid}", 60, function () use ($suggestedCarsParams) {
                 return $this->carService->getSuggestedCars($suggestedCarsParams);
             });
+
+            if (empty($suggestedCars['ads'])) {
+                $alternativeParams = [
+                    'idClient' => env('APP_SUCURSALES'),
+                    'page' => 1,
+                    'quantity' => env('API_SUGGESTED_CARS_QUANTITY'),
+                    'carid' => $autoid,
+                    'idCategory' => $category,
+                ];
+
+                $suggestedCars = Cache::remember("suggested_cars_category_{$category}", 60, function () use ($alternativeParams) {
+                    return $this->carService->getSuggestedCars($alternativeParams);
+                });
+            }
 
             return Inertia::render('CarDetail', [
                 'data' => $transformedData,
@@ -60,7 +75,7 @@ class CarDetailController extends Controller
             ]);
         }
     }
-    
+
     public function getComparador(Request $request)
     {
         try {
@@ -169,7 +184,7 @@ class CarDetailController extends Controller
             'legalPrice2' => $ad['prices']['legal2'],
             'legalPrice3' => $ad['prices']['legal3'],
             'photos' => $ad['meddia']['images'],
-            'features' => array_map(function($feature) {
+            'features' => array_map(function ($feature) {
                 return $feature['name'];
             }, $ad['specification']['characteristic'] ?? []),
         ];

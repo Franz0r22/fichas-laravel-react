@@ -1,5 +1,4 @@
 import React from 'react'
-import CarItem from '../CarItem/CarItem'
 import { Row, Alert, Col } from 'react-bootstrap';
 import CarCarousel from '../CarCarousel/CarCarousel';
 
