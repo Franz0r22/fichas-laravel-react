@@ -28,7 +28,7 @@ const CarDetail = () => {
             </Container>
         );
     }
-
+console.log(data);
     return (
         <>
             {data ? (

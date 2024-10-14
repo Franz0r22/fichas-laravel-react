@@ -22,6 +22,7 @@ class CarDetailController extends Controller
     {
         try {
             $data = $this->carService->getCarDetails($autoid);
+
             $transformedData = $this->transformCarDetailData($data);
 
             if (!isset($transformedData['price'])) {
@@ -163,13 +164,13 @@ class CarDetailController extends Controller
             'lights' => null, // No proporcionado en la nueva respuesta
             'air' => null, // No proporcionado en la nueva respuesta
             'airbag' => null, // No proporcionado en la nueva respuesta
-            'description' => $ad['additionalInfo'],
+            'description' => $ad['description'],
             'labelID' => $ad['ribbon']['id'],
             'labelTitle' => $ad['ribbon']['name'],
             'labelTitleColor' => $ad['ribbon']['textColor'],
             'phone1' => $seller['contactData']['phoneNumber1'],
-            'phone2' => null, // No proporcionado en la nueva respuesta
-            'whatsApp' => null, // No proporcionado en la nueva respuesta
+            'phone2' => $seller['contactData']['phoneNumber2'],
+            'whatsApp' => $seller['contactData']['whatsapp'],
             'urlVideo' => null, // No proporcionado en la nueva respuesta
             'sku' => null, // No proporcionado en la nueva respuesta
             'vin' => null, // No proporcionado en la nueva respuesta
