@@ -15,17 +15,18 @@ Route::get('/', [CarsController::class, 'getCarsForHome'])->name('home');
 Route::get('/autos', [CarsController::class, 'getCars'])->name('cars');
 
 Route::get('/{brand}/{model}/{autoid}', [CarDetailController::class, 'getSingleCar'])->name('carDetail');
+
 Route::post('/comparador', [CarDetailController::class, 'getComparador'])->name('comparador');
 
 Route::get('/contactanos', [ContactController::class, 'showContactForm'])->name('contact');
 
-Route::post('/contact', [ContactController::class, 'sendContactForm'])->middleware(ProtectAgainstSpam::class);
+Route::post('/contact', [ContactController::class, 'sendContactForm'])->middleware(ProtectAgainstSpam::class)->name('contactQuote');
 
 Route::get('/financiamiento', [FinancingController::class, 'showFinancingForm'])->name('financing');
 
 Route::post('/financiamiento', [FinancingController::class, 'sendFinancingForm'])->middleware(ProtectAgainstSpam::class);
 
-Route::post('/quote', CarQuoteController::class)->middleware(ProtectAgainstSpam::class);
+Route::post('/quote', CarQuoteController::class)->middleware(ProtectAgainstSpam::class)->name('quote');
 
 Route::get('/clear-cache', function () {
     Artisan::call('cache:clear');

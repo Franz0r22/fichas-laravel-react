@@ -4,7 +4,6 @@ import InputField from "../InputField";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
 import styles from './QuoteYourCredit.module.css';
 import { formatNumber } from "../../../utils/formatNumber";
-import { validateCreditTerm } from "../../../utils/validations";
 
 const QuoteYourCredit = ({ data, handleChange, getError}) => {
 
@@ -32,9 +31,9 @@ const QuoteYourCredit = ({ data, handleChange, getError}) => {
         }
     };
 
-    useEffect(() => {
-        validateCreditTerm(data.pie, creditTerm);
-    }, [data.pie, creditTerm]);
+    // useEffect(() => {
+    //     validateCreditTerm(data.pie, creditTerm);
+    // }, [data.pie, creditTerm]);
 
     const handleCreditTermChange = (e) => {
         const { value } = e.target;
@@ -82,12 +81,6 @@ const QuoteYourCredit = ({ data, handleChange, getError}) => {
                                 </label>
                             ))}
                         </div>
-                        {/* Mostrar el mensaje de error si 'pie' está lleno y hay un error en 'creditTerm' */}
-                        {data.pie && (
-                            <div className="error-message text-danger mt-2">
-                                {validateCreditTerm(data.pie, creditTerm)}
-                            </div>
-                        )}
                     </div>
                 </div>
             </Collapse>

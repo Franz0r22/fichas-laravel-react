@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { validateName, validateEmail, validateRut, validateMessage, validatePie, validateCreditTerm } from '../utils/validations';
+import { validateName, validateEmail, validateRut, validateMessage, validatePie, validateCreditTerm, validatePhone, validateCreditAmount, validateInstallments } from '../utils/validations';
 
 const useFormValidation = (data, serverErrors) => {
   const [clientErrors, setClientErrors] = useState({});
@@ -22,9 +22,27 @@ const useFormValidation = (data, serverErrors) => {
       case 'pie':
         error = validatePie(value, data.carPrice); 
         break;
-      case 'creditTerm':
-        error = validateCreditTerm(value);
+      case 'phone':
+        error = validatePhone(value);
         break;
+      case 'creditAmount':
+        error = validateCreditAmount(value);
+        break;
+      case 'installments':
+        error = validateInstallments(value);
+        break;
+      // case 'vehicleYear':
+      //   error = validateVehicleYear(value);
+      //   break;  
+      // case 'vehicleBrand':
+      //   error = validateVehicleBrand(value);
+      //   break;
+      // case 'vehicleModel':
+      //   error = validateVehicleModel(value);
+      //   break;
+      // case 'creditTerm':
+      //   error = validateCreditTerm(value);
+      //   break;
     }
     return error;
   }, []);

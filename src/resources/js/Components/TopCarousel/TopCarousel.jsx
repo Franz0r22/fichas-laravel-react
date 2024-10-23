@@ -16,7 +16,7 @@ const TopCarousel = ({ slides }) => {
                 <Carousel.Item key={i}>
                     <img
                         className="img-fluid"
-                        width={'1519'}
+                        width={'100%'}
                         height={'396'}
                         src={slide.image}
                         alt={slide.label}

@@ -27,12 +27,12 @@ class CarQuoteController extends Controller
             'carImage' => 'required|url',
             'carUrl' => 'required|url',
             'captcha_token' => ['required', new Recaptcha],
-            'pie' => 'nullable|interger',
+            'pie' => 'nullable|numeric',
             'creditTerm' => 'nullable|numeric', 
             'marca' => 'nullable|string',
             'modelo' => 'nullable|string',
             'anio' => 'nullable|integer',
-            'kilometraje' => 'nullable|interger',
+            'kilometraje' => 'nullable|integer',
         ]);
 
         $this->GuardaCorreo($validated);

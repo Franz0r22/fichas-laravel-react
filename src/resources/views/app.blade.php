@@ -9,13 +9,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" as="style" onload="this.rel='stylesheet'">
     <noscript>
-      <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     </noscript>    
-    <link rel="icon" type="image/png" href="{{asset('images/favicon.png')}}">
-    @viteReactRefresh
+    <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
+    @if (app()->environment('local'))
+        @viteReactRefresh
+    @endif
     @vite('resources/js/app.jsx')
     @inertiaHead
     @routes
+    <script>
+      window.assetBaseUrl = "{{ asset('') }}";
+    </script>
 </head>
 <body>
     @inertia

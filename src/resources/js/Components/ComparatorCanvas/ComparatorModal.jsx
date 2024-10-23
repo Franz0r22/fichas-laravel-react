@@ -14,10 +14,6 @@ import { Navigation, Pagination } from "swiper/modules";
 const ComparatorModal = (props) => {
     const { show, data } = props;
 
-    useEffect(() => {
-        console.log(data);
-    }, [data]);
-
     if (!data) {
         return (
             <Modal {...props} size="xl" centered>

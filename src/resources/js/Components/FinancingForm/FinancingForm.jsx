@@ -9,6 +9,14 @@ const FinancingForm = ({ honeypot }) => {
         name: "",
         email: "",
         message: "",
+        captcha_token: "",
+        rut: "",
+        phone: "",
+        creditAmount: "",
+        installments: "",
+        vehicleBrand: "",
+        vehicleModel: "",
+        vehicleYear: "",
     };
 
     const {
@@ -19,7 +27,7 @@ const FinancingForm = ({ honeypot }) => {
         showNotification,
         setShowNotification,
         getError,
-    } = useFormHandler(initialData, honeypot, "/financiamiento");
+    } = useFormHandler(initialData, honeypot, route("financing"));
 
     return (
         <>

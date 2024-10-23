@@ -57,9 +57,11 @@ const CarItem = ({ auto }) => {
     return (
         <>
             <a
-                href={`/${auto.brand.toLowerCase()}/${auto.model.toLowerCase()}/${
-                    auto.carId
-                }`}
+                href={route('carDetail', {
+                    brand: auto.brand.toLowerCase(),
+                    model: auto.model.toLowerCase(),
+                    autoid: auto.carId,
+                })}
                 className={styles.hasCta}
             >
                 <Card className={styles.cardBox}>

@@ -1,6 +1,5 @@
-import { useCars } from "../../Contexts/CarsContext";
+import { useComparator } from "../../Hooks/useComparator";
 import styles from "./Comparator.module.css";
-import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { Card } from "react-bootstrap";
@@ -9,41 +8,18 @@ import { formatNumber } from "../../utils/formatNumber";
 import { Row, Col } from "react-bootstrap";
 
 export const Comparator = () => {
-    const { comparator, setComparator } = useCars();
-    const [modalShow, setModalShow] = useState(false);
-    const [detailComparator, setDetailComparator] = useState();
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
-    const removeCarFromComparator = (carId) => {
-        setComparator((prev) => prev.filter((car) => car.carId !== carId));
-    };
-
-    const carIds = comparator.map((car) => car.carId);
-
-    async function getDataComparator() {
-        try {
-            const response = await fetch("/comparador", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRF-TOKEN": document
-                        .querySelector('meta[name="csrf-token"]')
-                        .getAttribute("content"),
-                },
-                body: JSON.stringify({ carIds }),
-            });
-            if (!response.ok) {
-                throw new Error("Error fetching comparador data");
-            }
-            const data = await response.json();
-            setDetailComparator(data);
-            setModalShow(true);
-        } catch (error) {
-            console.error("Fetch error:", error);
-        }
-    }
+    const {
+        comparator,
+        modalShow,
+        setModalShow,
+        detailComparator,
+        show,
+        handleClose,
+        handleShow,
+        removeCarFromComparator,
+        getDataComparator,
+        clearComparator,
+    } = useComparator();
 
     return (
         <>
@@ -53,7 +29,7 @@ export const Comparator = () => {
                         <span>Comparar:</span>
                         <img
                             width={20}
-                            src="/images/pointer-comparador.svg"
+                            src={`${window.assetBaseUrl}images/pointer-comparador.svg`}
                             alt=""
                         />
 
@@ -117,10 +93,8 @@ export const Comparator = () => {
                                                         onError={({
                                                             currentTarget,
                                                         }) => {
-                                                            currentTarget.onerror =
-                                                                null; // prevents looping
-                                                            currentTarget.src =
-                                                                "/images/placeholder-noimage.jpg";
+                                                            currentTarget.onerror = null;
+                                                            currentTarget.src =`${window.assetBaseUrl}/images/placeholder-noimage.jpg`
                                                         }}
                                                         className={
                                                             styles.cardImg
@@ -158,9 +132,13 @@ export const Comparator = () => {
                                     ))}
                                     <Button
                                         className={styles.btnCard}
-                                        onClick={() => {
-                                            getDataComparator();
-                                        }}
+                                        onClick={clearComparator}
+                                    >
+                                        Borrar todos
+                                    </Button>
+                                    <Button
+                                        className={styles.btnCard}
+                                        onClick={getDataComparator}
                                     >
                                         Comparar ahora
                                     </Button>

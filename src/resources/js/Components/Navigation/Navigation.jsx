@@ -1,7 +1,6 @@
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { Link } from '@inertiajs/react';
 import { useRoute } from 'ziggy-js';
-import navLogo from '@public/images/logo-agencia.png';
 import styles from './Navigation.module.css'
 
 const Navigation = () => {
@@ -11,8 +10,8 @@ const Navigation = () => {
     const menuItems = [
         { name: 'Inicio', route: 'home' },
         { name: 'Autos', route: 'cars' },
-        { name: 'Contacto', route: 'contact' },
-        { name: 'Financiamiento', route: 'financing' }
+        { name: 'Financiamiento', route: 'financing' },
+        { name: 'Contacto', route: 'contact' }
     ];
 
     return (
@@ -20,7 +19,7 @@ const Navigation = () => {
             <Container>
                 <Navbar.Brand href={route('home')}>
                     <img
-                        src={navLogo}
+                        src={`${window.assetBaseUrl}images/logo-agencia.png`}
                         width="200"
                         className="d-inline-block align-top"
                         alt="Logo"

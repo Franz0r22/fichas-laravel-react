@@ -36,7 +36,7 @@ const CarQuoteForm = ({ carData, honeypot }) => {
         showNotification,
         setShowNotification,
         getError,
-    } = useFormHandler(initialData, honeypot, '/quote');
+    } = useFormHandler(initialData, honeypot, route("quote"));
 
     return (
         <>

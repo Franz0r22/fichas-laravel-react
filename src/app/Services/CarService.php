@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class CarService
 {
@@ -34,15 +35,23 @@ class CarService
         $suggestedCarsUrl = "{$this->apiUrl}/vehicles/suggested";
         $fullUrl = "{$suggestedCarsUrl}?" . http_build_query($params);
 
-        $response = Http::withToken($this->apiToken)->get($fullUrl);
+        try {
+            $response = Http::withToken($this->apiToken)->get($fullUrl);
 
-        if ($response->successful()) {
-            $json = $response->json();
-            
-            return $this->transformNewApiData($json);
+            if ($response->successful()) {
+                $json = $response->json();
+                return $this->transformNewApiData($json);
+            }
+        } catch (\Exception $e) {
+            Log::error('Failed to fetch suggested cars: ' . $e->getMessage());
         }
 
-        throw new \Exception('Failed to fetch suggested cars');
+        return [
+            'page' => 1,
+            'showing' => 0,
+            'total' => 0,
+            'ads' => [],
+        ];
     }
 
     function transformNewApiData($newApiData)
