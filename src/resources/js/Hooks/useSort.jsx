@@ -1,16 +1,16 @@
 import { useState, useMemo } from "react";
 
 const useSort = (items) => {
-    const [sortCriteria, setSortCriteria] = useState("");
+    const [sortCriteria, setSortCriteria] = useState("newest");
 
     const sortedItems = useMemo(() => {
         if (!items) return [];
 
         const sorted = [...items].sort((a, b) => {
-            if (sortCriteria === "asc") {
-                return a.price - b.price;
-            } else if (sortCriteria === "desc") {
+            if (sortCriteria === "desc") {
                 return b.price - a.price;
+            } else if (sortCriteria === "asc") {
+                return a.price - b.price;
             } else if (sortCriteria === "newest") {
                 return b.carId - a.carId;
             } else if (sortCriteria === "oldest") {

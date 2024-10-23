@@ -87,24 +87,23 @@ class CarDetailController extends Controller
             ]);
 
             $carIds = $request->input('carIds');
-            $apiUrl = config('services.api.url_v2');
-            $apiToken = config('services.api.token');
-            $endpoint = 'car';
+            $apiUrl = config('services.api.urlfichasv2');
+            $apiToken = config('services.api.tokenfichasv2');
+            $endpoint = 'vehicle';
 
             $allCarsData = [];
 
             // Iterar sobre cada carId y hacer la petición a la API
             foreach ($carIds as $autoid) {
                 $queryParams = [
-                    'dataBase' => 1,
-                    'autoid' => $autoid,
+                    'id' => $autoid,
                 ];
-
+                // dd("$apiUrl/$endpoint?" . http_build_query($queryParams), $apiToken);
                 $response = Http::withToken($apiToken)->get("$apiUrl/$endpoint", $queryParams);
-
                 if ($response->successful()) {
                     $data = $response->json();
-                    $allCarsData[] = $data; // Añadir la data de cada auto al array final
+                    $allCarsData[] = $data;
+                    $transformedData = $this->transformCarDetailData($data);
                 } else {
                     throw new \Exception("Failed to fetch data for car ID: $autoid");
                 }
@@ -112,7 +111,7 @@ class CarDetailController extends Controller
 
             // Retornar la respuesta con toda la data de los coches
             return response()->json([
-                'data' => $allCarsData,
+                'data' => $transformedData,
             ]);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => $e->getMessage()]);
