@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { useCars } from "../Contexts/CarsContext";
+import { getComparatorData } from "../services/comparatorService";
 
 export const useComparator = () => {
     const { comparator, setComparator } = useCars();
     const [modalShow, setModalShow] = useState(false);
     const [detailComparator, setDetailComparator] = useState();
     const [show, setShow] = useState(false);
+    const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -19,26 +22,26 @@ export const useComparator = () => {
     };
 
     const getDataComparator = async () => {
+        if (!comparator.length) {
+            setError('No hay vehículos seleccionados para comparar');
+            return;
+        }
+
         const carIds = comparator.map((car) => car.carId);
+
+        setIsLoading(true);
+        setError(null);
+
         try {
-            const response = await fetch(route("comparador"), {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRF-TOKEN": document
-                        .querySelector('meta[name="csrf-token"]')
-                        .getAttribute("content"),
-                },
-                body: JSON.stringify({ carIds }),
-            });
-            if (!response.ok) {
-                throw new Error("Error fetching comparador data");
-            }
-            const data = await response.json();
+            const data = await getComparatorData(carIds);
             setDetailComparator(data);
             setModalShow(true);
         } catch (error) {
-            console.error("Fetch error:", error);
+            console.error("Error al obtener datos del comparador:", error.message);
+            setError(error.message);
+            setModalShow(false);
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -53,6 +56,7 @@ export const useComparator = () => {
         removeCarFromComparator,
         getDataComparator,
         clearComparator,
+        error,
+        isLoading,
     };
 };
-

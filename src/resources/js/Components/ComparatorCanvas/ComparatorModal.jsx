@@ -41,10 +41,10 @@ const ComparatorModal = (props) => {
     const maxYear = Math.max(...data.data.map((car) => car.year));
     const minKilometers = Math.min(...data.data.map((car) => car.kilometers));
     const maxKilometers = Math.max(...data.data.map((car) => car.kilometers));
-    const minAirbag = Math.min(...data.data.map((car) => car.airbag));
-    const maxAirbag = Math.max(...data.data.map((car) => car.airbag));
-    const minHp = Math.min(...data.data.map((car) => car.hp));
-    const maxHp = Math.max(...data.data.map((car) => car.hp));
+    const minAirbag = Math.min(...data.data.map((car) => car.airbag || 0));
+    const maxAirbag = Math.max(...data.data.map((car) => car.airbag || 0));
+    const minHp = Math.min(...data.data.map((car) => car.hp || 0));
+    const maxHp = Math.max(...data.data.map((car) => car.hp || 0));
 
     const carsWithClasses = data.data.map((car) => {
         const priceClass =

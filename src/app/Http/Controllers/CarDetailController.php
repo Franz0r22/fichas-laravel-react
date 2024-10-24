@@ -98,12 +98,12 @@ class CarDetailController extends Controller
                 $queryParams = [
                     'id' => $autoid,
                 ];
-                // dd("$apiUrl/$endpoint?" . http_build_query($queryParams), $apiToken);
+
                 $response = Http::withToken($apiToken)->get("$apiUrl/$endpoint", $queryParams);
                 if ($response->successful()) {
                     $data = $response->json();
-                    $allCarsData[] = $data;
                     $transformedData = $this->transformCarDetailData($data);
+                    $allCarsData[] = $transformedData;
                 } else {
                     throw new \Exception("Failed to fetch data for car ID: $autoid");
                 }
@@ -111,7 +111,7 @@ class CarDetailController extends Controller
 
             // Retornar la respuesta con toda la data de los coches
             return response()->json([
-                'data' => $transformedData,
+                'data' => $allCarsData,
             ]);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => $e->getMessage()]);

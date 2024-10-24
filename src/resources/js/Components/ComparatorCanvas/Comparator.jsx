@@ -19,6 +19,8 @@ export const Comparator = () => {
         removeCarFromComparator,
         getDataComparator,
         clearComparator,
+        isLoading,
+        error,
     } = useComparator();
 
     return (
@@ -139,9 +141,11 @@ export const Comparator = () => {
                                     <Button
                                         className={styles.btnCard}
                                         onClick={getDataComparator}
+                                        disabled={isLoading}
                                     >
-                                        Comparar ahora
+                                        {isLoading ? "Comparando..." : "Comparar ahora"}
                                     </Button>
+                                    {error && <p className={styles.error}>{error}</p>}
                                 </div>
                             ) : (
                                 <p>No hay coches en el comparador.</p>
