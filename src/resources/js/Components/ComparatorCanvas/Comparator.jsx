@@ -141,7 +141,7 @@ export const Comparator = () => {
                                     <Button
                                         className={styles.btnCard}
                                         onClick={getDataComparator}
-                                        disabled={isLoading}
+                                        disabled={isLoading || comparator.length == 1}
                                     >
                                         {isLoading ? "Comparando..." : "Comparar ahora"}
                                     </Button>

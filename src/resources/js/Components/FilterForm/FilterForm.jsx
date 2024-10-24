@@ -292,49 +292,51 @@ const FilterForm = ({
                             </Form.Group>
                         </Col>
                     )}
-                    {isLatFilter ? (
-                        <Col lg={12}>
-                            <Form.Group>
-                                <Form.Label className={styles.formLabel}>
-                                    Sucursal
-                                </Form.Label>
-                                {uniqueSellers.map((seller) => (
-                                    <Form.Check
-                                        key={seller}
-                                        type="checkbox"
-                                        label={seller}
-                                        id={seller}
-                                        value={seller}
-                                        checked={selectedSeller.includes(seller)}
-                                        onChange={handleCheckboxChangeSeller}
-                                    />
-                                ))}
-                            </Form.Group>
-                        </Col>
-                    ) : (
-                        <Col lg={3}>
-                            <Form.Group>
-                                <Form.Label className={styles.formLabel}>
-                                    Sucursal
-                                </Form.Label>
-                                <Form.Select
-                                    className={styles.formSelect}
-                                    value={selectedSeller}
-                                    onChange={(e) => {
-                                        setSelectedSeller(e.target.value ? [e.target.value] : []);
-                                        setCurrentPage(1);
-                                    }}
-                                >
-                                    <option value="">Todas las sucursales</option>
+                    {uniqueSellers.length > 1 ? (
+                        isLatFilter ? (
+                            <Col lg={12}>
+                                <Form.Group>
+                                    <Form.Label className={styles.formLabel}>
+                                        Sucursal
+                                    </Form.Label>
                                     {uniqueSellers.map((seller) => (
-                                        <option key={seller} value={seller}>
-                                            {seller}
-                                        </option>
+                                        <Form.Check
+                                            key={seller}
+                                            type="checkbox"
+                                            label={seller}
+                                            id={seller}
+                                            value={seller}
+                                            checked={selectedSeller.includes(seller)}
+                                            onChange={handleCheckboxChangeSeller}
+                                        />
                                     ))}
-                                </Form.Select>
-                            </Form.Group>
-                        </Col>
-                    )}
+                                </Form.Group>
+                            </Col>
+                        ) : (
+                            <Col lg={3}>
+                                <Form.Group>
+                                    <Form.Label className={styles.formLabel}>
+                                        Sucursal
+                                    </Form.Label>
+                                    <Form.Select
+                                        className={styles.formSelect}
+                                        value={selectedSeller}
+                                        onChange={(e) => {
+                                            setSelectedSeller(e.target.value ? [e.target.value] : []);
+                                            setCurrentPage(1);
+                                        }}
+                                    >
+                                        <option value="">Todas las sucursales</option>
+                                        {uniqueSellers.map((seller) => (
+                                            <option key={seller} value={seller}>
+                                                {seller}
+                                            </option>
+                                        ))}
+                                    </Form.Select>
+                                </Form.Group>
+                            </Col>
+                        )
+                    ) : null}
                     <Col lg={isLatFilter ? 12 : 3}>
                         <Form.Group>
                             <Form.Label className={styles.formLabel}>
