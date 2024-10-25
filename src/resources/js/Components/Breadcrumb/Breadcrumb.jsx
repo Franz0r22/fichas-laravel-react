@@ -11,7 +11,7 @@ const Breadcrumb = ({ items = [] }) => {
       <Col className='px-0'>
         <div className={styles.breadCrumb}>
           <HiArrowLongLeft />
-          <Link href='/'>
+          <Link href={`${route('home')}`}>
             Home
           </Link>
           {items.map((item, index) => (
