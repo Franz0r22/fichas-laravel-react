@@ -11,7 +11,7 @@ const Footer = () => {
                 <Row >
                     <Col>
                         <img
-                            src="/images/logo-agencia.png"
+                            src={`${window.assetBaseUrl}/images/logo-agencia.png`}
                             alt="logo"
                             width={200}
                         />
