@@ -19,7 +19,7 @@ const Navigation = () => {
             <Container>
                 <Navbar.Brand href={route('home')}>
                     <img
-                        src={`${window.assetBaseUrl}images/logo-agencia.png`}
+                        src="../../images/logo-agencia.png"
                         width="200"
                         className="d-inline-block align-top"
                         alt="Logo"

@@ -22,7 +22,7 @@ const CarItem = ({ auto }) => {
 
     const getImageSrc = () => {
         if (imageStatus === "error") {
-            return "/images/placeholder-noimage.jpg";
+            return `${window.assetBaseUrl}images/placeholder-noimage.jpg`;
         }
         return auto.photo;
     };
