@@ -146,7 +146,29 @@ const useFilter = ({ minYear, maxYear, minPrice, maxPrice, minKm, maxKm }) => {
 
     useEffect(() => {
         const queryParams = new URLSearchParams();
+        
+        // Función auxiliar para manejar tanto arrays como valores individuales
+        const setQueryParam = (name, value) => {
+            if (!value) return;
+            if (Array.isArray(value) && value.length > 0) {
+                queryParams.set(name, value.join(","));
+            } else if (typeof value === 'string' && value.trim() !== '') {
+                queryParams.set(name, value);
+            }
+        };
+
+        // Manejo de filtros individuales como arrays
+        setQueryParam("category", selectedCategory);
+        setQueryParam("fuel", selectedFuel);
+        setQueryParam("label", selectedLabel);
+        setQueryParam("seller", selectedSeller);
+
+        // Resto de los filtros que no necesitan este tratamiento
         // Solo se agregan filtros que no están en su valor predeterminado
+        if (keyword) {
+            queryParams.set("keyword", keyword);
+        }
+
         if (
             (selectedYearRange[0] !== minYear &&
                 selectedYearRange[0] !== 1900) ||
@@ -177,26 +199,6 @@ const useFilter = ({ minYear, maxYear, minPrice, maxPrice, minKm, maxKm }) => {
 
         if (selectedModel) {
             queryParams.set("model", selectedModel);
-        }
-
-        if (selectedCategory.length > 0) {
-            queryParams.set("category", selectedCategory.join(","));
-        }
-
-        if (selectedFuel.length > 0) {
-            queryParams.set("fuel", selectedFuel.join(","));
-        }
-
-        if (selectedLabel.length > 0) {
-            queryParams.set("label", selectedLabel.join(","));
-        }
-
-        if (keyword) {
-            queryParams.set("keyword", keyword);
-        }
-
-        if (selectedSeller.length > 0) {
-            queryParams.set("seller", selectedSeller.join(","));
         }
 
         const search = queryParams.toString()
