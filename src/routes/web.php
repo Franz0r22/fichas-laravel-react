@@ -24,7 +24,7 @@ Route::post('/contact', [ContactController::class, 'sendContactForm'])->middlewa
 
 Route::get('/financiamiento', [FinancingController::class, 'showFinancingForm'])->name('financing');
 
-Route::post('/financiamiento', [FinancingController::class, 'sendFinancingForm'])->middleware(ProtectAgainstSpam::class);
+Route::post('/financiamiento', [FinancingController::class, 'sendFinancingForm'])->middleware(ProtectAgainstSpam::class)->name('financing');
 
 Route::post('/quote', CarQuoteController::class)->middleware(ProtectAgainstSpam::class)->name('quote');
 
