@@ -33,7 +33,6 @@ const ComparatorModal = (props) => {
             </Modal>
         );
     }
-    console.log("test data", data);
 
     const minPrice = Math.min(...data.data.map((car) => car.price));
     const maxPrice = Math.max(...data.data.map((car) => car.price));
@@ -257,9 +256,11 @@ const ComparatorModal = (props) => {
                                         <div className={styles.divBtn}>
                                             <a
                                                 className={styles.btnCard}
-                                                href={`/${car.brandName.toLowerCase()}/${car.modelName.toLowerCase()}/${
-                                                    car.autoID
-                                                }`}
+                                                href={route('carDetail', {
+                                                    brand: car.brandName,
+                                                    model: car.modelName,
+                                                    autoid: car.autoID,
+                                                })}
                                             >
                                                 Ver más detalles
                                             </a>

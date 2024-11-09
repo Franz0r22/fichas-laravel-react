@@ -22,22 +22,22 @@ const CarDetail = () => {
 
     if (error) {
         return (
-            <Container className="text-center mt-5">
+            <div className="text-center mt-4">
                 <h1>Error</h1>
                 <p>{error}</p>
-            </Container>
+            </div>
         );
     }
-console.log(data);
+
     return (
         <>
             {data ? (
                 <>
                     <Head>
-                        <title>{`${data.brandName} ${data.modelName}`}</title>
+                        <title>{`${data?.brandName} ${data?.modelName}`}</title>
                         <meta
                             name="description"
-                            content={`Conoce a fondo el ${data.brandName} ${data.modelName}. Revisa especificaciones, fotos y precio. Cotiza este auto usado y toma la mejor decisión para tu próxima compra.`}
+                            content={`Conoce a fondo el ${data?.brandName} ${data?.modelName}. Revisa especificaciones, fotos y precio. Cotiza este auto usado y toma la mejor decisión para tu próxima compra.`}
                         />
                     </Head>
 
@@ -51,16 +51,23 @@ console.log(data);
                                     items={[
                                         {
                                             name: data.brandName,
-                                            link: `${route("cars")}/?brand=${data.brandName}`,
+                                            link: `${route("cars")}/?brand=${
+                                                data.brandName
+                                            }`,
                                         },
                                         {
                                             name: data.modelName,
-                                            link: `${route("cars")}/?model=${data.modelName}`,
+                                            link: `${route("cars")}/?model=${
+                                                data.modelName
+                                            }`,
                                         },
                                         { name: data.version },
                                     ]}
                                 />
-                                <ShareButtons url={shareUrl} title={shareTitle} />
+                                <ShareButtons
+                                    url={shareUrl}
+                                    title={shareTitle}
+                                />
                             </Col>
                         </Row>
                         <Row className={`${styles.titleBox} mt-2`}>
@@ -78,11 +85,14 @@ console.log(data);
                                 />
                             </Col>
                             <Col md={6}>
-                                <CarPricing currency={data.currency} price={data.price} />
+                                <CarPricing
+                                    currency={data.currency}
+                                    price={data.price}
+                                />
                             </Col>
                         </Row>
                         <Row>
-                            <Col md={7} className="ps-0 pe-4">
+                            <Col md={7} className="ps-lg-0 pe-lg-4">
                                 <CarImageGallery photos={data.photos} />
                             </Col>
                             <Col
@@ -91,12 +101,15 @@ console.log(data);
                             >
                                 {data.description && (
                                     <CarDescription
-                                        description={
-                                            data.description || "No hay descripción disponible"
-                                        }
+                                        description={data.description}
                                     />
                                 )}
-                                <CarQuoteForm carData={data} honeypot={honeypot} />
+                                <div>
+                                    <CarQuoteForm
+                                        carData={data}
+                                        honeypot={honeypot}
+                                    />
+                                </div>
                                 {data.whatsApp && (
                                     <div className="mt-3">
                                         <CarWhatsAppBtn
@@ -110,12 +123,16 @@ console.log(data);
                             </Col>
                         </Row>
                         <Row>
-                            <Col md={7} className="ps-0 pe-4">
+                            <Col md={7} className="px-0 pe-lg-4">
                                 {data.features && data.features.length > 0 && (
                                     <CarFeatures features={data.features} />
                                 )}
                             </Col>
-                            <Col md={5} className={`${styles.titleBox} p-4`}>
+                            <Col
+                                md={5}
+                                className={`${styles.titleBox} mt-4 p-4`}
+                            >
+                                <h3 className={`${styles.carTitle} mb-4`}>Ubicación</h3>
                                 <CarMap
                                     latitude={data.latitude}
                                     longitude={data.length}
@@ -126,9 +143,7 @@ console.log(data);
                     </Container>
                 </>
             ) : (
-                <Container className="text-center mt-5">
-                    <div>Loading...</div>
-                </Container>
+                <div>Loading...</div>
             )}
             <Container className="my-5">
                 <SuggestedCars suggestedCars={suggestedCars} />

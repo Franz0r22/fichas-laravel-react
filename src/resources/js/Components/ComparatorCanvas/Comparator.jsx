@@ -6,6 +6,7 @@ import { Card } from "react-bootstrap";
 import ComparatorModal from "./ComparatorModal";
 import { formatNumber } from "../../utils/formatNumber";
 import { Row, Col } from "react-bootstrap";
+import pointer from "@images/pointer-comparador.svg"
 
 export const Comparator = () => {
     const {
@@ -31,7 +32,7 @@ export const Comparator = () => {
                         <span>Comparar:</span>
                         <img
                             width={20}
-                            src={`../../images/pointer-comparador.svg`}
+                            src={pointer}
                             alt=""
                         />
 
@@ -44,7 +45,7 @@ export const Comparator = () => {
                                         alt={`${car.brand} ${car.model}`}
                                         className={styles.carImageBtn}
                                         onError={({ currentTarget }) => {
-                                            currentTarget.onerror = null; // prevents looping
+                                            currentTarget.onerror = null;
                                             currentTarget.src =
                                                 "/images/placeholder-noimage.jpg";
                                         }}
