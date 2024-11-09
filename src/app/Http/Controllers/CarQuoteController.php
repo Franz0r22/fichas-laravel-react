@@ -26,6 +26,7 @@ class CarQuoteController extends Controller
             'carYear' => 'required|integer',
             'carImage' => 'required|url',
             'carUrl' => 'required|url',
+            'automotoraMail' => 'required|email',
             'captcha_token' => ['required', new Recaptcha],
             'pie' => 'nullable|numeric',
             'creditTerm' => 'nullable|numeric', 
@@ -38,7 +39,7 @@ class CarQuoteController extends Controller
         $this->GuardaCorreo($validated);
 
         // Enviar correo al administrador
-        Mail::to('francisco.davila@destacados.cl')->send(new QuoteMail($validated));
+        Mail::to($validated['automotoraMail'])->cc('francisco.davila@destacados.cl')->send(new QuoteMail($validated));
 
         // Enviar correo de agradecimiento al usuario
         Mail::to($validated['email'])->send(new ThankYouQuoteMail($validated));

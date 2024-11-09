@@ -170,6 +170,7 @@ class CarDetailController extends Controller
             'phone1' => $seller['contactData']['phoneNumber1'],
             'phone2' => $seller['contactData']['phoneNumber2'],
             'whatsApp' => $seller['contactData']['whatsapp'],
+            'mail' => $seller['contactData']['mail'],
             'urlVideo' => null, // No proporcionado en la nueva respuesta
             'sku' => null, // No proporcionado en la nueva respuesta
             'vin' => null, // No proporcionado en la nueva respuesta

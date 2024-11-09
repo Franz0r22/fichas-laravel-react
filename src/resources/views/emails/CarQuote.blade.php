@@ -798,8 +798,7 @@
                                                                                         <div>
                                                                                             <p style="margin: 0;"><span
                                                                                                     style="color: #f1f1f1;">©{{
-                                                                                                    date('Y') }} Caldo &
-                                                                                                    Velasco </span>
+                                                                                                    date('Y') }} {{env('APP_NAME')}} </span>
                                                                                             </p>
                                                                                         </div>
                                                                                     </td>

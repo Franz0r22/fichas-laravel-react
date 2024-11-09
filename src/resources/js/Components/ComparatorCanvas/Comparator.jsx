@@ -31,7 +31,7 @@ export const Comparator = () => {
                         <span>Comparar:</span>
                         <img
                             width={20}
-                            src={`${window.assetBaseUrl}images/pointer-comparador.svg`}
+                            src={`../../images/pointer-comparador.svg`}
                             alt=""
                         />
 
@@ -96,7 +96,7 @@ export const Comparator = () => {
                                                             currentTarget,
                                                         }) => {
                                                             currentTarget.onerror = null;
-                                                            currentTarget.src =`${window.assetBaseUrl}/images/placeholder-noimage.jpg`
+                                                            currentTarget.src =`../../images/placeholder-noimage.jpg`
                                                         }}
                                                         className={
                                                             styles.cardImg

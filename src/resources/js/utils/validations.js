@@ -108,4 +108,3 @@ if (!installments.trim()) return 'La cantidad de cuotas es obligatoria';
 if (isNaN(installments) || installments <= 0) return 'Cantidad de cuotas inválida';
 return '';
 };
-

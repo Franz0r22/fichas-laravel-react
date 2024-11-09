@@ -7,6 +7,7 @@ import QuoteYourCredit from './QuoteYourCredit/QuoteYourCredit';
 
 const CarQuoteForm = ({ carData, honeypot }) => {
 
+    console.log(carData);
     const initialData = {
         name: '',
         email: '',
@@ -26,6 +27,7 @@ const CarQuoteForm = ({ carData, honeypot }) => {
         carYear: carData.year,
         carImage: carData.photos[0],
         carUrl: window.location.href,
+        automotoraMail: carData.mail,
     };
 
     const {
@@ -120,5 +122,3 @@ const CarQuoteForm = ({ carData, honeypot }) => {
 };
 
 export default CarQuoteForm;
-
-

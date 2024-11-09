@@ -14,7 +14,7 @@ const Home = () => {
 
     const slides = [
         {
-            image: `${window.assetBaseUrl}images/placeholder.webp`,
+            image: `../../images/placeholder.webp`,
             label: "Primer Slide",
             // text: 'Nulla vitae elit libero, a pharetra augue mollis interdum.'
         },

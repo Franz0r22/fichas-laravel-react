@@ -25,7 +25,7 @@ const Contact = () => {
                         <CarMap 
                             latitude={latitude}
                             longitude={longitude}
-                            clientLogo={`${window.assetBaseUrl}images/logo-agencia.png`}
+                            clientLogo={`../../images/logo-agencia.png`}
                         />
                     </Col>
                 </Row>

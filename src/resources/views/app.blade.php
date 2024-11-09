@@ -18,9 +18,6 @@
     @vite('resources/js/app.jsx')
     @inertiaHead
     @routes
-    <script>
-      window.assetBaseUrl = "{{ asset('') }}";
-    </script>
 </head>
 <body>
     @inertia

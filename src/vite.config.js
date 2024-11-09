@@ -21,6 +21,7 @@ export default defineConfig(({ mode }) => {
             alias: {
                 "@": "/resources/js",
                 "@public": "/public",
+                "@images": "/resources/images",
                 "ziggy-js": path.resolve("vendor/tightenco/ziggy"),
             },
         },
