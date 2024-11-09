@@ -7,7 +7,6 @@ import styles from './CarMap.module.css';
 const CarMap = ({ latitude, longitude, clientLogo }) => {
   return (
     <>  
-      <h3 className={`${styles.carTitle} mb-4`}>Ubicación</h3>
       <MapContainer center={[latitude, longitude]} zoom={15} scrollWheelZoom={false} className={styles.CarMapContainer}>
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

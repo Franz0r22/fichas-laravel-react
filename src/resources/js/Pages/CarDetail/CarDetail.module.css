@@ -5,3 +5,7 @@
     align-items: center;
     border-radius: 12px;
 }
+.carTitle {
+    font-size: 24px;
+    font-weight: 900;
+}
