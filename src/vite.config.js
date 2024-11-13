@@ -7,9 +7,9 @@ export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, process.cwd());
     return {
         base:
-            env.VITE_API_ENV === "production"
-                ? `${env.VITE_API_URL}/build`
-                : env.VITE_API_URL,
+            env.VITE_APP_ENV === "production"
+                ? `${env.VITE_APP_URL}/build`
+                : env.VITE_APP_URL,
         plugins: [
             laravel({
                 input: ["resources/js/app.jsx"],
