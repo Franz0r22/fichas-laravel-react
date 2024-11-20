@@ -1,10 +1,11 @@
-import React from "react";
-import { Row, Col, Form } from "react-bootstrap";
+import React, { useState } from "react";
+import { Row, Col, Form, Button } from "react-bootstrap";
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
 import SelectedFilters from "../SelectedFilters/SelectedFilters";
 import styles from "./FilterForm.module.css";
 import { formatCategory } from "../../utils/formatCategory";
+import { TbListSearch } from "react-icons/tb";
 
 const FilterForm = ({
     uniqueBrands,
@@ -39,6 +40,13 @@ const FilterForm = ({
     setSelectedSeller,
     setCurrentPage,
 }) => {
+
+    const [isFiltersVisible, setIsFiltersVisible] = useState(false);
+
+    const toggleFilters = () => {
+        setIsFiltersVisible(!isFiltersVisible);
+    };
+
     const handleRangePriceChange = (value) => {
         setSelectedPriceRange(value);
         setCurrentPage(1);
@@ -98,7 +106,71 @@ const FilterForm = ({
 
     return (
         <>
-            <Form className={isLatFilter ? styles.formBox : `${styles.formBox} my-4`}>
+            <button
+                type="button"
+                className={`d-md-none fs-12 ${styles.filterButton}`}
+                onClick={toggleFilters}
+            >
+                <TbListSearch className="me-2 fs-24" />
+                <span className="pt-1">
+                    FILTROS
+                </span>
+            </button>
+
+            <div
+                className={`${styles.overlay} ${isFiltersVisible ? styles.overlayVisible : ''}`}
+                onClick={() => setIsFiltersVisible(false)}
+            />
+
+            <SelectedFilters
+                selectedCategory={selectedCategory}
+                selectedBrand={selectedBrand}
+                selectedModel={selectedModel}
+                selectedFuel={selectedFuel}
+                selectedLabel={selectedLabel}
+                selectedYearRange={selectedYearRange}
+                selectedPriceRange={selectedPriceRange}
+                selectedKmRange={selectedKmRange}
+                minYear={minYear}
+                maxYear={maxYear}
+                minPrice={minPrice}
+                maxPrice={maxPrice}
+                minKm={minKm}
+                maxKm={maxKm}
+                selectedSeller={selectedSeller}
+                clearBrand={() => setSelectedBrand("")}
+                clearModel={() => setSelectedModel("")}
+                clearCategory={() => setSelectedCategory("")}
+                clearFuel={() => setSelectedFuel("")}
+                clearLabel={() => setSelectedLabel("")}
+                clearYearRange={() => setSelectedYearRange([minYear, maxYear])}
+                clearPriceRange={() =>
+                    setSelectedPriceRange([minPrice, maxPrice])
+                }
+                clearKmRange={() => setSelectedKmRange([minKm, maxKm])}
+                clearSeller={() => setSelectedSeller([])}
+                clearAllFilters={() => {
+                    setSelectedBrand("");
+                    setSelectedModel("");
+                    setSelectedFuel("");
+                    setSelectedCategory("");
+                    setSelectedLabel("");
+                    setSelectedYearRange([minYear, maxYear]);
+                    setSelectedPriceRange([minPrice, maxPrice]);
+                    setSelectedKmRange([minKm, maxKm]);
+                    setSelectedSeller([]);
+                    setCurrentPage(1);
+                }}
+            />
+
+            <Form className={`${styles.formBox} ${isFiltersVisible ? styles.formBoxVisible : ''}`}>
+                <div className="d-md-none position-absolute top-0 end-0 p-3">
+                    <button
+                        type="button"
+                        className="btn-close"
+                        onClick={() => setIsFiltersVisible(false)}
+                    />
+                </div>
                 <Row className="gy-3">
                     {isLatFilter ? (
                         <Col lg={3}>
@@ -393,47 +465,16 @@ const FilterForm = ({
                         </Form.Group>
                     </Col>
                 </Row>
+                <div className="d-md-none mt-4">
+                    <button
+                        type="button"
+                        className="btnGlobal"
+                        onClick={() => setIsFiltersVisible(false)}
+                    >
+                        Ver Resultados
+                    </button>
+                </div>
             </Form>
-            <SelectedFilters
-                selectedCategory={selectedCategory}
-                selectedBrand={selectedBrand}
-                selectedModel={selectedModel}
-                selectedFuel={selectedFuel}
-                selectedLabel={selectedLabel}
-                selectedYearRange={selectedYearRange}
-                selectedPriceRange={selectedPriceRange}
-                selectedKmRange={selectedKmRange}
-                minYear={minYear}
-                maxYear={maxYear}
-                minPrice={minPrice}
-                maxPrice={maxPrice}
-                minKm={minKm}
-                maxKm={maxKm}
-                selectedSeller={selectedSeller}
-                clearBrand={() => setSelectedBrand("")}
-                clearModel={() => setSelectedModel("")}
-                clearCategory={() => setSelectedCategory("")}
-                clearFuel={() => setSelectedFuel("")}
-                clearLabel={() => setSelectedLabel("")}
-                clearYearRange={() => setSelectedYearRange([minYear, maxYear])}
-                clearPriceRange={() =>
-                    setSelectedPriceRange([minPrice, maxPrice])
-                }
-                clearKmRange={() => setSelectedKmRange([minKm, maxKm])}
-                clearSeller={() => setSelectedSeller([])}
-                clearAllFilters={() => {
-                    setSelectedBrand("");
-                    setSelectedModel("");
-                    setSelectedFuel("");
-                    setSelectedCategory("");
-                    setSelectedLabel("");
-                    setSelectedYearRange([minYear, maxYear]);
-                    setSelectedPriceRange([minPrice, maxPrice]);
-                    setSelectedKmRange([minKm, maxKm]);
-                    setSelectedSeller([]);
-                    setCurrentPage(1);
-                }}
-            />
         </>
     );
 };

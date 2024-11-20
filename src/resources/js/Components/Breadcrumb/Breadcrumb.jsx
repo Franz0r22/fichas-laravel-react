@@ -8,7 +8,7 @@ const Breadcrumb = ({ items = [] }) => {
 
   return (
     <Row>
-      <Col className='px-0'>
+      <Col>
         <div className={styles.breadCrumb}>
           <HiArrowLongLeft />
           <Link href={`${route('home')}`}>

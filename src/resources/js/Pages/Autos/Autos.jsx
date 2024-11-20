@@ -118,13 +118,13 @@ const Autos = () => {
                 )}
 
                 <Row className="mb-3 justify-content-between align-items-center">
-                    <Col xs={3}>
+                    <Col xs={6} lg={3}>
                         <StockTotal
                             currentItems={currentItems}
                             totalItems={data.total}
                         />
                     </Col>
-                    <Col xs={3}>
+                    <Col xs={6} lg={3}>
                         <CarsOrder
                             setSortCriteria={setSortCriteria}
                             sortCriteria={sortCriteria}

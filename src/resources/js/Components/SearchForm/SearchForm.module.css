@@ -7,10 +7,16 @@
     border: none !important;
     border-radius: 50px !important;
     background-color: var(--primary-gray) !important;
-    width: 280px !important;
+    /* width: 280px !important; */
 }
 
 .searchInput::placeholder {
     font-size: 14px;
     color: var(--primary-black);
+}
+
+@media (max-width: 991px) {
+    .searchForm {
+        display: flex !important;
+    }
 }
