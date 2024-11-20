@@ -154,8 +154,6 @@ const FilterForm = ({
                                 onChange={(e) => {
                                     setSelectedBrand(e.target.value);
                                     setSelectedModel("");
-                                    // setSelectedYear('');
-                                    // setSelectedFuel('');
                                     setSelectedPriceRange([minPrice, maxPrice]);
                                     setCurrentPage(1);
                                 }}

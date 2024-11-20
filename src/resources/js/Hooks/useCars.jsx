@@ -15,19 +15,19 @@ import useUniqueSeller from './filterData/useUniqueSeller';
 const useCars = () => {
     // Obtiene los datos y posibles errores desde el contexto de Inertia.js
     const { props: { data, error } } = usePage();
-    
+
     // Usa hooks específicos para obtener datos únicos y rangos de precios
     const { minPrice, maxPrice } = usePriceRange(data);
     const { minYear, maxYear } = useYearRange(data);
     const { minKm, maxKm } = useKmRange(data);
 
     // Usa useFilter pasando los valores mínimos y máximos dinámicos
-    const { 
-        selectedYearRange, setSelectedYearRange, 
+    const {
+        selectedYearRange, setSelectedYearRange,
         selectedPriceRange, setSelectedPriceRange,
         selectedKmRange, setSelectedKmRange,
-        selectedBrand, setSelectedBrand, 
-        selectedModel, setSelectedModel, 
+        selectedBrand, setSelectedBrand,
+        selectedModel, setSelectedModel,
         selectedFuel, setSelectedFuel,
         selectedLabel, setSelectedLabel,
         selectedCategory, setSelectedCategory,
@@ -91,6 +91,16 @@ const useCars = () => {
             setSelectedModel('');
         }
     }, [selectedBrand, setSelectedModel]);
+
+    // Efecto que limpia la marca seleccionado cuando cambia la categoría seleccionada
+    const availableBrandsForCategory = useUniqueBrands(filteredData);
+    useEffect(() => {
+        if (selectedCategory) {
+            if (!availableBrandsForCategory.includes(selectedBrand)) {
+                setSelectedBrand('');
+            }
+        }
+    }, [selectedCategory, selectedBrand, availableBrandsForCategory, setSelectedBrand]);
 
     // Devuelve todos los valores y funciones necesarias para ser usados por los componentes que consumen este hook
     return {

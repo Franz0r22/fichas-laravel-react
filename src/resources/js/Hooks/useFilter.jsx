@@ -32,11 +32,11 @@ const useFilter = ({ minYear, maxYear, minPrice, maxPrice, minKm, maxKm }) => {
             ],
             brand: params.get("brand") || "",
             model: params.get("model") || "",
-            category: params.get("category")?.split(",") || [],
-            fuel: params.get("fuel")?.split(",") || [],
-            label: params.get("label")?.split(",") || [],
+            category: params.get("category")?.split(",") || '',
+            fuel: params.get("fuel")?.split(",") || '',
+            label: params.get("label")?.split(",") || '',
             keyword: params.get("keyword") || "",
-            seller: params.get("seller")?.split(",") || [],
+            seller: params.get("seller")?.split(",") || '',
         };
     };
 
