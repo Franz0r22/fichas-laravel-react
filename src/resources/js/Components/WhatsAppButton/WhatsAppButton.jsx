@@ -1,4 +1,5 @@
 import { FloatingWhatsApp } from 'react-floating-whatsapp';
+import styles from './WhatsAppButton.module.css';
 
 const WhatsAppButton = () => {
     return (
@@ -10,6 +11,7 @@ const WhatsAppButton = () => {
             avatar={`../../images/avatar.webp`}
             placeholder="Escribe un mensaje.."
             allowClickAway={true}
+            className={styles.floatingWaMobile}
         />
     );
 };

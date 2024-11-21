@@ -1,0 +1,12 @@
+@media (width < 991px) {
+    .floatingWaMobile > div {
+        height: 50px;
+        width: 50px;
+        right: 20px;
+        bottom: 20px;
+    }
+    .floatingWaMobile > div:after {
+        height: 50px;
+        width: 50px;
+    }
+}

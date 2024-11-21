@@ -9,14 +9,14 @@ const Footer = () => {
         <footer>
             <Container fluid className="bg-dark text-white mt-5 p-4 text-center"> 
                 <Row >
-                    <Col>
+                    <Col xs={12} md={6}>
                         <img
                             src={`../../images/logo-agencia.png`}
                             alt="logo"
                             width={200}
                         />
                     </Col>
-                    <Col>
+                    <Col xs={12} md={6}>
                         <h6 className="text-uppercase fw-bold">Ubicación</h6>
                         <span>
                             <div className="d-flex justify-content-center align-items-center text-uppercase fs-14 text-sec ">
@@ -25,7 +25,7 @@ const Footer = () => {
                             </div>
                         </span>
                     </Col>
-                    <Col>
+                    <Col xs={12} md={6}>
                         <h6 className="text-uppercase fw-bold">Contacto</h6>
                         <span>
                             <div className="d-flex justify-content-center align-items-center text-uppercase fs-14 text-sec ">

@@ -5,7 +5,7 @@ import "react-range-slider-input/dist/style.css";
 import SelectedFilters from "../SelectedFilters/SelectedFilters";
 import styles from "./FilterForm.module.css";
 import { formatCategory } from "../../utils/formatCategory";
-import { TbListSearch } from "react-icons/tb";
+import { IoChevronForwardOutline } from "react-icons/io5";
 
 const FilterForm = ({
     uniqueBrands,
@@ -108,13 +108,13 @@ const FilterForm = ({
         <>
             <button
                 type="button"
-                className={`d-md-none fs-12 ${styles.filterButton}`}
+                className={`d-flex d-md-none align-items-center justify-content-center fs-12 ${styles.filterButton}`}
                 onClick={toggleFilters}
             >
-                <TbListSearch className="me-2 fs-24" />
-                <span className="pt-1">
+                <span className="me-1">
                     FILTROS
                 </span>
+                <IoChevronForwardOutline />
             </button>
 
             <div
