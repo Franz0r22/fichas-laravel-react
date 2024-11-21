@@ -337,51 +337,53 @@ const FilterForm = ({
                             </Form.Group>
                         </Col>
                     )}
-                    {isLatFilter ? (
-                        //Checkboxes Filtro Lateral
-                        <Col lg={12}>
-                            <Form.Group>
-                                <Form.Label className={styles.formLabel}>
-                                    Promoción
-                                </Form.Label>
-                                {uniqueLabels.map((label) => (
-                                    <Form.Check
-                                        key={label}
-                                        type="checkbox"
-                                        label={label.toLowerCase()}
-                                        id={label}
-                                        value={label}
-                                        checked={selectedLabel.includes(label)}
-                                        onChange={handleCheckboxChange}
-                                        style={{ textTransform: 'capitalize' }}
-                                    />
-                                ))}
-                            </Form.Group>
-                        </Col>
-                    ) : (
-                        //Select Filtro Superior
-                        <Col lg={3}>
-                            <Form.Group>
-                                <Form.Label className={styles.formLabel}>
-                                    Promoción
-                                </Form.Label>
-                                <Form.Select
-                                    className={styles.formSelect}
-                                    value={selectedLabel}
-                                    onChange={(e) => {
-                                        setSelectedLabel(e.target.value);
-                                        setCurrentPage(1);
-                                    }}
-                                >
-                                    <option value="">Todos</option>
+                    {uniqueLabels && uniqueLabels.length > 0 && (
+                        isLatFilter ? (
+                            //Checkboxes Filtro Lateral
+                            <Col lg={12}>
+                                <Form.Group>
+                                    <Form.Label className={styles.formLabel}>
+                                        Promoción
+                                    </Form.Label>
                                     {uniqueLabels.map((label) => (
-                                        <option key={label} value={label}>
-                                            {label}
-                                        </option>
+                                        <Form.Check
+                                            key={label}
+                                            type="checkbox"
+                                            label={label.toLowerCase()}
+                                            id={label}
+                                            value={label}
+                                            checked={selectedLabel.includes(label)}
+                                            onChange={handleCheckboxChange}
+                                            style={{ textTransform: 'capitalize' }}
+                                        />
                                     ))}
-                                </Form.Select>
-                            </Form.Group>
-                        </Col>
+                                </Form.Group>
+                            </Col>
+                        ) : (
+                            //Select Filtro Superior
+                            <Col lg={3}>
+                                <Form.Group>
+                                    <Form.Label className={styles.formLabel}>
+                                        Promoción
+                                    </Form.Label>
+                                    <Form.Select
+                                        className={styles.formSelect}
+                                        value={selectedLabel}
+                                        onChange={(e) => {
+                                            setSelectedLabel(e.target.value);
+                                            setCurrentPage(1);
+                                        }}
+                                    >
+                                        <option value="">Todos</option>
+                                        {uniqueLabels.map((label) => (
+                                            <option key={label} value={label}>
+                                                {label}
+                                            </option>
+                                        ))}
+                                    </Form.Select>
+                                </Form.Group>
+                            </Col>
+                        )
                     )}
                     {uniqueSellers.length > 1 ? (
                         isLatFilter ? (
