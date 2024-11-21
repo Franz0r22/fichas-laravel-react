@@ -42,27 +42,39 @@ const FilterForm = ({
 }) => {
 
     const [isFiltersVisible, setIsFiltersVisible] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const toggleFilters = () => {
         setIsFiltersVisible(!isFiltersVisible);
     };
 
+    const showLoading = () => {
+        setIsLoading(true);
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 500); // Duración del loading: 500ms
+    };
+
     const handleRangePriceChange = (value) => {
+        showLoading();
         setSelectedPriceRange(value);
         setCurrentPage(1);
     };
 
     const handleRangeYearChange = (value) => {
+        showLoading();
         setSelectedYearRange(value);
         setCurrentPage(1);
     };
 
     const handleRangeKmChange = (value) => {
+        showLoading();
         setSelectedKmRange(value);
         setCurrentPage(1);
     };
 
     const handleCheckboxChange = (event) => {
+        showLoading();
         const { value, checked } = event.target;
 
         if (checked) {
@@ -73,6 +85,7 @@ const FilterForm = ({
     };
 
     const handleCheckboxChangeCategory = (event) => {
+        showLoading();
         const { value, checked } = event.target;
 
         if (checked) {
@@ -83,6 +96,7 @@ const FilterForm = ({
     };
 
     const handleCheckboxChangeFuel = (event) => {
+        showLoading();
         const { value, checked } = event.target;
 
         if (checked) {
@@ -93,6 +107,7 @@ const FilterForm = ({
     };
 
     const handleCheckboxChangeSeller = (event) => {
+        showLoading();
         const { value, checked } = event.target;
 
         if (checked) {
@@ -106,6 +121,10 @@ const FilterForm = ({
 
     return (
         <>
+            <div className={`${styles.loadingOverlay} ${isLoading ? styles.loadingVisible : ''}`}>
+                <div className={styles.spinner}></div>
+            </div>
+
             <button
                 type="button"
                 className={`d-flex d-md-none align-items-center justify-content-center fs-12 ${styles.filterButton}`}
@@ -224,6 +243,7 @@ const FilterForm = ({
                                 className={styles.formSelect}
                                 value={selectedBrand}
                                 onChange={(e) => {
+                                    showLoading();
                                     setSelectedBrand(e.target.value);
                                     setSelectedModel("");
                                     setSelectedPriceRange([minPrice, maxPrice]);
@@ -248,6 +268,7 @@ const FilterForm = ({
                                 className={styles.formSelect}
                                 value={selectedModel}
                                 onChange={(e) => {
+                                    showLoading();
                                     setSelectedModel(e.target.value);
                                     setCurrentPage(1);
                                     setSelectedYear("");
@@ -465,16 +486,17 @@ const FilterForm = ({
                         </Form.Group>
                     </Col>
                 </Row>
-                <div className="d-md-none mt-4">
-                    <button
-                        type="button"
-                        className="btnGlobal"
-                        onClick={() => setIsFiltersVisible(false)}
-                    >
-                        Ver Resultados
-                    </button>
-                </div>
             </Form>
+
+            <div className={styles.mobileActionButton}>
+                <button
+                    type="button"
+                    className="btnGlobal w-100"
+                    onClick={() => setIsFiltersVisible(false)}
+                >
+                    Ver Resultados
+                </button>
+            </div>
         </>
     );
 };

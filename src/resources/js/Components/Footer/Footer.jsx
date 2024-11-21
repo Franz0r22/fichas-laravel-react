@@ -7,28 +7,28 @@ const Footer = () => {
 
     return (
         <footer>
-            <Container fluid className="bg-dark text-white mt-5 p-4 text-center"> 
-                <Row >
-                    <Col xs={12} md={6}>
+            <Container fluid className="bg-dark text-white mt-5 p-4 text-lg-center"> 
+                <Row>
+                    <Col xs={12} md={4} className="mb-4 mb-md-0">
                         <img
                             src={`../../images/logo-agencia.png`}
                             alt="logo"
                             width={200}
                         />
                     </Col>
-                    <Col xs={12} md={6}>
+                    <Col xs={12} md={4} className="mb-4 mb-md-0">
                         <h6 className="text-uppercase fw-bold">Ubicación</h6>
                         <span>
-                            <div className="d-flex justify-content-center align-items-center text-uppercase fs-14 text-sec ">
+                            <div className="d-flex justify-content-lg-center align-items-center text-uppercase fs-14 text-sec ">
                                 <IoLocationSharp />
                                 ######
                             </div>
                         </span>
                     </Col>
-                    <Col xs={12} md={6}>
+                    <Col xs={12} md={4} className="mb-4 mb-md-0">
                         <h6 className="text-uppercase fw-bold">Contacto</h6>
                         <span>
-                            <div className="d-flex justify-content-center align-items-center text-uppercase fs-14 text-sec ">
+                            <div className="d-flex justify-content-lg-center align-items-center text-uppercase fs-14 text-sec ">
                                 <FaPhoneAlt />
                                 ######
                             </div>
