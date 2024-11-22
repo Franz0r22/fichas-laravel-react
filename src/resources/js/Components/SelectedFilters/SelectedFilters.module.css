@@ -1,10 +1,10 @@
 .selectedFilters {
-    margin: 30px 0px;
-    padding: 20px;
+    margin: 0px 0px 20px 0px;
+    /* padding: 20px;
     border: none;
     background-color: var(--primary-gray);
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    border-radius: 16px;
+    border-radius: 16px; */
 }
 
 .filtersList {
@@ -19,7 +19,7 @@
     display: flex;
     align-items: center;
     font-weight: 500;
-    font-size: 14px;
+    font-size: 12px;
     padding: 5px 10px;
     background-color: #c0c0c0;
     border-radius: 50px;
@@ -27,8 +27,7 @@
 }
 
 .filtersTitle {
-    text-transform: uppercase;
-    font-weight: 900;
+    font-weight: 500;
     font-size: 14px;
 }
 

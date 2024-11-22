@@ -12,12 +12,16 @@ import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper/modules";
 import { Link } from "@inertiajs/react";
 
-const ComparatorModal = (props) => {
-    const { show, data } = props;
-
+const ComparatorModal = ({ show, data, onHide, handleClose }) => {
     if (!data) {
         return (
-            <Modal {...props} size="xl" centered>
+            <Modal
+                show={show}
+                onHide={onHide}
+                size="xl"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+            >
                 <Modal.Header closeButton>
                     <Modal.Title>Comparador</Modal.Title>
                 </Modal.Header>
@@ -29,7 +33,7 @@ const ComparatorModal = (props) => {
                     </p>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={props.onHide}>Cerrar</Button>
+                    <Button onClick={onHide}>Cerrar</Button>
                 </Modal.Footer>
             </Modal>
         );
@@ -89,7 +93,13 @@ const ComparatorModal = (props) => {
     });
 
     return (
-        <Modal {...props} size="xl" centered>
+        <Modal
+            show={show}
+            onHide={onHide}
+            size="xl"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+        >
             <Modal.Header closeButton>
                 <Modal.Title className="text-center">Comparador</Modal.Title>
             </Modal.Header>
@@ -263,8 +273,8 @@ const ComparatorModal = (props) => {
                                                     autoid: car.autoID,
                                                 })}
                                                 onClick={() => {
-                                                    props.onHide();
-                                                    props.handleClose();
+                                                    onHide();
+                                                    handleClose();
                                                 }}
                                             >
                                                 Ver más detalles
