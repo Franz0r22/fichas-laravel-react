@@ -274,7 +274,6 @@ const FilterForm = ({
                                     showLoading();
                                     setSelectedModel(e.target.value);
                                     setCurrentPage(1);
-                                    setSelectedYear("");
                                     setSelectedPriceRange([minPrice, maxPrice]);
                                 }}
                                 disabled={!selectedBrand}
