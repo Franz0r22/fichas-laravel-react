@@ -117,7 +117,7 @@ const Autos = () => {
                     />
                 )}
 
-                <Row className="mb-3 justify-content-between align-items-center">
+                <Row className="my-3 justify-content-between align-items-center">
                     <Col xs={6} lg={3}>
                         <StockTotal
                             currentItems={currentItems}

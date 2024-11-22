@@ -20,7 +20,7 @@
     height: 100%;
     cursor: pointer;
     opacity: 0;
-    z-index: 2;
+    z-index: 10;
 }
 .div-comparador {
     position: absolute;
@@ -29,6 +29,7 @@
     border-radius: 15px;
     background-color: #ffffff80;
     padding: 0px 10px;
+    z-index: 2;
 }
 
 .cardImg {
@@ -92,4 +93,7 @@
     color: white;
     transition-property: background-color;
     transition-duration: 0.5s;
+}
+.cardWrapper {
+    position: relative;
 }

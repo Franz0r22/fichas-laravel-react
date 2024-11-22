@@ -79,6 +79,7 @@ export const Comparator = () => {
                                 show={modalShow}
                                 data={detailComparator}
                                 onHide={() => setModalShow(false)}
+                                handleClose={handleClose}
                             ></ComparatorModal>
 
                             {comparator.length > 0 ? (

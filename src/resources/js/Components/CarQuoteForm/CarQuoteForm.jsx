@@ -7,7 +7,6 @@ import QuoteYourCredit from './QuoteYourCredit/QuoteYourCredit';
 
 const CarQuoteForm = ({ carData, honeypot }) => {
 
-    console.log(carData);
     const initialData = {
         name: '',
         email: '',

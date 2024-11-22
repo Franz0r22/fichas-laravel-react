@@ -10,6 +10,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper/modules";
+import { Link } from "@inertiajs/react";
 
 const ComparatorModal = (props) => {
     const { show, data } = props;
@@ -254,16 +255,20 @@ const ComparatorModal = (props) => {
                                             </span>
                                         </div>
                                         <div className={styles.divBtn}>
-                                            <a
+                                            <Link
                                                 className={styles.btnCard}
                                                 href={route('carDetail', {
-                                                    brand: car.brandName,
-                                                    model: car.modelName,
+                                                    brand: car.brandName.toLowerCase(),
+                                                    model: car.modelName.toLowerCase(),
                                                     autoid: car.autoID,
                                                 })}
+                                                onClick={() => {
+                                                    props.onHide();
+                                                    props.handleClose();
+                                                }}
                                             >
                                                 Ver más detalles
-                                            </a>
+                                            </Link>
                                         </div>
                                     </div>
                                 </Card.Body>

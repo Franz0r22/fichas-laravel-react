@@ -11,7 +11,12 @@ const Contact = () => {
 
     return (
         <>
-            <Head title="Contacto" />
+            <Head title="Contacto">
+                <meta
+                    name="description"
+                    content="Contáctanos para obtener más información sobre nuestros vehículos. Estamos listos para ayudarte a encontrar tu auto ideal."
+                />
+            </Head>
             <Container className="mt-5">
                 <Row className="justify-content-md-center">
                     <Col md={7} className="p-5">

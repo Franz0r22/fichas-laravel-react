@@ -3,7 +3,7 @@ import { Row, Alert, Col } from 'react-bootstrap';
 import CarCarousel from '../CarCarousel/CarCarousel';
 
 const SuggestedCars = ({ suggestedCars }) => {
-console.log(suggestedCars)
+
 const SuggestedItems = suggestedCars.ads;
   if (!suggestedCars) {
     return <div>Cargando autos sugeridos...</div>

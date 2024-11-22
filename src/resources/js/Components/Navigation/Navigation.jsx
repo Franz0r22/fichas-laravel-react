@@ -29,13 +29,13 @@ const Navigation = () => {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto ms-5">
                         {menuItems.map((item, index) => (
-                            <a 
+                            <Link 
                                 key={index} 
                                 href={route(item.route)} 
                                 className={`nav-link ${styles.menuItem}`}
                             >
                                 {item.name}
-                            </a>
+                            </Link>
                         ))}
                     </Nav>
                 </Navbar.Collapse>
