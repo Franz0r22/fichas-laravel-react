@@ -119,6 +119,45 @@ const FilterForm = ({
 
     const isLatFilter = import.meta.env.VITE_FILTER_LAT === "true";
 
+    const selectedFiltersProps = {
+        selectedCategory,
+        selectedBrand,
+        selectedModel,
+        selectedFuel,
+        selectedLabel,
+        selectedYearRange,
+        selectedPriceRange,
+        selectedKmRange,
+        minYear,
+        maxYear,
+        minPrice,
+        maxPrice,
+        minKm,
+        maxKm,
+        selectedSeller,
+        clearBrand: () => setSelectedBrand(""),
+        clearModel: () => setSelectedModel(""),
+        clearCategory: () => setSelectedCategory(""),
+        clearFuel: () => setSelectedFuel(""),
+        clearLabel: () => setSelectedLabel(""),
+        clearYearRange: () => setSelectedYearRange([minYear, maxYear]),
+        clearPriceRange: () => setSelectedPriceRange([minPrice, maxPrice]),
+        clearKmRange: () => setSelectedKmRange([minKm, maxKm]),
+        clearSeller: () => setSelectedSeller([]),
+        clearAllFilters: () => {
+            setSelectedBrand("");
+            setSelectedModel("");
+            setSelectedFuel("");
+            setSelectedCategory("");
+            setSelectedLabel("");
+            setSelectedYearRange([minYear, maxYear]);
+            setSelectedPriceRange([minPrice, maxPrice]);
+            setSelectedKmRange([minKm, maxKm]);
+            setSelectedSeller([]);
+            setCurrentPage(1);
+        }
+    };
+
     return (
         <>
             <div className={`${styles.loadingOverlay} ${isLoading ? styles.loadingVisible : ''}`}>
@@ -142,47 +181,10 @@ const FilterForm = ({
             />
 
             <Form className={`${styles.formBox} ${isFiltersVisible ? styles.formBoxVisible : ''}`}>
-
-                <SelectedFilters
-                    selectedCategory={selectedCategory}
-                    selectedBrand={selectedBrand}
-                    selectedModel={selectedModel}
-                    selectedFuel={selectedFuel}
-                    selectedLabel={selectedLabel}
-                    selectedYearRange={selectedYearRange}
-                    selectedPriceRange={selectedPriceRange}
-                    selectedKmRange={selectedKmRange}
-                    minYear={minYear}
-                    maxYear={maxYear}
-                    minPrice={minPrice}
-                    maxPrice={maxPrice}
-                    minKm={minKm}
-                    maxKm={maxKm}
-                    selectedSeller={selectedSeller}
-                    clearBrand={() => setSelectedBrand("")}
-                    clearModel={() => setSelectedModel("")}
-                    clearCategory={() => setSelectedCategory("")}
-                    clearFuel={() => setSelectedFuel("")}
-                    clearLabel={() => setSelectedLabel("")}
-                    clearYearRange={() => setSelectedYearRange([minYear, maxYear])}
-                    clearPriceRange={() =>
-                        setSelectedPriceRange([minPrice, maxPrice])
-                    }
-                    clearKmRange={() => setSelectedKmRange([minKm, maxKm])}
-                    clearSeller={() => setSelectedSeller([])}
-                    clearAllFilters={() => {
-                        setSelectedBrand("");
-                        setSelectedModel("");
-                        setSelectedFuel("");
-                        setSelectedCategory("");
-                        setSelectedLabel("");
-                        setSelectedYearRange([minYear, maxYear]);
-                        setSelectedPriceRange([minPrice, maxPrice]);
-                        setSelectedKmRange([minKm, maxKm]);
-                        setSelectedSeller([]);
-                        setCurrentPage(1);
-                    }}
-                />
+                <div className={`${!isLatFilter ? 'd-md-none' : ''}`}>
+                    <SelectedFilters {...selectedFiltersProps} />
+                </div>
+                
                 <div className="d-md-none position-absolute top-0 end-0 p-3">
                     <button
                         type="button"
@@ -190,6 +192,7 @@ const FilterForm = ({
                         onClick={() => setIsFiltersVisible(false)}
                     />
                 </div>
+                
                 <Row className="gy-3">
                     {isLatFilter ? (
                         <Col lg={3}>
@@ -488,6 +491,9 @@ const FilterForm = ({
                         </Form.Group>
                     </Col>
                 </Row>
+                <div className={`${!isLatFilter ? 'd-none d-md-block' : 'd-none'}`}>
+                    <SelectedFilters {...selectedFiltersProps} />
+                </div>
             </Form>
 
             <div className={styles.mobileActionButton}>

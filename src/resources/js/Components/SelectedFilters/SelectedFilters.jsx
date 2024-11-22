@@ -51,7 +51,7 @@ const SelectedFilters = ({
     return (
         <>
             {anyFilterSelected && (
-                <div className={styles.selectedFilters}>
+                <div className={isLatFilter ? 'mb-3' : 'mt-3'}>
                     <h6 className={styles.filtersTitle}>Filtros aplicados:</h6>
                     <div className={styles.filtersList}>
                         {selectedCategory.length > 0 && (
