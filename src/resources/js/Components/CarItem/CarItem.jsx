@@ -9,6 +9,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { useState, useEffect } from "react";
 import { useCars } from "../../Contexts/CarsContext";
 import { Link } from "@inertiajs/react";
+import placeholderNoImage from '@images/placeholder-noimage.jpg';
 
 const CarItem = ({ auto }) => {
     const [imageStatus, setImageStatus] = useState("loading");
@@ -23,7 +24,7 @@ const CarItem = ({ auto }) => {
 
     const getImageSrc = () => {
         if (imageStatus === "error") {
-            return `../../images/placeholder-noimage.jpg`;
+            return placeholderNoImage;
         }
         return auto.photo;
     };

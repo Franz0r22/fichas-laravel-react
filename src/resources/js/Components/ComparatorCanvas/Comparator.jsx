@@ -7,6 +7,7 @@ import ComparatorModal from "./ComparatorModal";
 import { formatNumber } from "../../utils/formatNumber";
 import { Row, Col } from "react-bootstrap";
 import pointer from "@images/pointer-comparador.svg"
+import placeholderNoImage from '@images/placeholder-noimage.jpg';
 
 export const Comparator = () => {
     const {
@@ -47,7 +48,7 @@ export const Comparator = () => {
                                         onError={({ currentTarget }) => {
                                             currentTarget.onerror = null;
                                             currentTarget.src =
-                                                "/images/placeholder-noimage.jpg";
+                                                placeholderNoImage;
                                         }}
                                     />
                                 </div>

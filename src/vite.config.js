@@ -19,15 +19,11 @@ export default defineConfig(({ mode }) => {
         ],
         resolve: {
             alias: {
-                "@": "/resources/js",
-                "@public": "/public",
-                "@images": "/resources/images",
+                "@": path.resolve("resources/js"),
+                "@public": path.resolve("public"),
+                "@images": path.resolve("resources/images"),
                 "ziggy-js": path.resolve("vendor/tightenco/ziggy"),
             },
         },
-        // server: {
-        //     host: "127.0.0.1",
-        //     port: 5173, // el puerto puede variar
-        // },
     };
 });

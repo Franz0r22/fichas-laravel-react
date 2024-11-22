@@ -2,6 +2,7 @@ import { Navbar, Nav, Container } from "react-bootstrap";
 import { Link } from '@inertiajs/react';
 import { useRoute } from 'ziggy-js';
 import styles from './Navigation.module.css'
+import logoAgencia from '@images/logo-agencia.png';
 
 const Navigation = () => {
 
@@ -19,7 +20,7 @@ const Navigation = () => {
             <Container>
                 <Navbar.Brand href={route('home')}>
                     <img
-                        src="../../images/logo-agencia.png"
+                        src={logoAgencia}
                         width="200"
                         className="d-inline-block align-top"
                         alt="Logo"

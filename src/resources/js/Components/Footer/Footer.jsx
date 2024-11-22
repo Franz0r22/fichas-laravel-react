@@ -1,6 +1,7 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { IoLocationSharp } from "react-icons/io5";
 import { FaPhoneAlt } from "react-icons/fa";
+import logoAgencia from '@images/logo-agencia.png';
 
 const Footer = () => {
     const Year = new Date().getFullYear();
@@ -11,7 +12,7 @@ const Footer = () => {
                 <Row>
                     <Col xs={12} md={4} className="mb-4 mb-md-0">
                         <img
-                            src={`../../images/logo-agencia.png`}
+                            src={logoAgencia}
                             alt="logo"
                             width={200}
                         />
