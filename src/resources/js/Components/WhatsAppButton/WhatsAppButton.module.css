@@ -1,5 +1,5 @@
 @media (width < 991px) {
-    .floatingWaMobile > div {
+    .floatingWaMobile > div:first-child {
         height: 50px;
         width: 50px;
         right: 20px;
