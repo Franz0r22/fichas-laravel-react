@@ -120,74 +120,67 @@ class CarDetailController extends Controller
 
     function transformCarDetailData($carDetailData)
     {
+        // Validar que $carDetailData tenga las claves necesarias
+        if (!isset($carDetailData['ad']) || !isset($carDetailData['seller'])) {
+            throw new \InvalidArgumentException('Los datos del coche no tienen el formato esperado');
+        }
+
         $ad = $carDetailData['ad'];
         $seller = $carDetailData['seller'];
 
+        // Función auxiliar para obtener valores de forma segura
+        $getValue = function ($array, $keys, $default = null) {
+            foreach ($keys as $key) {
+                if (!isset($array[$key])) return $default;
+                $array = $array[$key];
+            }
+            return $array;
+        };
+
         return [
-            'clientName' => $seller['name'],
-            'clientID' => $seller['id'],
-            'latitude' => $seller['address']['latitude'],
-            'length' => $seller['address']['longitude'],
-            'clientLogo' => $seller['logo'],
-            'autoID' => $ad['identifier'],
-            'state' => null, // No proporcionado en la nueva respuesta
-            'patent' => null, // No proporcionado en la nueva respuesta
-            'categoryID' => $ad['specification']['category']['id'],
-            'categoryName' => $ad['specification']['category']['name'],
-            'brandID' => $ad['specification']['brand']['id'],
-            'brandName' => $ad['specification']['brand']['name'],
-            'modelID' => $ad['specification']['model']['id'],
-            'modelName' => $ad['specification']['model']['name'],
-            'version' => $ad['specification']['version'],
-            'carBodyID' => null, // No proporcionado en la nueva respuesta
-            'carBodyName' => null, // No proporcionado en la nueva respuesta
-            'currency' => $ad['prices']['currency'],
-            'price' => $ad['prices']['price'],
-            'year' => $ad['specification']['year'],
-            'color' => null, // No proporcionado en la nueva respuesta
-            'origin' => null, // No proporcionado en la nueva respuesta
-            'doors' => null, // No proporcionado en la nueva respuesta
-            'fuelID' => $ad['specification']['fuel']['id'],
-            'fuelName' => $ad['specification']['fuel']['name'],
-            'carDisplacement' => null, // No proporcionado en la nueva respuesta
-            'kilometers' => $ad['specification']['mileage'],
-            'premium' => null, // No proporcionado en la nueva respuesta
-            'transmissionID' => $ad['specification']['transmission']['id'],
-            'transmissionName' => $ad['specification']['transmission']['name'],
-            'traction' => $ad['specification']['traction']['id'],
-            'tractionName' => $ad['specification']['traction']['name'],
-            'direction' => $ad['specification']['steering']['id'],
-            'directionName' => $ad['specification']['steering']['name'],
-            'roof' => null, // No proporcionado en la nueva respuesta
-            'radio' => null, // No proporcionado en la nueva respuesta
-            'lights' => null, // No proporcionado en la nueva respuesta
-            'air' => null, // No proporcionado en la nueva respuesta
-            'airbag' => null, // No proporcionado en la nueva respuesta
-            'description' => $ad['description'],
-            'labelID' => $ad['ribbon']['id'],
-            'labelTitle' => $ad['ribbon']['name'],
-            'labelTitleColor' => $ad['ribbon']['textColor'],
-            'phone1' => $seller['contactData']['phoneNumber1'],
-            'phone2' => $seller['contactData']['phoneNumber2'],
-            'whatsApp' => $seller['contactData']['whatsapp'],
-            'mail' => $seller['contactData']['mail'],
-            'urlVideo' => null, // No proporcionado en la nueva respuesta
-            'sku' => null, // No proporcionado en la nueva respuesta
-            'vin' => null, // No proporcionado en la nueva respuesta
-            'hp' => $ad['specification']['horsepower'],
-            'publicationDate' => null, // No proporcionado en la nueva respuesta
-            'regionID' => $seller['address']['region']['id'],
-            'brandLogoURL' => $ad['specification']['brand']['url'],
-            'operationalWeight' => null, // No proporcionado en la nueva respuesta
-            'loadingCapacity' => null, // No proporcionado en la nueva respuesta
-            'elevationHeight' => null, // No proporcionado en la nueva respuesta
-            'legalPrice1' => $ad['prices']['legal1'],
-            'legalPrice2' => $ad['prices']['legal2'],
-            'legalPrice3' => $ad['prices']['legal3'],
-            'photos' => $ad['meddia']['images'],
+            'clientName' => $getValue($seller, ['name']),
+            'clientID' => $getValue($seller, ['id']),
+            'latitude' => $getValue($seller, ['address', 'latitude']),
+            'length' => $getValue($seller, ['address', 'longitude']),
+            'clientLogo' => $getValue($seller, ['logo']),
+            'autoID' => $getValue($ad, ['identifier']),
+            'categoryID' => $getValue($ad, ['specification', 'category', 'id']),
+            'categoryName' => $getValue($ad, ['specification', 'category', 'name']),
+            'brandID' => $getValue($ad, ['specification', 'brand', 'id']),
+            'brandName' => $getValue($ad, ['specification', 'brand', 'name']),
+            'modelID' => $getValue($ad, ['specification', 'model', 'id']),
+            'modelName' => $getValue($ad, ['specification', 'model', 'name']),
+            'version' => $getValue($ad, ['specification', 'version']),
+            'currency' => $getValue($ad, ['prices', 'currency']),
+            'price' => $getValue($ad, ['prices', 'price']),
+            'year' => $getValue($ad, ['specification', 'year']),
+            'fuelID' => $getValue($ad, ['specification', 'fuel', 'id']),
+            'fuelName' => $getValue($ad, ['specification', 'fuel', 'name']),
+            'kilometers' => $getValue($ad, ['specification', 'mileage']),
+            'transmissionID' => $getValue($ad, ['specification', 'transmission', 'id']),
+            'transmissionName' => $getValue($ad, ['specification', 'transmission', 'name']),
+            'traction' => $getValue($ad, ['specification', 'traction', 'id']),
+            'tractionName' => $getValue($ad, ['specification', 'traction', 'name']),
+            'direction' => $getValue($ad, ['specification', 'steering', 'id']),
+            'directionName' => $getValue($ad, ['specification', 'steering', 'name']),
+            'description' => $getValue($ad, ['description']),
+            'labelID' => $getValue($ad, ['ribbon', 'id']),
+            'labelTitle' => $getValue($ad, ['ribbon', 'name']),
+            'labelTitleColor' => $getValue($ad, ['ribbon', 'textColor']),
+            'phone1' => $getValue($seller, ['contactData', 'phoneNumber1']),
+            'phone2' => $getValue($seller, ['contactData', 'phoneNumber2']),
+            'whatsApp' => $getValue($seller, ['contactData', 'whatsapp']),
+            'mail' => $getValue($seller, ['contactData', 'mail']),
+            'hp' => $getValue($ad, ['specification', 'horsepower']),
+            'regionID' => $getValue($seller, ['address', 'region', 'id']),
+            'brandLogoURL' => $getValue($ad, ['specification', 'brand', 'url']),
+            'legalPrice1' => $getValue($ad, ['prices', 'legal1']),
+            'legalPrice2' => $getValue($ad, ['prices', 'legal2']),
+            'legalPrice3' => $getValue($ad, ['prices', 'legal3']),
+            'photos' => $getValue($ad, ['meddia', 'images'], []),
             'features' => array_map(function ($feature) {
-                return $feature['name'];
-            }, $ad['specification']['characteristic'] ?? []),
+                return $feature['name'] ?? null;
+            }, $getValue($ad, ['specification', 'characteristic'], [])),
         ];
     }
 }

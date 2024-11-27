@@ -9,41 +9,85 @@ class CarService
 {
     protected $apiUrl;
     protected $apiToken;
+    protected const TIMEOUT_SECONDS = 30;
+    protected CarDataTransformer $transformer;
 
-    public function __construct()
+    public function __construct(CarDataTransformer $transformer)
     {
         $this->apiUrl = config('services.api.urlfichasv2');
         $this->apiToken = config('services.api.tokenfichasv2');
+        $this->transformer = $transformer;
+
+        if (empty($this->apiUrl) || empty($this->apiToken)) {
+            throw new \RuntimeException('No se ha configurado la API');
+        }
     }
 
     public function getCarDetails($autoid)
     {
-        $endpoint = 'vehicle';
-        $queryParams = ['id' => $autoid];
-
-        $response = Http::withToken($this->apiToken)->get("{$this->apiUrl}/{$endpoint}", $queryParams);
-        
-        if ($response->successful()) {
-            return $response->json();
+        if (empty($autoid)) {
+            throw new \InvalidArgumentException('El ID del auto no puede estar vacío');
         }
 
-        throw new \Exception('Failed to fetch car details');
+        try {
+            $endpoint = 'vehicle';
+            $queryParams = ['id' => $autoid];
+
+            $response = Http::withToken($this->apiToken)
+                ->timeout(self::TIMEOUT_SECONDS)
+                ->get("{$this->apiUrl}/{$endpoint}", $queryParams);
+            
+            if ($response->successful()) {
+                return $response->json();
+            }
+
+            Log::error('Error fetching car details', [
+                'status' => $response->status(),
+                'body' => $response->body(),
+                'autoId' => $autoid
+            ]);
+
+            throw new \Exception("Error al obtener los detalles del auto. Estado: {$response->status()}");
+        } catch (\Exception $e) {
+            Log::error('Excepción en getCarDetails', [
+                'message' => $e->getMessage(),
+                'autoId' => $autoid,
+                'trace' => $e->getTraceAsString()
+            ]);
+            throw $e;
+        }
     }
 
     public function getSuggestedCars($params)
     {
+        if (!is_array($params)) {
+            throw new \InvalidArgumentException('Los parámetros deben ser un array');
+        }
+
         $suggestedCarsUrl = "{$this->apiUrl}/vehicles/suggested";
         $fullUrl = "{$suggestedCarsUrl}?" . http_build_query($params);
 
         try {
-            $response = Http::withToken($this->apiToken)->get($fullUrl);
+            $response = Http::withToken($this->apiToken)
+                ->timeout(self::TIMEOUT_SECONDS)
+                ->get($fullUrl);
 
             if ($response->successful()) {
                 $json = $response->json();
-                return $this->transformNewApiData($json);
+                return $this->transformer->transformNewApiData($json);
             }
+
+            Log::error('Error al obtener autos sugeridos', [
+                'status' => $response->status(),
+                'params' => $params,
+                'body' => $response->body()
+            ]);
         } catch (\Exception $e) {
-            Log::error('Failed to fetch suggested cars: ' . $e->getMessage());
+            Log::error('Error al obtener autos sugeridos', [
+                'message' => $e->getMessage(),
+                'params' => $params,
+                'trace' => $e->getTraceAsString()
+            ]);
         }
 
         return [
@@ -51,66 +95,6 @@ class CarService
             'showing' => 0,
             'total' => 0,
             'ads' => [],
-        ];
-    }
-
-    function transformNewApiData($newApiData)
-    {
-        return [
-            'page' => $newApiData['page'],
-            'showing' => $newApiData['showing'],
-            'total' => $newApiData['total'],
-            'ads' => collect($newApiData['ads'])->map(function ($adData) {
-                $ad = $adData['ad'];
-                return [
-                    'carId' => $ad['identifier'],
-                    'keyword' => $ad['keyword'],
-                    'publicationDate' => $ad['publicationDate'],
-                    'price' => $ad['prices']['price'],
-                    'currency' => $ad['prices']['currency'],
-                    'legal1' => $ad['prices']['legal1'],
-                    'legal2' => $ad['prices']['legal2'],
-                    'legal3' => $ad['prices']['legal3'],
-                    'ribbonId' => $ad['ribbon']['id'],
-                    'ribbonName' => $ad['ribbon']['name'],
-                    'ribbonColor' => $ad['ribbon']['color'],
-                    'ribbonTextColor' => $ad['ribbon']['textColor'],
-                    'mainImage' => $ad['meddia']['images'],
-                    'video360' => $ad['meddia']['360Video'],
-                    'video' => $ad['meddia']['video'],
-                    'photo' => $ad['meddia']['images'],
-                    'licensePlate' => $ad['specification']['plate'],
-                    'brand' => $ad['specification']['brand']['name'],
-                    'brandId' => $ad['specification']['brand']['id'],
-                    'brandUrl' => $ad['specification']['brand']['url'],
-                    'model' => $ad['specification']['model']['name'],
-                    'modelId' => $ad['specification']['model']['id'],
-                    'version' => $ad['specification']['version'],
-                    'year' => $ad['specification']['year'],
-                    'mileage' => $ad['specification']['mileage'],
-                    'engineCapacity' => $ad['specification']['engineCapacity'],
-                    'horsepower' => $ad['specification']['horsepower'],
-                    'category' => $ad['specification']['category']['name'],
-                    'categoryId' => $ad['specification']['category']['id'],
-                    'carClass' => $ad['specification']['carClass']['name'],
-                    'carClassId' => $ad['specification']['carClass']['id'],
-                    'fuelType' => $ad['specification']['fuel']['name'],
-                    'fuelTypeId' => $ad['specification']['fuel']['id'],
-                    'fuelTypeEng' => $ad['specification']['fuel']['nameEng'],
-                    'transmissionType' => $ad['specification']['transmission']['name'],
-                    'transmissionTypeId' => $ad['specification']['transmission']['id'],
-                    'transmissionTypeEng' => $ad['specification']['transmission']['nameEng'],
-                    'steering' => $ad['specification']['steering']['name'],
-                    'steeringId' => $ad['specification']['steering']['id'],
-                    'traction' => $ad['specification']['traction']['name'],
-                    'tractionId' => $ad['specification']['traction']['id'],
-                    'bodyType' => $ad['specification']['bodyWork']['name'],
-                    'bodyTypeId' => $ad['specification']['bodyWork']['id'],
-                    'additionalInfo' => $ad['additionalInfo'],
-                    'sellerName' => $adData['seller']['name'],
-                    'sellerId' => $adData['seller']['id'],
-                ];
-            })->toArray(),
         ];
     }
 }
