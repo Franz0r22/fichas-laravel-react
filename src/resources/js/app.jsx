@@ -10,9 +10,15 @@ import { CarsProvider } from "./Contexts/CarsContext";
 
 createInertiaApp({
     title: (title) => `${title} - ${import.meta.env.VITE_APP_NAME}`,
-    resolve: (name) => {
+    resolve: async (name) => {
         const pages = import.meta.glob("./Pages/**/*.jsx", { eager: true });
-        let page = pages[`./Pages/${name}/${name}.jsx`];
+        
+        const page = pages[`./Pages/${name}/${name}.jsx`];
+        
+        if (!page) {
+            throw new Error(`Page ${name} not found.`);
+        }
+
         page.default.layout =
             page.default.layout || ((page) => <Layout>{page}</Layout>);
         return page;
@@ -20,11 +26,11 @@ createInertiaApp({
     setup({ el, App, props }) {
         const recaptchaKey = props.initialPage.props.recaptcha_site_key;
         createRoot(el).render(
-                <GoogleReCaptchaProvider reCaptchaKey={recaptchaKey}>
-                    <CarsProvider>
-                        <App {...props} />
-                    </CarsProvider>
-                </GoogleReCaptchaProvider>
+            <GoogleReCaptchaProvider reCaptchaKey={recaptchaKey}>
+                <CarsProvider>
+                    <App {...props} />
+                </CarsProvider>
+            </GoogleReCaptchaProvider>
         );
     },
 });
