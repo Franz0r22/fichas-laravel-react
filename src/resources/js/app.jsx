@@ -2,6 +2,11 @@ import "./bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@public/css/global.css";
 
+import.meta.glob([
+    '../images/**', // Procesa todas las imágenes
+    '../fonts/**',  // Procesa todas las fuentes
+]);
+
 import { createInertiaApp } from "@inertiajs/react";
 import { createRoot } from "react-dom/client";
 import Layout from "@/Layouts/Layout";

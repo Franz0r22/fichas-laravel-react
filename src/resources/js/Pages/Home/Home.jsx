@@ -4,6 +4,7 @@ import { Container, Row, Col, Spinner, Alert } from "react-bootstrap";
 import CarCarousel from "../../Components/CarCarousel/CarCarousel";
 import TopCarousel from "../../Components/TopCarousel/TopCarousel";
 import useCars from "../../Hooks/useCars";
+import placeholder from "@images/placeholder.webp";
 
 const Home = () => {
     const {
@@ -14,7 +15,7 @@ const Home = () => {
 
     const slides = [
         {
-            image: `../../images/placeholder.webp`,
+            image: placeholder,
             label: "Primer Slide",
             // text: 'Nulla vitae elit libero, a pharetra augue mollis interdum.'
         },
