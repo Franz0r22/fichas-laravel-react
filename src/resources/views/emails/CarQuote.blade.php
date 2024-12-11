@@ -586,11 +586,16 @@
                                                                                         {{ $data['email'] }}</span></p>
                                                                                 <p style="margin: 0;"><span
                                                                                         style="color: #1c1b1a; font-family: Arial; font-size: 18px;">Teléfono:
+                                                                                        {{ $data['phone'] }}</span></p>
+                                                                                <p style="margin: 0;"><span
+                                                                                        style="color: #1c1b1a; font-family: Arial; font-size: 18px;">Rut:
                                                                                         {{ $data['rut'] }}</span></p>
+                                                                                @if(!empty($data['message']))
                                                                                 <p style="margin: 0;"><span
                                                                                         style="color: #1c1b1a; font-family: Arial; font-size: 18px;">Mensaje:
                                                                                         {{ $data['message'] }}</span>
                                                                                 </p>
+                                                                                @endif
                                                                                 @if(!empty($data['pie']) ||
                                                                                 !empty($data['creditTerm']))
                                                                                 <p style="color: #004581; margin: 0;">
@@ -798,7 +803,9 @@
                                                                                         <div>
                                                                                             <p style="margin: 0;"><span
                                                                                                     style="color: #f1f1f1;">©{{
-                                                                                                    date('Y') }} {{env('APP_NAME')}} </span>
+                                                                                                    date('Y') }}
+                                                                                                    {{env('APP_NAME')}}
+                                                                                                </span>
                                                                                             </p>
                                                                                         </div>
                                                                                     </td>

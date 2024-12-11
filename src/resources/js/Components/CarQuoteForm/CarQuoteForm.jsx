@@ -11,6 +11,7 @@ const CarQuoteForm = ({ carData, honeypot }) => {
         name: '',
         email: '',
         rut: '',
+        phone: '',
         message: '',
         pie: '',
         creditTerm: '',
@@ -41,7 +42,7 @@ const CarQuoteForm = ({ carData, honeypot }) => {
 
     return (
         <>
-            <Notification 
+            <Notification
                 message="¡Gracias! Tu mensaje ha sido enviado con éxito. Nos pondremos en contacto contigo pronto."
                 isVisible={showNotification}
                 onClose={() => setShowNotification(false)}
@@ -85,6 +86,14 @@ const CarQuoteForm = ({ carData, honeypot }) => {
                 />
 
                 <InputField
+                    label="Teléfono"
+                    name="phone"
+                    value={data.phone}
+                    onChange={handleChange}
+                    error={getError('phone')}
+                />
+
+                <InputField
                     label="RUT"
                     name="rut"
                     value={data.rut}
@@ -105,7 +114,7 @@ const CarQuoteForm = ({ carData, honeypot }) => {
                 </div>
 
                 <div className="my-4">
-                    <QuoteYourCredit 
+                    <QuoteYourCredit
                         data={data}
                         handleChange={handleChange}
                         getError={getError}

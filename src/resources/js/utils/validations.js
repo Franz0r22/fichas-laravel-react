@@ -92,10 +92,10 @@ return '';
 };
 
 export const validatePhone = (phone) => {
-if (!phone.trim()) return 'El teléfono es obligatorio';
-if (!/^\+?56?\s?(\d{9}|\d{2}\s?\d{4}\s?\d{4})$/.test(phone)) return 'Teléfono inválido';
-return '';
-};  
+  if (!phone.trim()) return 'El teléfono es obligatorio';
+  if (!/^(569\d{8}|\d{9})$/.test(phone)) return 'El teléfono debe tener 9 u 11 dígitos comenzando con "56"';
+  return '';
+};
 
 export const validateCreditAmount = (creditAmount) => {
 if (!creditAmount.trim()) return 'El monto de crédito es obligatorio';
