@@ -16,7 +16,8 @@ import ShareButtons from "../../Components/ShareButtons/ShareButtons";
 import SuggestedCars from "../../Components/SuggestedCars/SuggestedCars";
 
 const CarDetail = () => {
-    const { data, error, honeypot, suggestedCars } = usePage().props;
+    const { data, error, honeypot, suggestedCars, iconsFeatures } = usePage().props;
+    console.log('Caracteristicas Con Imagenes:', iconsFeatures);
     const shareUrl = window.location.href;
     const shareTitle = "¡Me gustó este vehículo!";
 
@@ -125,7 +126,9 @@ const CarDetail = () => {
                         <Row>
                             <Col md={7} className="px-0 pe-lg-4">
                                 {data.features && data.features.length > 0 && (
-                                    <CarFeatures features={data.features} />
+                                    <CarFeatures 
+                                        iconsFeatures={iconsFeatures}
+                                    />
                                 )}
                             </Col>
                             <Col

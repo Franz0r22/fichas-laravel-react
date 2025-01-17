@@ -1,9 +1,11 @@
 .equipmentGrid {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 0.5rem;
     list-style: none;
     padding-left: 0px;
+    font-size: 14px;
+    text-transform:uppercase;
 }
 
 .carTitle {
@@ -19,8 +21,8 @@
     border-radius: 12px;
 }
 
-@media (width > 768px) {
+@media (width < 768px) {
     .equipmentGrid {
-        grid-template-columns: repeat(2, 1fr);
+        font-size: 10px;
     }
 }

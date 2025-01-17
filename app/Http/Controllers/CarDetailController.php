@@ -8,6 +8,8 @@ use Inertia\Inertia;
 use Spatie\Honeypot\Honeypot;
 use App\Services\CarService;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class CarDetailController extends Controller
 {
@@ -28,6 +30,15 @@ class CarDetailController extends Controller
             if (!isset($transformedData['price'])) {
                 throw new \Exception('Precio del vehículo no disponible');
             }
+
+            $iconsFeatures = collect($transformedData['features'])->mapWithKeys(function ($caracteristica) {
+                $slug = Str::slug($caracteristica, '-');
+                $imagePath = public_path("images/equipamiento/{$slug}.svg");
+    
+                return [
+                    $caracteristica => File::exists($imagePath) ? asset("images/equipamiento/{$slug}.svg") : null,
+                ];
+            }); 
 
             $price = $transformedData['price'];
             $category = $transformedData['categoryID'];
@@ -66,6 +77,7 @@ class CarDetailController extends Controller
 
             return Inertia::render('CarDetail', [
                 'data' => $transformedData,
+                'iconsFeatures' => $iconsFeatures,
                 'honeypot' => $honeypot->toArray(),
                 'suggestedCars' => $suggestedCars,
             ]);
