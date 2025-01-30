@@ -28,7 +28,7 @@ class CarQuoteController extends Controller
             'carImage' => 'required|url',
             'carUrl' => 'required|url',
             'automotoraMail' => 'required|email',
-            'captcha_token' => ['required', new Recaptcha],
+            'captcha_token' => ['required'],
             'pie' => 'nullable|numeric',
             'creditTerm' => 'nullable|numeric', 
             'marca' => 'nullable|string',
