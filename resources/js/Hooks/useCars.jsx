@@ -65,21 +65,21 @@ const useCars = () => {
 
     // Efecto que actualiza el rango de precios seleccionado cuando los datos o los precios cambian
     useEffect(() => {
-        if (data) {
+        if (data && !window.location.search.includes('priceRange')) {
             setSelectedPriceRange([minPrice, maxPrice]);
         }
     }, [data, minPrice, maxPrice, setSelectedPriceRange]);
 
-    // Efecto que actualiza el rango de años seleccionado cuando los datos o los años cambian
+    // Para el rango de años
     useEffect(() => {
-        if (data) {
+        if (data && !window.location.search.includes('yearRange')) {
             setSelectedYearRange([minYear, maxYear]);
         }
     }, [data, minYear, maxYear, setSelectedYearRange]);
 
-    // Efecto que actualiza el rango de Kilómetros seleccionado cuando los datos o los kms cambian
+    // Para el rango de kilómetros
     useEffect(() => {
-        if (data) {
+        if (data && !window.location.search.includes('kmRange')) {
             setSelectedKmRange([minKm, maxKm]);
         }
     }, [data, minKm, maxKm, setSelectedKmRange]);
