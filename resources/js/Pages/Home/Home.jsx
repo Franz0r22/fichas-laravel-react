@@ -5,11 +5,48 @@ import CarCarousel from "../../Components/CarCarousel/CarCarousel";
 import TopCarousel from "../../Components/TopCarousel/TopCarousel";
 import useCars from "../../Hooks/useCars";
 import placeholder from "@images/placeholder.webp";
+import SearchCar from "../../Components/SearchCar/SearchCar";
 
 const Home = () => {
     const {
         props: { data, error },
     } = usePage();
+
+    const {
+        uniqueCategories,
+        uniqueBrands,
+        uniqueModels,
+        uniqueFuels,
+        uniqueLabels,
+        uniqueSellers,
+        selectedYear,
+        setSelectedYear,
+        selectedBrand,
+        setSelectedBrand,
+        selectedModel,
+        setSelectedModel,
+        selectedPriceRange,
+        setSelectedPriceRange,
+        selectedYearRange,
+        setSelectedYearRange,
+        selectedKmRange,
+        setSelectedKmRange,
+        selectedFuel,
+        setSelectedFuel,
+        selectedLabel,
+        setSelectedLabel,
+        selectedCategory,
+        setSelectedCategory,
+        selectedSeller,
+        setSelectedSeller,
+        minPrice,
+        maxPrice,
+        minYear,
+        maxYear,
+        minKm,
+        maxKm,
+    } = useCars(data);
+
 
     const { currentItems } = useCars(data);
 
@@ -45,7 +82,41 @@ const Home = () => {
             </Head>
 
             <TopCarousel slides={slides} />
-
+            <SearchCar 
+                uniqueCategories={uniqueCategories}
+                uniqueBrands={uniqueBrands}
+                uniqueModels={uniqueModels}
+                uniqueFuels={uniqueFuels}
+                uniqueLabels={uniqueLabels}
+                uniqueSellers={uniqueSellers}
+                selectedYear={selectedYear}
+                setSelectedYear={setSelectedYear}
+                selectedBrand={selectedBrand}
+                setSelectedBrand={setSelectedBrand}
+                selectedModel={selectedModel}
+                setSelectedModel={setSelectedModel}
+                selectedPriceRange={selectedPriceRange}
+                setSelectedPriceRange={setSelectedPriceRange}
+                selectedYearRange={selectedYearRange}
+                setSelectedYearRange={setSelectedYearRange}
+                selectedKmRange={selectedKmRange}
+                setSelectedKmRange={setSelectedKmRange}
+                selectedFuel={selectedFuel}
+                setSelectedFuel={setSelectedFuel}
+                selectedLabel={selectedLabel}
+                setSelectedLabel={setSelectedLabel}
+                selectedCategory={selectedCategory}
+                setSelectedCategory={setSelectedCategory}
+                selectedSeller={selectedSeller}
+                setSelectedSeller={setSelectedSeller}
+                minPrice={minPrice}
+                maxPrice={maxPrice}
+                minYear={minYear}
+                maxYear={maxYear}
+                minKm={minKm}
+                maxKm={maxKm}
+                data={data}
+            />
             <Container style={{ minHeight: "100vh" }} className="my-5">
                 <Row className="justify-content-md-center">
                     <Col md="auto" className="text-center mb-4">

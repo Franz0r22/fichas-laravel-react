@@ -81,6 +81,8 @@ const Autos = () => {
 
                 {!isLatFilter && (
                     <FilterForm
+                        keyword={keyword}
+                        setKeyword={setKeyword}
                         uniqueBrands={uniqueBrands}
                         uniqueModels={uniqueModels}
                         uniqueFuels={uniqueFuels}
@@ -135,6 +137,8 @@ const Autos = () => {
                     {isLatFilter && (
                         <Col lg={3}>
                             <FilterForm
+                                keyword={keyword}
+                                setKeyword={setKeyword}
                                 uniqueBrands={uniqueBrands}
                                 uniqueModels={uniqueModels}
                                 uniqueFuels={uniqueFuels}

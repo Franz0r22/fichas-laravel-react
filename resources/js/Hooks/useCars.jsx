@@ -44,8 +44,14 @@ const useCars = () => {
     });
 
     // Filtra los datos usando la función handleFilter proporcionada por useFilter
-    const filteredData = useMemo(() => handleFilter(data?.ads || []), [handleFilter, data]);
+    const safeKeyword = keyword?.toLowerCase() || "";
 
+    const filteredData = useMemo(() => {
+        return handleFilter(data?.ads || []).filter(car =>
+            (car.name ?? "").toLowerCase().includes(safeKeyword)// Solo usa toLowerCase si name existe
+        );
+    }, [handleFilter, data, keyword]);
+    
     const uniqueBrands = useUniqueBrands(filteredData);
     const uniqueModels = useUniqueModelsByBrand(filteredData, selectedBrand);
     const uniqueFuels = useUniqueFuels(data); // Ajusta según tus necesidades

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col, Form, Button } from "react-bootstrap";
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
@@ -8,6 +8,8 @@ import { formatCategory } from "../../utils/formatCategory";
 import { IoChevronForwardOutline } from "react-icons/io5";
 
 const FilterForm = ({
+    keyword,
+    setKeyword,
     uniqueBrands,
     uniqueModels,
     uniqueFuels,
@@ -158,6 +160,34 @@ const FilterForm = ({
         }
     };
 
+    useEffect(() => {
+        const params = new URLSearchParams(location.search);
+        
+        // Solo actualizar si los valores son diferentes a los actuales
+        const urlBrand = params.get('brand') || '';
+        const urlModel = params.get('model') || '';
+        const urlPriceRange = params.get('priceRange')?.split('-').map(Number) || [minPrice, maxPrice];
+        const urlYearRange = params.get('yearRange')?.split('-').map(Number) || [minYear, maxYear];
+    
+        // Actualizar solo si hay cambios
+        if (selectedBrand !== urlBrand) {
+            setSelectedBrand(urlBrand);
+        }
+        
+        if (selectedModel !== urlModel) {
+            setSelectedModel(urlModel);
+        }
+        
+        if (JSON.stringify(selectedPriceRange) !== JSON.stringify(urlPriceRange)) {
+            setSelectedPriceRange(urlPriceRange);
+        }
+        
+        if (JSON.stringify(selectedYearRange) !== JSON.stringify(urlYearRange)) {
+            setSelectedYearRange(urlYearRange);
+        }
+    }, [location.search]); // Eliminamos dependencias innecesarias
+
+
     return (
         <>
             <div className={`${styles.loadingOverlay} ${isLoading ? styles.loadingVisible : ''}`}>
@@ -181,6 +211,12 @@ const FilterForm = ({
             />
 
             <Form className={`${styles.formBox} ${isFiltersVisible ? styles.formBoxVisible : ''}`}>
+                <input
+                    type="text"
+                    value={keyword}
+                    onChange={(e) => setKeyword(e.target.value)}
+                    placeholder="Buscar autos..."
+                />
                 <div className={`${!isLatFilter ? 'd-md-none' : ''}`}>
                     <SelectedFilters {...selectedFiltersProps} />
                 </div>

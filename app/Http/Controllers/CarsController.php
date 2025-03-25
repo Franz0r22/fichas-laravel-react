@@ -18,7 +18,7 @@ class CarsController extends Controller
 
     public function getCarsForHome(Request $request)
     {
-        return $this->fetchAutos($request, 'Home', 8); //TODO: Cambiar el 8 y el 500 por variable en .env
+        return $this->fetchAutos($request, 'Home', 1000); //TODO: Cambiar el 8 y el 500 por variable en .env
     }
 
     public function getCars(Request $request)
