@@ -1,0 +1,82 @@
+.btnVermas{
+    padding: 2rem 0rem 0rem 0rem;
+    display: flex;
+    justify-content: center;   
+}
+
+.verStock{
+    background-color: #666666!important;
+    color: white!important;
+    width: 100%!important;
+    max-width: 320px!important;
+    border: 0px!important;
+    font-size: 20px!important;
+    padding: 5px!important;
+    font-weight: 200!important;
+}
+
+.verStock:hover{
+    background-color: #999999!important;
+    color: white!important;
+}
+/* Contenedor de los botones personalizados */
+.customSwiperButtons {
+    position: relative;
+    bottom: 220px;
+}
+
+/* Estilos generales de los botones */
+.customPrev,
+.customNext {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    background-color: #d9d9d9;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+}
+
+/* Posiciona los botones fuera del Swiper */
+.customPrev {
+    left: 0px;
+}
+
+.customNext {
+    right: 0px;
+}
+
+/* Estilos para las flechas dentro del botón */
+.customPrev::after,
+.customNext::after {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    position: absolute;
+}
+
+/* Flecha izquierda */
+.customPrev::after {
+    border-width: 10px 15px 10px 0;
+    border-color: transparent #666 transparent transparent;
+    left: 18px;
+}
+
+/* Flecha derecha */
+.customNext::after {
+    border-width: 10px 0 10px 15px;
+    border-color: transparent transparent transparent #666;
+    right: 18px;
+}
+
+/* Hover */
+.customPrev:hover,
+.customNext:hover {
+    background-color: #b0b0b0;
+}
