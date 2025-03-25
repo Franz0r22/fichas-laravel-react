@@ -2,7 +2,7 @@ import React from 'react'
 import { Row, Alert, Col } from 'react-bootstrap';
 import CarCarousel from '../CarCarousel/CarCarousel';
 
-const SuggestedCars = ({ suggestedCars }) => {
+const SuggestedCars = ({ suggestedCars, hideNavigation = false }) => {
 
 const SuggestedItems = suggestedCars.ads;
   if (!suggestedCars) {
@@ -21,7 +21,7 @@ const SuggestedItems = suggestedCars.ads;
     <div>
       <h2 className="mb-4">Autos Sugeridos</h2>
         <Row>
-            <CarCarousel currentItems={SuggestedItems} />
+            <CarCarousel currentItems={SuggestedItems} hideViewAllButton={false} hideNavigation={hideNavigation} />
         </Row>
     </div>
   )
