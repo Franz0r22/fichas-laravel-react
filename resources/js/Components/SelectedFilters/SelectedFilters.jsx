@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Badge } from 'react-bootstrap';
-import styles from './SelectedFilters.module.css'
+import styles from './SelectedFilters.module.css';
 import { IoClose } from "react-icons/io5";
 import { formatCategory } from '../../utils/formatCategory';
 
@@ -38,12 +38,12 @@ const SelectedFilters = ({
         selectedModel !== '' ||
         selectedFuel.length > 0 ||
         selectedLabel.length > 0 ||
-        selectedYearRange[0] !== minYear ||
-        selectedYearRange[1] !== maxYear ||
-        selectedPriceRange[0] !== minPrice ||
-        selectedPriceRange[1] !== maxPrice ||
-        selectedKmRange[0] !== minKm ||
-        selectedKmRange[1] !== maxKm ||
+        (selectedYearRange[0] !== minYear || selectedYearRange[1] !== maxYear) &&
+        (selectedYearRange[0] !== 1900 || selectedYearRange[1] !== 2024) ||
+        (selectedPriceRange[0] !== minPrice || selectedPriceRange[1] !== maxPrice) &&
+        (selectedPriceRange[0] !== minPrice || selectedPriceRange[1] !== maxPrice) ||
+        (selectedKmRange[0] !== minKm || selectedKmRange[1] !== maxKm) &&
+        (selectedKmRange[0] !== minKm || selectedKmRange[1] !== maxKm) ||
         selectedSeller.length > 0;
 
     const isLatFilter = import.meta.env.VITE_FILTER_LAT === 'true';
@@ -88,24 +88,27 @@ const SelectedFilters = ({
                                 <IoClose className={styles.closeIcon} />
                             </div>
                         )}
-                        {selectedYearRange[0] !== minYear || selectedYearRange[1] !== maxYear ? (
+                        {(selectedYearRange[0] !== minYear || selectedYearRange[1] !== maxYear) &&
+                        (selectedYearRange[0] !== 1900 || selectedYearRange[1] !== 2024) && (
                             <div className={styles.filterLabel} onClick={clearYearRange} role="button">
                                 {selectedYearRange[0]} - {selectedYearRange[1]}
                                 <IoClose className={styles.closeIcon} />
                             </div>
-                        ) : null}
-                        {selectedPriceRange[0] !== minPrice || selectedPriceRange[1] !== maxPrice ? (
+                        )}
+                        {(selectedPriceRange[0] !== minPrice || selectedPriceRange[1] !== maxPrice) &&
+                        (selectedPriceRange[0] !== 0 || selectedPriceRange[1] !== 1000000000) && (
                             <div className={styles.filterLabel} onClick={clearPriceRange} role="button">
                                 ${selectedPriceRange[0].toLocaleString()} - ${selectedPriceRange[1].toLocaleString()}
                                 <IoClose className={styles.closeIcon} />
                             </div>
-                        ) : null}
-                        {selectedKmRange[0] !== minKm || selectedKmRange[1] !== maxKm ? (
+                        )}
+                        {(selectedKmRange[0] !== minKm || selectedKmRange[1] !== maxKm) &&
+                        (selectedKmRange[0] !== 0 || selectedKmRange[1] !== 1000000) && (
                             <div className={styles.filterLabel} onClick={clearKmRange} role="button">
                                 {selectedKmRange[0].toLocaleString()} Km - {selectedKmRange[1].toLocaleString()} Km
                                 <IoClose className={styles.closeIcon} />
                             </div>
-                        ) : null}
+                        )}
                         {selectedSeller.length > 0 && (
                             <div className={styles.filterLabel} onClick={clearSeller} role="button">
                                 {isLatFilter

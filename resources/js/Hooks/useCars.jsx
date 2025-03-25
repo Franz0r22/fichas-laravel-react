@@ -13,15 +13,12 @@ import useUniqueCategories from './filterData/useUniqueCategories';
 import useUniqueSeller from './filterData/useUniqueSeller';
 
 const useCars = () => {
-    // Obtiene los datos y posibles errores desde el contexto de Inertia.js
     const { props: { data, error } } = usePage();
 
-    // Usa hooks específicos para obtener datos únicos y rangos de precios
     const { minPrice, maxPrice } = usePriceRange(data);
     const { minYear, maxYear } = useYearRange(data);
     const { minKm, maxKm } = useKmRange(data);
 
-    // Usa useFilter pasando los valores mínimos y máximos dinámicos
     const {
         selectedYearRange, setSelectedYearRange,
         selectedPriceRange, setSelectedPriceRange,
@@ -43,23 +40,21 @@ const useCars = () => {
         maxKm,
     });
 
-    // Filtra los datos usando la función handleFilter proporcionada por useFilter
     const safeKeyword = keyword?.toLowerCase() || "";
 
     const filteredData = useMemo(() => {
         return handleFilter(data?.ads || []).filter(car =>
-            (car.name ?? "").toLowerCase().includes(safeKeyword)// Solo usa toLowerCase si name existe
+            (car.name ?? "").toLowerCase().includes(safeKeyword)
         );
     }, [handleFilter, data, keyword]);
-    
+
     const uniqueBrands = useUniqueBrands(filteredData);
     const uniqueModels = useUniqueModelsByBrand(filteredData, selectedBrand);
-    const uniqueFuels = useUniqueFuels(data); // Ajusta según tus necesidades
-    const uniqueLabels = useUniqueLabels(data); // Ajusta según tus necesidades
-    const uniqueCategories = useUniqueCategories(data); // Ajusta según tus necesidades
-    const uniqueSellers = useUniqueSeller(data); // Ajusta según tus necesidades
+    const uniqueFuels = useUniqueFuels(data);
+    const uniqueLabels = useUniqueLabels(data);
+    const uniqueCategories = useUniqueCategories(data);
+    const uniqueSellers = useUniqueSeller(data);
 
-    // Usa el hook usePagination para manejar la lógica de paginación
     const {
         currentPage,
         setCurrentPage,
@@ -69,46 +64,50 @@ const useCars = () => {
         totalPages,
     } = usePagination(filteredData);
 
+    // Función para verificar si hay parámetros en la URL
+    const hasSearchParams = () => {
+        const params = new URLSearchParams(window.location.search);
+        return Array.from(params.keys()).length > 0; // Devuelve true si hay parámetros
+    };
+
     // Efecto que actualiza el rango de precios seleccionado cuando los datos o los precios cambian
     useEffect(() => {
-        if (data) {
+        if (!hasSearchParams() && data) {
             setSelectedPriceRange([minPrice, maxPrice]);
         }
     }, [data, minPrice, maxPrice, setSelectedPriceRange]);
 
     // Efecto que actualiza el rango de años seleccionado cuando los datos o los años cambian
     useEffect(() => {
-        if (data) {
+        if (!hasSearchParams() && data) {
             setSelectedYearRange([minYear, maxYear]);
         }
     }, [data, minYear, maxYear, setSelectedYearRange]);
 
     // Efecto que actualiza el rango de Kilómetros seleccionado cuando los datos o los kms cambian
     useEffect(() => {
-        if (data) {
+        if (!hasSearchParams() && data) {
             setSelectedKmRange([minKm, maxKm]);
         }
     }, [data, minKm, maxKm, setSelectedKmRange]);
 
     // Efecto que limpia el modelo seleccionado cuando cambia la marca seleccionada
     useEffect(() => {
-        if (selectedBrand) {
-            // Restablece el modelo seleccionado cuando se cambia la marca
+        if (!hasSearchParams() && selectedBrand) {
             setSelectedModel('');
         }
     }, [selectedBrand, setSelectedModel]);
 
-    // Efecto que limpia la marca seleccionado cuando cambia la categoría seleccionada
+    // Efecto que limpia la marca seleccionada cuando cambia la categoría seleccionada
     const availableBrandsForCategory = useUniqueBrands(filteredData);
     useEffect(() => {
-        if (selectedCategory) {
+        if (!hasSearchParams() && selectedCategory) {
             if (!availableBrandsForCategory.includes(selectedBrand)) {
                 setSelectedBrand('');
             }
         }
     }, [selectedCategory, selectedBrand, availableBrandsForCategory, setSelectedBrand]);
 
-    // Devuelve todos los valores y funciones necesarias para ser usados por los componentes que consumen este hook
     return {
         data,
         error,

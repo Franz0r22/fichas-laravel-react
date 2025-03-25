@@ -21,13 +21,21 @@ const useYearRange = (data) => {
     useEffect(() => {
         if (data && data.ads) {
             const years = data.ads.map(ad => ad.year);
-            const minYear = Math.min(...years);
-            const maxYear = Math.max(...years);
-            setMinYear(minYear);
-            setMaxYear(maxYear);
-            setYearRange([minYear, maxYear]);
+            const calculatedMinYear = Math.min(...years);
+            const calculatedMaxYear = Math.max(...years);
+
+            // Solo actualiza si los valores calculados son diferentes
+            if (calculatedMinYear !== minYear || calculatedMaxYear !== maxYear) {
+                setMinYear(calculatedMinYear);
+                setMaxYear(calculatedMaxYear);
+
+                // Solo actualiza yearRange si no fue configurado desde la URL
+                if (yearRange[0] === 1900 && yearRange[1] === 2024) {
+                    setYearRange([calculatedMinYear, calculatedMaxYear]);
+                }
+            }
         }
-    }, [data]);
+    }, [data, minYear, maxYear, yearRange]);
 
     return {
         minYear,
@@ -38,4 +46,3 @@ const useYearRange = (data) => {
 };
 
 export default useYearRange;
-

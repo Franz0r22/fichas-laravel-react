@@ -19,23 +19,31 @@ const SearchCar = ({ uniqueCategories, data }) => {
         params.get('priceRange')?.split('-').map(Number) || []
     );
 
-    // Calcular minPrice y maxPrice desde los datos de la API (igual que en useCars)
+    // Calcular min/max para precios y años
     const { minPrice, maxPrice } = useMemo(() => {
         if (!data?.ads || data.ads.length === 0) return { minPrice: 0, maxPrice: 100000000 };
-        
         const prices = data.ads.map(car => car.price);
         return {
             minPrice: Math.min(...prices),
             maxPrice: Math.max(...prices)
         };
-    }, [data]);
+    }, [data?.ads]);
 
-    // Inicializar el rango de precios si está vacío
-    useEffect(() => {
-        if (selectedPriceRange.length === 0 && minPrice && maxPrice) {
-            setSelectedPriceRange([minPrice, maxPrice]);
-        }
-    }, [minPrice, maxPrice]);
+    const { minYear, maxYear } = useMemo(() => {
+        if (!data?.ads || data.ads.length === 0) return { minYear: 2000, maxYear: new Date().getFullYear() };
+        const years = data.ads.map(car => car.year);
+        return {
+            minYear: Math.min(...years),
+            maxYear: Math.max(...years)
+        };
+    }, [data?.ads]);
+
+    // Obtener categorías únicas
+    const availableCategories = useMemo(() => {
+        if (!data?.ads) return [];
+        return [...new Set(data.ads.map(car => car.category))].sort();
+    }, [data]);
+    
 
     // Obtener marcas basadas en la categoría seleccionada
     const availableBrands = useMemo(() => {
@@ -136,6 +144,7 @@ const SearchCar = ({ uniqueCategories, data }) => {
         });
     };
     
+    
     console.log("DATA RECIBIDA EN SearchCar:", data);
 
     return (
@@ -150,6 +159,18 @@ const SearchCar = ({ uniqueCategories, data }) => {
                         </Col>
                         <Col md={12}>
                             <Row className="gx-2">
+                                <Col md className='mb-3 mb-lg-0'>
+                                    <select 
+                                        value={selectedCategory} 
+                                        onChange={e => setSelectedCategory(e.target.value)} 
+                                        className={styles.searchSelect}
+                                    >
+                                        <option value="">Categoría</option>
+                                        {availableCategories?.map(category => (
+                                            <option key={category} value={category}>{category}</option>
+                                        ))}
+                                    </select>
+                                </Col>
                                 <Col md className='mb-3 mb-lg-0'>
                                     <select 
                                         value={selectedBrand} 
@@ -175,7 +196,7 @@ const SearchCar = ({ uniqueCategories, data }) => {
                                         ))}
                                     </select>
                                 </Col>
-                                <Col md className='mb-3 mb-lg-0'>
+                                {/* <Col md className='mb-3 mb-lg-0'>
                                     <select
                                         value={selectedYearFrom}
                                         onChange={(e) => setSelectedYearFrom(e.target.value)}
@@ -188,7 +209,7 @@ const SearchCar = ({ uniqueCategories, data }) => {
                                             </option>
                                         ))}
                                     </select>
-                                </Col>
+                                </Col> */}
                                 <Col md className='mb-3 mb-lg-0'>
                                     <select
                                         value={selectedPriceRange.length === 2 ? 

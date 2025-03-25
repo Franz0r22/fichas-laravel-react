@@ -18,18 +18,9 @@ const useFilter = ({ minYear, maxYear, minPrice, maxPrice, minKm, maxKm }) => {
     const getQueryParams = () => {
         const params = new URLSearchParams(window.location.search);
         return {
-            yearRange: params.get("yearRange")?.split("-").map(Number) || [
-                minYear,
-                maxYear,
-            ],
-            priceRange: params.get("priceRange")?.split("-").map(Number) || [
-                minPrice,
-                maxPrice,
-            ],
-            kmRange: params.get("kmRange")?.split("-").map(Number) || [
-                minKm,
-                maxKm,
-            ],
+            yearRange: params.get("yearRange")?.split("-").map(Number) || [minYear, maxYear],
+            priceRange: params.get("priceRange")?.split("-").map(Number) || [minPrice, maxPrice],
+            kmRange: params.get("kmRange")?.split("-").map(Number) || [minKm, maxKm],
             brand: params.get("brand") || "",
             model: params.get("model") || "",
             category: params.get("category")?.split(",") || '',
@@ -41,6 +32,7 @@ const useFilter = ({ minYear, maxYear, minPrice, maxPrice, minKm, maxKm }) => {
     };
 
     const initialParams = getQueryParams();
+    console.log('initialParams',initialParams);
 
     // Filtros Rango
     const [selectedYearRange, setSelectedYearRange] = useState(
@@ -112,10 +104,34 @@ const useFilter = ({ minYear, maxYear, minPrice, maxPrice, minKm, maxKm }) => {
                           .includes(keyword.toLowerCase()) ||
                       ad.fuelType.toLowerCase().includes(keyword.toLowerCase())
                     : true;
+
                 const sellerMatch =
                     selectedSeller.length > 0
                         ? selectedSeller.includes(ad.sellerName)
                         : true;
+                        console.log("Filtering ad:", ad);
+            console.log({
+                selectedYearRange,
+                selectedBrand,
+                selectedModel,
+                selectedPriceRange,
+                selectedKmRange,
+                selectedFuel,
+                selectedLabel,
+                keyword,
+                selectedCategory,
+                selectedSeller,
+                yearMatch,
+                brandMatch,
+                modelMatch,
+                priceMatch,
+                fuelMatch,
+                labelMatch,
+                KmMatch,
+                categoryMatch,
+                keywordMatch,
+                sellerMatch,
+            });
                 return (
                     yearMatch &&
                     brandMatch &&
@@ -196,19 +212,21 @@ const useFilter = ({ minYear, maxYear, minPrice, maxPrice, minKm, maxKm }) => {
         if (selectedBrand) {
             queryParams.set("brand", selectedBrand);
         }
+        console.log('selectedModel',selectedModel);
 
         if (selectedModel) {
             queryParams.set("model", selectedModel);
         }
+        console.log(queryParams.toString(),'>><>>>>><')
 
         const search = queryParams.toString()
             ? `?${queryParams.toString()}`
             : "";
-        window.history.replaceState(
-            null,
-            "",
-            `${window.location.pathname}${search}`
-        );
+        // window.history.replaceState(
+        //     null,
+        //     "",
+        //     `${window.location.pathname}${search}`
+        // );
     }, [
         selectedYearRange,
         selectedPriceRange,
@@ -227,6 +245,33 @@ const useFilter = ({ minYear, maxYear, minPrice, maxPrice, minKm, maxKm }) => {
         minKm,
         maxKm,
     ]);
+
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+
+        const urlYearRange = params.get("yearRange")?.split("-").map(Number) || [minYear, maxYear];
+        const urlPriceRange = params.get("priceRange")?.split("-").map(Number) || [minPrice, maxPrice];
+        const urlKmRange = params.get("kmRange")?.split("-").map(Number) || [minKm, maxKm];
+        const urlBrand = params.get("brand") || "";
+        const urlModel = params.get("model") || "";
+        const urlCategory = params.get("category")?.split(",") || [];
+        const urlFuel = params.get("fuel")?.split(",") || [];
+        const urlLabel = params.get("label")?.split(",") || [];
+        const urlKeyword = params.get("keyword") || "";
+        const urlSeller = params.get("seller")?.split(",") || [];
+
+        // Solo inicializa los estados si no tienen valores
+        if (!selectedYearRange.length) setSelectedYearRange(urlYearRange);
+        if (!selectedPriceRange.length) setSelectedPriceRange(urlPriceRange);
+        if (!selectedKmRange.length) setSelectedKmRange(urlKmRange);
+        if (!selectedBrand) setSelectedBrand(urlBrand);
+        if (!selectedModel) setSelectedModel(urlModel);
+        if (!selectedCategory.length) setSelectedCategory(urlCategory);
+        if (!selectedFuel.length) setSelectedFuel(urlFuel);
+        if (!selectedLabel.length) setSelectedLabel(urlLabel);
+        if (!keyword) setKeyword(urlKeyword);
+        if (!selectedSeller.length) setSelectedSeller(urlSeller);
+    }, []); // Solo se ejecuta al montar el componente
 
     return {
         selectedYearRange,
