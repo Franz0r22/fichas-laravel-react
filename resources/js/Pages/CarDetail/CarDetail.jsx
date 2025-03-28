@@ -149,7 +149,7 @@ const CarDetail = () => {
                 <div>Loading...</div>
             )}
             <Container className="my-5">
-                <SuggestedCars suggestedCars={suggestedCars} hideNavigation={true} />
+                    <SuggestedCars suggestedCars={suggestedCars}  hideNavigation={true}/>
             </Container>
         </>
     );

@@ -5,16 +5,8 @@ import CarCarousel from '../CarCarousel/CarCarousel';
 const SuggestedCars = ({ suggestedCars, hideNavigation = false }) => {
 
 const SuggestedItems = suggestedCars.ads;
-  if (!suggestedCars) {
-    return <div>Cargando autos sugeridos...</div>
-  }
-
-  if (suggestedCars.error) {
-    return <div>Error: {suggestedCars.error}</div>
-  }
-
-  if (suggestedCars.length === 0) {
-    return <div>No hay autos sugeridos disponibles.</div>
+  if (!suggestedCars || !suggestedCars.ads || suggestedCars.ads.length === 0) {
+    return null;
   }
 
   return (

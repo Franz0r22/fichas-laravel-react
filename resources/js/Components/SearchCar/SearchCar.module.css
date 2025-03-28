@@ -63,3 +63,14 @@
 .searchButton:hover {
     background-color: #585858;
 }
+
+@media (width < 768px){
+    .searchContainer {
+        position: static!important;
+        margin-top: 20px;
+    }
+    
+    .searchContainer form {
+        position: static!important;
+    }
+}
