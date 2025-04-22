@@ -9,7 +9,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { useState, useEffect } from "react";
 import { useCars } from "../../Contexts/CarsContext";
 import { Link } from "@inertiajs/react";
-import placeholderNoImage from '@images/placeholder-noimage.jpg';
+import placeholderNoImage from "@images/placeholder-noimage.jpg";
 
 const CarItem = ({ auto }) => {
     const [imageStatus, setImageStatus] = useState("loading");
@@ -56,43 +56,23 @@ const CarItem = ({ auto }) => {
         return comparator.some((c) => c.carId === car.carId);
     };
 
-    const handleComparatorClick = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        toggleCarInComparator({
-            carId: auto.carId,
-            brand: auto.brand,
-            model: auto.model,
-            photo: auto.photo,
-            price: auto.price,
-        });
-    };
-
     return (
         <>
             <div className={styles.cardWrapper}>
-                <Link
-                    href={route('carDetail', {
-                        brand: auto.brand.toLowerCase(),
-                        model: auto.model.toLowerCase(),
-                        autoid: auto.carId,
-                    })}
-                    className={styles.hasCta}
-                >
+                <div className={styles.hasCta}>
                     <Card className={styles.cardBox}>
                         {imageStatus === "loading" ? (
                             <Skeleton height={400} width="100%" />
                         ) : (
                             <>
                                 <div className={styles.imgWrapper}>
-                                    <div
-                                        className={styles["div-comparador"]}
-                                        onClick={handleComparatorClick}
-                                        >
+                                    <div className={styles["div-comparador"]}>
                                         <label>
                                             <input
                                                 type="checkbox"
-                                                checked={isCarInComparator(auto)}
+                                                checked={isCarInComparator(
+                                                    auto
+                                                )}
                                                 onChange={() =>
                                                     toggleCarInComparator({
                                                         carId: auto.carId,
@@ -104,20 +84,32 @@ const CarItem = ({ auto }) => {
                                                 }
                                                 className={styles.checkbox}
                                             />
-                                            <span className="px-2">Comparar</span>
+                                            <span className="px-2">
+                                                Comparar
+                                            </span>
                                         </label>
                                     </div>
-                                    <Card.Img
-                                        variant="top"
-                                        src={getImageSrc()}
-                                        className={styles.cardImg}
-                                        alt={`${auto.brand} ${auto.model}`}
-                                    />
+                                    <a
+                                        href={route("carDetail", {
+                                            brand: auto.brand.toLowerCase(),
+                                            model: auto.model.toLowerCase(),
+                                            autoid: auto.carId,
+                                        })}
+                                    >
+                                        <Card.Img
+                                            variant="top"
+                                            src={getImageSrc()}
+                                            className={styles.cardImg}
+                                            alt={`${auto.brand} ${auto.model}`}
+                                        />
+                                    </a>
                                     {auto.ribbonName && (
                                         <CarLabel
                                             ribbonName={auto.ribbonName}
                                             ribbonColor={auto.ribbonColor}
-                                            ribbonTextColor={auto.ribbonTextColor}
+                                            ribbonTextColor={
+                                                auto.ribbonTextColor
+                                            }
                                         />
                                     )}
                                 </div>
@@ -171,16 +163,22 @@ const CarItem = ({ auto }) => {
                                         </span>
                                         {formatNumber(auto.price)}
                                     </Card.Text>
-                                    <button className={styles.btnCard}>
+                                    <a
+                                        href={route("carDetail", {
+                                            brand: auto.brand.toLowerCase(),
+                                            model: auto.model.toLowerCase(),
+                                            autoid: auto.carId,
+                                        })}
+                                        className={styles.btnCard}
+                                    >
                                         Ver más detalles
-                                    </button>
+                                    </a>
                                 </Card.Body>
                             </>
                         )}
                     </Card>
-                </Link>
+                </div>
             </div>
-
         </>
     );
 };
