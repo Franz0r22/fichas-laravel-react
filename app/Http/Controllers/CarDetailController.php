@@ -24,6 +24,7 @@ class CarDetailController extends Controller
     {
         try {
             $data = $this->carService->getCarDetails($autoid);
+            $this->contadorVisita($autoid);
 
             $transformedData = $this->transformCarDetailData($data);
 
@@ -86,6 +87,28 @@ class CarDetailController extends Controller
                 'error' => $e->getMessage(),
                 'honeypot' => $honeypot->toArray(),
             ]);
+        }
+    }
+
+    public function contadorVisita($autoID)
+    {
+        if (!$autoID) {
+            return response('ID de vehículo no valida', 500);
+        }
+        $queryParams = [
+            'autoid' => $autoID,
+            'tipo' => 6,
+            'cantidad' => 1,
+        ];
+        $apiUrl = config('services.api.urlfichas');
+        $apiToken = config('services.api.tokenfichasv2');
+        $endpoint = '/auto/contar';
+
+        $response = Http::withToken($apiToken)->post($apiUrl . $endpoint, $queryParams);
+        if ($response->successful()) {
+            return response('contador de visita guardado', 200);
+        } else {
+            return response($response->errors(), 500);
         }
     }
 

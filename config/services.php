@@ -15,8 +15,10 @@ return [
     */
 
     'api' => [
+        'urlfichas' => env('API_FICHAS_URL'),
         'urlfichasv2' => env('API_FICHAS_URL_V2'),
         'tokenfichasv2' => env('API_FICHAS_TOKEN_V2'),
+        'idClientes' => env('APP_SUCURSALES'),
     ],
 
     'postmark' => [

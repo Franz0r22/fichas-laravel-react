@@ -51,36 +51,11 @@ const ComparatorModal = ({ show, data, onHide, handleClose }) => {
     const maxHp = Math.max(...data.data.map((car) => car.hp || 0));
 
     const carsWithClasses = data.data.map((car) => {
-        const priceClass =
-            car.price === minPrice
-                ? styles.green
-                : car.price === maxPrice
-                ? styles.red
-                : "";
-        const yearClass =
-            car.year === maxYear
-                ? styles.green
-                : car.year === minYear
-                ? styles.red
-                : "";
-        const kilometersClass =
-            car.kilometers === minKilometers
-                ? styles.green
-                : car.kilometers === maxKilometers
-                ? styles.red
-                : "";
-        const airbagClass =
-            car.airbag === maxAirbag
-                ? styles.green
-                : car.airbag === minAirbag
-                ? styles.red
-                : "";
-        const hpClass =
-            car.hp === maxHp
-                ? styles.green
-                : car.hp === minHp
-                ? styles.red
-                : "";
+        const priceClass ="";
+        const yearClass ="";
+        const kilometersClass ="";
+        const airbagClass ="";
+        const hpClass ="";
 
         return {
             ...car,

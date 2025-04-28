@@ -86,6 +86,10 @@ Asegúrate de tener instalados los siguientes componentes en tu sistema:
 
 2. Asegúrate de configurar correctamente tu servidor para servir los archivos de Laravel y React (por ejemplo, con Nginx o Apache).
 
+3. Asegúrate de que el archivo 'hot' en el build del proyecto no este presente en producción si es así borrarlo (si no lo haces se mostrará una pantalla blanca en prod).
+
+4. Asegúrate de configurar correctamente las variables de entorno .env antes de ejecutar 'npm run build' para que vite compile los assets correctamente.
+
 ---
 
 ## Estructura del proyecto
